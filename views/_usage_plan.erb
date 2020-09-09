@@ -1,28 +1,24 @@
-<div class="container-fluid bg-white px-2 py-3">
-  <div class="row mb-2">
-    <div class="col-3 col-lg-4">
-      <%= portal_image_tag 'dollar_sign.svg', :class => 'w-50 mx-auto d-block align-middle' %>
-    </div>
-    <div class="col-9 col-lg-8">
-      <div class="row">
+<div class="col-12 mb-2 bg-white px-2 py-3">
+  <div class="col-12">
+    <div class="row">
       <div class="col-4">
-            <span class="small">Name:</span>
+        <span class="small">Name:</span>
       </div>
-      <div class="col-8">
-      <span class="text-primary font-weight-bolder"><%= h(usage_plan.name) %></span>
-      </div>
-      </div>
-      <div class="row">
-      <div class="col 4">
-            <span class="small">Price:</span>
-      </div>
-      <div class="col-8">
-      <span class="text-primary font-weight-bolder"><%= h(usage_plan.price_display) %></span>
-      </div>
-      </div>
-      <div class="row">
       <div class="col-12">
-            <a class="text-primary" data-toggle="collapse" href="#collapse-<%= usage_plan.name.parameterize %>" role="button" aria-expanded="false" aria-controls="collapse-<%= usage_plan.name.parameterize %>">
+        <span class="text-primary display-4"><%= h(usage_plan.name) %></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col 4">
+        <span class="small">Price:</span>
+      </div>
+      <div class="col-12">
+        <span class="text-primary display-4"><%= h(usage_plan.price_display) %></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <a class="text-primary" data-toggle="collapse" href="#collapse-<%= usage_plan.name.parameterize %>" role="button" aria-expanded="false" aria-controls="collapse-<%= usage_plan.name.parameterize %>">
       Learn More
       </a>
       </div>
@@ -45,16 +41,16 @@
         <% end %>
         <% if usage_plan.quota_plan && !usage_plan.quota_plan.description.blank? %>
           <br />
-      <%= usage_plan.quota_plan.description.html_safe %>
-    <% end %>
-    <% usage_plan.misc_plans.each do |misc_plan| %>
-      <% unless misc_plan.description.blank?%>
-        <br />
-        <%= misc_plan.description.html_safe %>
+        <%= usage_plan.quota_plan.description.html_safe %>
       <% end %>
-    <% end %>
-  </td>
-</tr>
+      <% usage_plan.misc_plans.each do |misc_plan| %>
+        <% unless misc_plan.description.blank?%>
+          <br />
+          <%= misc_plan.description.html_safe %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
 <% end %>
 <tr>
   <th class="border-right border-top-0 border-dark">Price</th>
@@ -146,5 +142,4 @@
   </tr>   
   -->
 </table>
-</div>
 </div>

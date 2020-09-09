@@ -1,23 +1,23 @@
-<div class="rg-heading">
-  <h2 class='uk-visible-small'>Content Not Permitted</h2>
-  <h1 class='uk-hidden-small'>Content Not Permitted</h1>
+<div class="container-fluid">
+<div class="row">
+<div class="col-12">
+  <h2 class='text-danger text-center'>Content Not Permitted<br><i class="fas fa-ban"></i></h2>
 </div>
-
-<div class="uk-grid rg-transparent-bg rg-margin-left rg-payment-form uk-padding-remove uk-margin-remove">
-  <div class="uk-width-1-1">
-    <%= portal_image_tag 'denied.png' %>
-    <br />
+</div>
+<div class="row">
+  <div class="col-12">
     <dl class="contentfilter">
-      <dt> denied URL </dt>
-      <dd> <%= link_to(params[:DENIEDURL], params[:DENIEDURL]) %> </dd>
+      <dt> Denied URL </dt>
+      <dd> <%= link_to(params[:DENIEDURL], params[:DENIEDURL]) %> 🚫</dd>
       <!--
       <dt> reason </dt>
       <dd> <%= params[:REASON] %> </dd>
        -->
-      <dt> categories </dd>
+      <dt> Categories </dd>
       <% params[:CATEGORIES].to_s.split(',').each do |category| %>
-        <dd><%= category.to_s.sub(/.*-/, '') %></dd>
+        <dd><%= category.to_s.sub(/.*-/, '') %> 🚫</dd>
       <% end %>
     </dl>
   </div>
+</div>
 </div>

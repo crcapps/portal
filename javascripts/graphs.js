@@ -2,7 +2,7 @@
  * This changes the colors of the graph series displayed.
  * It must be included after nv.d3.js
  */
-var graph_colors = [
+graph_colors = [
   '#29ABE2', // theme primary color
   '#626366', // theme secondary color
   '#ED1F24', // rgnets red

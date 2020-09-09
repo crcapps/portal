@@ -40,10 +40,10 @@
       <% end %>
       <%= render :partial => 'prorated_credit' %>
         <% @usage_plans.each do |usage_plan|  %>
-          <div class="col-12 bg-white my-3">
+          <div class="col-12 bg-white my-3 rounded shadow-sm">
             <%= render :partial => 'usage_plan', :object => usage_plan %>
             <div class="col-12">
-            <div class="col-9 ml-auto">
+            <div class="col-9 ml-auto py-2">
               <%= render :partial => 'usage_plan_purchase_link', :locals => { :usage_plan => usage_plan, :merchant => @merchant } %>
               </div>
             </div>
