@@ -38,6 +38,9 @@ div.separator::after {
 margin-right: 0.5rem;
 margin-left: 1rem;
 }
+div.separator:last-of-type:not(:only-of-type) {
+  display: none;
+}
 input[type="radio"]:checked+label {
 border: 1px var(--primary) solid;
 }

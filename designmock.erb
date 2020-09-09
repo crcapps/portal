@@ -70,7 +70,7 @@
         </div>
       </main>
       <%= render :partial => 'footer' %>
-      <%= render_portal_partial 'development_bar' %>
+      <!-- <%= render_portal_partial 'development_bar' %> -->
       <% if @effective_portal.try(:require_tos_inline?) %>
         <%= render :partial => 'terms_modal' %>
       <% end %>
