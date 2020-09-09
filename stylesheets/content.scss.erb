@@ -1,7 +1,7 @@
 :root {
 --dropShadow: #00000029;
 --textColor: #707070;
---transparentPrimary: #29ABE2C0;
+--transparentPrimary: #29ABE2F3;
 }
 .bottom-left-align {
 position: absolute;
@@ -68,15 +68,29 @@ padding-left: 1rem;
 overflow-y: auto;
 transition: transform .3s ease-in-out;
 transform: translateX(100%);
-z-index: 100;
+z-index: 1000;
 }
 .offcanvas-collapse.open {
 transform: translateX(-1rem);
 /* Account for horizontal padding on navbar */
 }
+
+.offcanvas-overlay {
+position: absolute;
+bottom: 0;
+top: 0;
+left: 0;
+width: 50%;
+}
+
 .offcanvas-menu {
+position: absolute;
+bottom: 0;
+top: 0;
+right: 0;
+width: 50%;
 background-color: var(--transparentPrimary);
-padding: 5rem 2rem;
+padding: 60px 2rem;
 font-size: 1.5rem;
 }
 .offcanvas-menu .nav-item .nav-link{
