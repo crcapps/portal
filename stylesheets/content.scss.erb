@@ -8,15 +8,27 @@ position: absolute;
 bottom: 0;
 left: 0;
 }
+
+html {
+  overflow-x: hidden;
+}
+
+.hero-wrapper {
+  background-color: #DBE3E2;
+  z-index: -2;
+}
+
 .hero {
   background-image: url(<%= portal_asset_data_uri 'hotel.svg' %>);
   background-repeat: no-repeat;
-
   background-position: bottom;
-  background-color: #DBE3E2;
+  background-size: contain;
   position: fixed;
-  right: 15px;
-  width: calc(50% - 15px);
+  top: 60px;
+  bottom: 0px;
+  z-index: -1;
+  right: 0px;
+  width: 50%;
 }
 
 div.separator {
