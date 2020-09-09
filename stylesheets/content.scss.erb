@@ -11,11 +11,12 @@ left: 0;
 .hero {
   background-image: url(<%= portal_asset_data_uri 'hotel.svg' %>);
   background-repeat: no-repeat;
-  background-attachment: scroll;
+
   background-position: bottom;
   background-color: #DBE3E2;
-  background-size: contain;
-
+  position: fixed;
+  right: 15px;
+  width: calc(50% - 15px);
 }
 
 div.separator {

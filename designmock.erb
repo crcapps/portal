@@ -38,12 +38,12 @@
       <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
-          <%= link_to (portal_image_tag 'placeholder_hotel_logo.svg', :style => 'width: 80px;'), { :action => :index }, { :class => 'navbar-brand mx-auto' } %>
+          <%= link_to (portal_image_tag 'placeholder_hotel_logo.svg', :style => 'height: 50px;'), { :action => :index }, { :class => 'navbar-brand mx-auto' } %>
           <button class="navbar-toggler position-absolute" type="button" data-toggle="offcanvas" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="navbar-collapse offcanvas-collapse" id="navbarSupportedContent">
-            <div class="row h-100">
+            <div class="row">
               <div class="col transparent offcanvas-overlay">
               </div>
               <div class="col offcanvas-menu">
@@ -56,14 +56,14 @@
         </div>
       </nav>
       <%= render :partial => 'flash', :object => flash %>
-      <main class="container-fluid h-100 px-0 flex-fill">
+      <main class="container-fluid px-0 flex-fill">
         <%= render_portal_partial 'welcome_message' %>
-        <div class="row h-100">
-          <div class="col-sm-6 h-100 py-4">
+        <div class="row">
+          <div class="col-sm-6 py-4">
             <%= yield %>
           </div>
-          <div class="col-sm-6 d-none d-sm-block h-100 px-0" aria-hidden="true">
-            <div class="h-100 hero">
+          <div class="col-sm-6 d-none d-sm-block" aria-hidden="true">
+            <div class="hero">
               &nbsp;
             </div>
           </div>
