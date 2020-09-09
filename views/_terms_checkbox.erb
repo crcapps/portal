@@ -1,0 +1,12 @@
+<% if @effective_portal.try(:require_tos_inline?) %>
+  <div class="form-row">
+    <div class="col-12">
+      <label>
+        <p>
+          <input id="tos" type="checkbox" name="terms" value="terms" required />
+          I accept <a href="#termsModal" style="text-decoration:underline;" data-toggle="modal">Terms of Service</a>
+        </p>
+      </label>
+    </div>
+  </div>
+<% end %>

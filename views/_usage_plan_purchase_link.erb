@@ -1,0 +1,31 @@
+<% if @current_account %>
+  <% if @current_account.validation_pending?(usage_plan) %>
+    <%= link_to('Validate Account', { :action => :usage_plan_purchase, :id => usage_plan.id }, { :class => 'd-block mx-auto col-4 btn btn-sm btn-primary', :data => { :disable_with => 'Please wait...' } } ) %>
+  <% else %>
+    <!-- optionally override the Merchant to be used when rendering this partial (via
+    a "locals" variable), for when a UsagePlan is associated with more than one
+    Merchant, and the portal end-user has selected a payment option other than
+    the plan's "primary" (i.e., direct) Merchant -->
+    <% merchant ||= usage_plan.primary_merchant %>
+    <!-- do not render an offsite purchase button (e.g., PayPal buy it now
+    button) if the usage plan price is zero, due to the account having
+    credits greater than or equal to the usage plan price -->
+    <% if merchant && merchant.offsite_gateway? && ! usage_plan.price_free? %>
+      <%= render :partial => 'offsite_purchase_button', :locals => {
+        :account => @current_account,
+        :usage_plan => usage_plan,
+        :merchant => merchant
+      } %>
+    <% else %>
+      <% if @current_account.usage_plan %>
+        <% if usage_plan == @current_account.usage_plan %>
+          <%= link_to('Recharge this plan', { :action => :usage_plan_purchase, :id => usage_plan.id }, { :class => 'd-block mx-auto col-4 btn btn-sm btn-primary', :data => { :disable_with => 'Please wait...' } } ) %>
+        <% else %>
+          <%= link_to('Upgrade to this plan', { :action => :usage_plan_purchase, :id => usage_plan.id }, { :class => 'd-block mx-auto col-4 btn btn-sm btn-primary', :data => { :disable_with => 'Please wait...' } } ) %>
+        <% end %>
+      <% else %>
+        <%= link_to('Purchase this plan', { :action => :usage_plan_purchase, :id => usage_plan.id }, { :class => 'd-block mx-auto col-4 btn btn-sm btn-primary', :data => { :disable_with => 'Please wait...' } } ) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

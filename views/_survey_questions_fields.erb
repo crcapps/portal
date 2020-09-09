@@ -1,0 +1,54 @@
+<% @survey_questions.each do |survey_question| %>
+  <%= fields_for 'survey_questions[]', survey_question do |field| %>
+    <div class="form-row">
+      <div class="form-group col-12">
+        <% case survey_question.question_type %>
+        <% when 'text_box', nil %>
+        <%= field.text_field :answer, :placeholder => survey_question.question, :size => 20, :class => 'col-12 p-2', :required => survey_question.required  %>
+        <% when 'text_area' %>
+        <%= survey_question.question %> <%= field.text_area :answer, :placeholder => survey_question.question, :size => 20, :class => 'col-12 p-2', :required => survey_question.required  %>
+        <% when 'email' %>
+        <%# The field's placeholder, size, pattern, or class and required
+          attributes can be overridden by creating survey question options with
+          the desired attribute as the "display text" field, and the desired
+          value in the value field %>
+        <% allowable_options = [:placeholder, :size, :pattern, :required, :class] %>
+        <% options = { } %>
+        <% options[:required] = survey_question.required %>
+        <% options[:placeholder] = survey_question.question %>
+        <% options[:required] = survey_question.required %>
+        <% survey_question.survey_question_options.each do |o| %>
+          <% options[o.display_text.to_sym] = o.value %>
+        <% end %>
+        <% options.reject! { |k,v| ! allowable_options.include?(k) } %>
+        <% options.delete_if { |k,v| v.nil? } %>
+        <% options[:size] ||= 20 %>
+        <% options[:class] ||= 'col-12 p-2' %>
+        <%= field.email_field :answer, options %>
+        <% when 'radio' %>
+        <%= survey_question.question %><br>
+        <%= field.collection_radio_buttons :answer, survey_question.survey_question_options, :value, :display_text, {}, {:name => "survey_questions[#{survey_question.id}][answer]", :required => survey_question.required} do |b| %>
+          <%= b.radio_button %> <%= b.label %><br>
+        <% end %>
+        <% when 'select' %>
+        <%= survey_question.question %><br>
+        <%= field.collection_select :answer, survey_question.survey_question_options, :value, :display_text, {}, {:name => "survey_questions[#{survey_question.id}][answer]", :class => 'col-12 p-2', :required => survey_question.required} %>
+        <% when 'check_box' %>
+        <%= field.check_box :answer, {:required => survey_question.required}, true, false %>
+        <%= field.label :answer, survey_question.question %>
+        <% when 'number_field' %>
+        <% allowable_options = [:min, :max, :in, :within, :step, :required] %>
+        <% options = { } %>
+        <% survey_question.survey_question_options.each do |o| %>
+          <% options[o.display_text.to_sym] = o.value %>
+        <% end %>
+        <% options[:required] = survey_question.required %>
+        <% options.reject! { |k,v| ! allowable_options.include?(k) } %>
+        <% options.delete_if { |k,v| v.nil? } %>
+        <%= survey_question.question %><br>
+        <%= field.number_field :answer, options %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+<% end %>

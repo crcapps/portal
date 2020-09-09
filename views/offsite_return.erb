@@ -1,0 +1,20 @@
+<div class="rg-heading">
+  <h2 class='uk-visible-small'>Offsite Return</h2>
+  <h1 class='uk-hidden-small'>Offsite Return</h1>
+</div>
+
+<div class="uk-grid rg-transparent-bg rg-margin-left rg-payment-form uk-padding-remove uk-margin-remove">
+  <div class="uk-width-1-1">
+    <!-- payment_status parameter is inserted by Paypal in the return and may
+         differ with other offsite payment gateways -->
+    <% if params[:payment_status] %>
+      <p> Payment status: <%= params[:payment_status] %> </p>
+    <% end %>
+
+    <p> Thank you for your payment. </p>
+
+    <p> You may now access the Internet using the new usage plan. </p>
+    
+    <%= render :partial => 'login_success' %>
+  </div>
+</div>

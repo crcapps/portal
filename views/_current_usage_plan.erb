@@ -1,0 +1,35 @@
+<div class="col-12">
+  <h4 class="text-center">Current Usage Plan</h4>
+  <% if @current_account_or_token.usage_plan %>
+    <%= render :partial => 'usage_plan', :object => @current_account_or_token.usage_plan %>
+    <br />
+    <% if @current_account_or_token.usage_plan.direct_merchant &&
+        @current_account_or_token.usage_plan.direct_merchant.store_payment_methods? %>
+    <% if @current_account_or_token.payment_method %>
+      <p>
+        Current payment method:
+        <%= link_to @current_account_or_token.payment_method.cc_display_number,
+          :action => :payment_method_edit %>
+        &nbsp;&nbsp;
+        <%= link_to 'delete', { :action => :payment_method_delete, :method => :delete },
+          data: { confirm: 'Delete payment method?' } %>
+      </p>
+    <% else %>
+      <p>
+        You currently do not have an active payment method. You may
+        <%= link_to 'create one now', :action => :payment_method_edit %>.
+      </p>
+    <% end %>
+    <% if @current_account_or_token && 
+          @current_account_or_token.usage_plan.try(:recurring_method) != "none" &&
+          @current_account_or_token.bill_at.nil? %>
+    <div class="col-12">
+      Recurring billing has been disabled.  When your usage expires, you will no longer be able to access the internet.  <%= link_to 'Purchase more usage', {action: 'usage_plan_list'} %> to extend your usage.
+    </div>
+  <% end %>
+<% end %>
+<% else %>
+  <strong> You are not currently subscribed to a Usage Plan. </strong>&nbsp;&nbsp;
+  <%= link_to 'Buy Now', :action => :usage_plan_list %>
+<% end %>
+</div>

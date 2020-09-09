@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <%# if @payment_method.errors.empty? %>
+  <%# end %>
+  <div class="row">
+<div class="col-3">
+<%= portal_image_tag "wallet.svg" %>
+</div>
+<div class="col-9">
+  <h2 class="text-primary bottom-left-align">Update Payment Method</h2>
+</div>
+<hr class="col-10 border-dark my-1 ml-0">
+    </div>
+    <div class="row">
+    <%= form_for(@payment_method, :url => { :action => :payment_method_update },
+          :html => { 
+            :class => 'container-fluid', 
+            :name => 'payment_form', 
+            :id => 'payment_form', 
+            :onsubmit => 
+              (
+                'return stripeFormOnSubmit()' if @payment_method.is_stripe_token? || 
+                @current_account_or_token.usage_plan.try(:is_stripe?) 
+              )
+          }.reject{|k,v| v.nil?}) do |f| %>
+      <fieldset class="container-fluid">
+        <%= render :partial => 'payment_method_form', :locals => { :f => f } %>
+        <div class="form-row">
+        <div class="form-group col-12">
+          <%= button_tag('Update', :class => 'd-block mx-auto col-6 btn btn-primary btn-lg', :data => { :disable_with => 'Please wait...' }) %>
+        </div>
+        </div>
+        <% if @payment_method.persisted? %>
+        <div class="form-row">
+        <div class="form-rgroup col-12">
+          <%= link_to 'Delete Payment Method', { :action => :payment_method_delete, :id => @payment_method.id }, { :class => 'd-block mx-auto col-6 text-danger', :data => { :confirm => 'This will remove your payment method and prevent recurring billing from taking place. You will no longer be able to use the network once your usage expires. Are you sure you want to continue?', :disable_with => 'Please wait...'}} %>
+        </div>
+        </div>
+        <% end %>
+      </fieldset>
+    <% end %>
+  </div>
+  <% unless @payment_method.errors.empty? %>
+    <div class="row">
+    <div class="col-12 text-center">
+      <%= error_messages_for :payment_method %>
+      </div>
+    </div>
+  <% end %>
+</div>

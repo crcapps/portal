@@ -1,0 +1,12 @@
+<% bars.each do |bar| %>
+  <tr>
+    <% bar[:columns].each do |td| %>
+      <td><%= td %></td>
+    <% end %>
+    <td>
+      <div class="progress <%= bar[:progress_bar_container_class] || bar[:bar_class] || 'bg-success' %>">
+        <div class="progress-bar bg-primary" role="progressbar" style="width: <%= bar[:percent] %>%;" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<%= bar[:value] %>"><%= bar[:value] %></div>
+      </div>
+    </td>
+  </tr>
+<% end %>

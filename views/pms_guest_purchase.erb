@@ -1,0 +1,74 @@
+<div class="rg-heading">
+  <h2 class='uk-visible-small'>Hello <%= @guest.title %> <%= @guest.name %></h2>
+  <h1 class='uk-hidden-small'>Hello <%= @guest.title %> <%= @guest.name %></h1>
+</div>
+<div class="uk-grid rg-transparent-bg rg-margin-left rg-payment-form uk-padding-remove uk-margin-remove">
+  <div class="uk-width-1-1">
+    <%= form_for(@payment_method, :url => { :action => :quick_purchase_charge },
+      :html => { :name => 'payment_form', :id => 'payment_form', :class => 'container-fluid', :onsubmit => 'return paymentFormOnSubmit()' }) do |f| %>
+      <%= hidden_field_tag(:method, 'pms') %>
+      <%= hidden_field_tag(:pms_guest_id, @guest.id) %>
+      <%# sometimes a guest can have multiple rooms, we need to use the room that
+       the user originally entered when they started the login process.  i.e.
+       @guest.room could be different than params[:RN].  fallback to @guest if
+       the parameters do not exist %>
+      <%= f.hidden_field :first_name, :value => params[:RN] || @guest.room %>
+      <%= f.hidden_field :last_name,  :value => params[:GN] || @guest.name %>
+      <fieldset class="container-fluid">
+        <legend class="col-12 text-center">select your desired connection type</legend>
+        <!-- list of available plans -->
+        <table class="uk-table uk-table-striped uk-table-condensed rg-no-border">
+          <% @usage_plans.each do |usage_plan| %>
+            <tr>
+              <td class="uk-width-1-10 rg-no-border">
+                <%= radio_button(:usage_plan, :id, usage_plan.id) %>
+              </td>
+              <td class="uk-width-1-2 rg-no-border">
+                <%= h(usage_plan.name) %>
+              </td>
+              <td class="uk-width-3-10 rg-no-border">
+                <%= h(usage_plan.price_display) %>
+              </td>
+            </tr>
+            <% if usage_plan.description.to_s.length > 0 %>
+              <tr>
+                <td class="rg-no-border"> </td>
+                <td colspan="2" class="rg-no-border">
+                  <%= usage_plan.description.html_safe %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+        <div>
+        </div>
+        <div>
+          <%= text_field_tag 'email', params[:email], :placeholder => 'enter email...', :class => 'col-12 p-2' %>
+        </div>
+        <div>
+          <%= button_tag('Select', :id => 'submit_button', :class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg' ) %>
+        </div>
+      <% end %>
+      <% if @guest.no_post? && @usage_plans.empty? %>
+        <p> You are not allowed to post any charges to your room. </p>
+        <p> If you wish to purchase additional Internet access you must call the 
+          front desk and have them enable amenity charge posting to your room. </p>
+      <% end %>
+    </div>
+  </div>
+  <script type="text/javascript">
+    function paymentFormOnSubmit() {
+    
+      var str=document.getElementById('email').value;
+      var filter=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
+    
+      if (filter.test(str)) {
+        document.getElementById('submit_button').disabled = true;
+        return true;
+      } else {
+        alert("Please input a valid email address.")
+        return false;
+      }
+    
+    }
+  </script>

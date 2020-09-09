@@ -1,0 +1,150 @@
+<div class="container-fluid bg-white px-2 py-3">
+  <div class="row mb-2">
+    <div class="col-3 col-lg-4">
+      <%= portal_image_tag 'dollar_sign.svg', :class => 'w-50 mx-auto d-block align-middle' %>
+    </div>
+    <div class="col-9 col-lg-8">
+      <div class="row">
+      <div class="col-4">
+            <span class="small">Name:</span>
+      </div>
+      <div class="col-8">
+      <span class="text-primary font-weight-bolder"><%= h(usage_plan.name) %></span>
+      </div>
+      </div>
+      <div class="row">
+      <div class="col 4">
+            <span class="small">Price:</span>
+      </div>
+      <div class="col-8">
+      <span class="text-primary font-weight-bolder"><%= h(usage_plan.price_display) %></span>
+      </div>
+      </div>
+      <div class="row">
+      <div class="col-12">
+            <a class="text-primary" data-toggle="collapse" href="#collapse-<%= usage_plan.name.parameterize %>" role="button" aria-expanded="false" aria-controls="collapse-<%= usage_plan.name.parameterize %>">
+      Learn More
+      </a>
+      </div>
+      </div>
+  </div>
+</div>
+<div id="collapse-<%= usage_plan.name.parameterize %>" class="row collapse">
+<table class="table">
+  <tr>
+    <th class="border-right border-top-0 border-dark">Name</th>
+    <td class="border-dark border-top-0"><%= h(usage_plan.name) %></td>
+  </tr>
+  <% unless usage_plan.description.blank? %>
+    <tr>
+      <th class="border-right border-top-0 border-dark align-top">Description</th>
+      <td class="border-dark">
+        <%= usage_plan.description.html_safe %>
+        <% if usage_plan.time_plan && !usage_plan.time_plan.description.blank? %>
+          <%= usage_plan.time_plan.description.html_safe %>
+        <% end %>
+        <% if usage_plan.quota_plan && !usage_plan.quota_plan.description.blank? %>
+          <br />
+      <%= usage_plan.quota_plan.description.html_safe %>
+    <% end %>
+    <% usage_plan.misc_plans.each do |misc_plan| %>
+      <% unless misc_plan.description.blank?%>
+        <br />
+        <%= misc_plan.description.html_safe %>
+      <% end %>
+    <% end %>
+  </td>
+</tr>
+<% end %>
+<tr>
+  <th class="border-right border-top-0 border-dark">Price</th>
+  <td class="border-dark">
+    <%= h(usage_plan.price_display) %>
+  </td>
+</tr>
+<!--
+  -->
+<% if usage_plan.account_group && usage_plan.account_group.policy %>
+  <% usage_plan.account_group.policy.bandwidth_queues.each do |queue| -%>
+    <% if queue.net_apps.empty? && queue.wan_targets.empty? %>
+      <tr>
+        <th class="border-right border-top-0 border-dark">Speed</th>
+        <td class="border-dark">
+          <%= queue.bandwidth %>
+          <!--
+            <br/>            
+            (Up to <%= (queue.download_bw_bits / (50 * 1000)).to_i %></strong>x faster than dialup).
+              -->
+        </td>
+      </tr>
+      <% break %>
+    <% end %>
+  <% end %>
+<% end %>
+<% if usage_plan.time_plan && !usage_plan.time_plan.unlimited_usage_minutes?%>
+  <tr>
+    <th class="border-right border-top-0 border-dark">Time</th>
+    <td class="border-dark">
+      <%= pluralize(usage_plan.time_plan.usage_time, usage_plan.time_plan.usage_time_unit) %>
+      <% if usage_plan.time_plan.rollover_usage_minutes %>
+        : existing time is rolled-over.
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+<% if usage_plan.quota_plan && !usage_plan.quota_plan.unlimited_usage_mb_up? && !usage_plan.quota_plan.unlimited_usage_mb_down? %>
+  <tr>
+    <th class="border-right border-top-0 border-dark">Quota</th>
+    <td class="border-dark">
+      <%= number_to_human_size(usage_plan.quota_plan.usage_bytes_down.to_i) %>
+      download,
+      <%= number_to_human_size(usage_plan.quota_plan.usage_bytes_up.to_i) %>
+      upload
+      <% if usage_plan.quota_plan.rollover_usage_mb %>
+        : existing quota is rolled-over.
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+<tr>
+  <th class="border-right border-top-0 border-dark">Expires</th>
+  <td class="border-dark">
+    <% if usage_plan.unlimited_usage_lifetime? %>
+      usage never expires
+    <% elsif usage_plan.no_usage_lifetime? %>
+      maintain existing usage expiration
+    <% elsif usage_plan.absolute_usage_lifetime %>
+      <%= l(usage_plan.absolute_usage_lifetime) %>
+    <% elsif usage_plan.usage_lifetime_time %>
+      <%= pluralize(usage_plan.usage_lifetime_time, usage_plan.usage_lifetime_time_unit.singularize) %> after payment.
+    <% end %>
+  </td>
+</tr>
+<% if usage_plan.is_recurring? && !usage_plan.price_free? %>
+  <tr>
+    <th class="border-right border-top-0 border-dark">Payment</th>
+    <td class="border-dark">
+      Charged once immediately and billed
+      <%= usage_plan.recurring_method %> to selected method of payment.      
+    </td>
+  </tr>
+<% end %>
+<% if usage_plan.requires_account_validation? %>
+  <tr>
+    <th class="border-right border-top-0 border-dark">Valdation</th>
+    <td class="border-dark">
+      Requires account validation by <%= UsagePlan::VALIDATION_METHODS.inverse[usage_plan.validation_method] %>.
+    </td>
+  </tr>
+<% end %>
+<!--
+  <tr>
+    <th class="border-right border-top-0 border-dark">Recurring</th>
+    <td class="border-dark">
+      <%= usage_plan.recurring_method %>
+    </td>
+  </tr>   
+  -->
+</table>
+</div>
+</div>

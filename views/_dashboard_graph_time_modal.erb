@@ -1,0 +1,66 @@
+<aside id="graphTimeModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h2>Filters</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      <main class="modal-body">
+        <%= form_tag(
+        { action: :usage }, { class: 'container-fluid', id: 'graph_time' }
+      ) do %>
+          <fieldset class="container-fluid">
+            <div class="form-row">
+              <legend class="col-12 text-center">Select Device</legend>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-12">
+                <%= select_tag('device_id',
+                      options_for_select(@current_account_or_token.devices.portal_visible.map{|d| ["#{d.name} (#{d.mac})", d.id]}, :selected => @device.try(:id)),
+                      include_blank: 'All Devices', :class => 'col-12 p-2 btn-light btn-lg shadow-sm' ) %>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="container-fluid mb-4">
+            <div class="form-row">
+              <legend class="col-12 text-center">Specify a custom range</legend>
+            </div>
+            <%= fields_for @dialog_graph_time do |f| %>
+              <div class="form-row">
+                <div class="form-group col-6">
+                  <%= f.label :past_time, "Past", :class => 'sr-only'%>
+                  <%= f.text_field :past_time, {:size => 3, :placeholder => 'Past', :class => 'col-12 p-2'} %>
+                </div>
+                <div class="form-group col-6">
+                  <%= f.collection_select :past_time_unit, GraphTime::PAST_TIME_UNITS.reject {|k,v| %w( years seconds ).include?(v) }, :last, :first, {}, {:class => 'col-12 btn-light btn-lg shadow-sm'} %>
+                  </div>
+                  </div>
+                  <div class="form-row">
+                  <div class="col-12">
+                                    <p class="text-center my-0">or</p>
+
+                  <%= f.label :range_time, "Range:" %>&nbsp;<%= f.collection_select :range_time, GraphTime::RANGE_TIMES.reject {|k,v| %w( thisyear lastyear ).include?(v) }, :last, :first, {include_blank: '   --'}, {:class => 'col-12 btn-light btn-lg shadow-sm'} %>
+                  </div>
+                  </div>
+                <% end %>
+          </fieldset>
+          <div class="form-row">
+            <div class="form-group col-6">
+              <%= link_to 'Reset', { action: :usage }, {:class => 'col-12 btn btn-secondary btn-lg '} %>
+              </div>
+              <div class="form-group col-6">
+              <%= submit_tag 'Update', {:class => 'col-12 btn btn-primary btn-lg '} %>
+              </div>
+            </div>
+        </fieldset>
+      <% end # of form_tag %>
+    </main>
+    <footer class="modal-footer">
+      <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>
+    </footer>
+  </div>
+</div>
+</aside>
+<!-- graphTimeModal -->

@@ -1,0 +1,13 @@
+<script type="text/javascript">
+
+  please_wait_complete = true // Stop refreshing login_session_status action
+
+  <% if @landing_portal && @landing_portal.post_login_redirect? %>
+    <% if @landing_portal.post_login_redirect_original_url? && session[:desired_url] %>
+      window.location = "<%= session[:desired_url] %>"
+    <% else %>
+      window.location = "<%= @landing_portal.post_login_redirect_url.html_safe %>"
+    <% end %>
+  <% end %>
+
+</script>

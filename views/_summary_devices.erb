@@ -1,0 +1,43 @@
+<div class="col-12 col-lg-6 mx-auto session-info">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-12">
+        <%= link_to( {:action => :manage_devices} ) do %>
+          <%= portal_image_tag 'gears.svg', :class => 'mx-auto d-block w-25' %>
+        <% end %>
+      </div>
+      <div class="col-12">
+        <h3 class="text-primary text-center">Devices</h3>
+      </div>
+    </div>
+    <div class="col-12">
+      <% dialog = get_dialog_data(:device_session_summary) %>
+      <%= render :partial => dialog_partial_path("progress_bars"),
+          :locals => { bars: dialog[:progress_bars][:bars] } %>
+    </div>
+    <div class="col-12">
+      <% if @current_account_or_token.devices.portal_visible.where(binat: true).exists? %>
+        <p class="text-center">
+          <% binats = @current_account_or_token.devices.portal_visible.where(binat: true) %>
+          <strong><%= pluralize(binats.count, 'Active DMZ Host') %></strong><br>
+          <% binats.each do |binat_device| %>
+            <strong style="margin-left: 10px;"><%= binat_device.display_name %></strong>
+          <% end %>
+        </p>
+      <% end %>
+      <% if @current_account_or_token.device_port_forwards.where.not(device: nil).exists? %>
+        <p class="text-center">
+          <% dpfs = @current_account_or_token.device_port_forwards.where.not(device: nil) %>
+          <strong><%= pluralize(dpfs.count, 'Active Port Forwards') %>:</strong><br>
+          <% dpfs.each do |dpf| %>
+            <strong style="margin-left: 10px;"><%= dpf.device.display_name %></strong> [<%= dpf.external_ports %>]<br>
+          <% end %>
+        </p>
+      <% end %>
+    </div>
+    <div class="col-12">
+      <%= link_to 'Manage Devices', {:action => :manage_devices}, {:class => 'd-block mx-auto col-6 text-center', :data => { :disable_with => 'Please wait...' } } %>
+    </div>
+  </div>
+</div>
+<hr class="col-9 col-lg-4 mx-auto border-dark d-lg-none separator">

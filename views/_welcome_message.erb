@@ -1,0 +1,11 @@
+<% 
+  welcome_login = ''
+  if @login_session
+    welcome_login = @login_session.login.capitalize
+  elsif @custom_portal
+    welcome_login = 'to ' + @custom_portal.name
+  end
+%>
+<h1 class="sr-only">
+  <%= t('.welcome', :login => welcome_login) %>
+</h1>

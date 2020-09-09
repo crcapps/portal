@@ -1,0 +1,25 @@
+<div class="rg-heading">
+  <h2 class='uk-visible-small'>Interstitial</h2>
+  <h1 class='uk-hidden-small'>Interstitial</h1>
+  
+  <% if in_mobile_view? %>
+    <%= render partial: 'rotator', locals: { urn: 'mobile' } %>
+  <% elsif in_tablet_view? %>
+    <%= render partial: 'rotator', locals: { urn: 'mobile', count: 2 } %>
+  <% else %>
+    <%= render partial: 'rotator', locals: { urn: 'interstitial', count: 2 } %>
+  <% end %>
+
+</div>
+
+
+<% if params[:original_url].present? %>
+  <div id="continue" style="display: none;" class="rg-form center-align">
+    Continue to: <%= link_to(params[:original_url], params[:original_url]) %>
+  </div>
+  <script>
+    setTimeout(function(){
+      document.getElementById('continue').style.display = "block";
+    }, <%= @interstitial_redirect.try(:duration).to_i * 1000 %>);
+  </script>
+<% end %>

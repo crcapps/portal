@@ -1,0 +1,9 @@
+<% if @current_account %>
+  <% if @current_account.prorated_credit.to_f > 0 %>
+  <p class="text-center">
+    You have approximately <strong> <%= @current_account.prorated_credit.to_i%>
+    units of credit </strong> that will be automatically applied to your next
+    purchase.
+  </p>
+  <% end %>
+<% end %>

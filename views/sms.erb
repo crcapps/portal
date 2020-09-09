@@ -1,0 +1,58 @@
+<div class="container-fluid">
+  <div class="row">
+    <% unless @sms_account_group && @sms_custom_email %>
+      <p>
+        Login via SMS has not been configured by the operator of this network.
+      </p>
+    <% else %>
+      <% unless @account && @account.valid? %>
+        <%= render :partial => 'sms_simple_signup_form' %>
+      <% else %>
+        <%= form_tag({ :action => :account_login }, { :id => 'login_form_account', :class => 'container-fluid' } ) do %>
+          <fieldset class="container-fluid">
+            <div class="form-row">
+              <legend class="col-12 text-center">SMS Login</legend>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-12">
+                <p class="text-center">
+                  Once you have received your numeric access token via SMS, enter the token in the
+                  field below to access the Internet.  It may take your carrier a few minutes to deliver the code to your phone.
+                </p>
+              </div>
+            </div>
+            <%= hidden_field_tag :login, @account.login %>
+            <fieldset class="container-fluid">
+              <div class="form-row">
+                <legend class="col-12 text-center">Enter Token</legend>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <%= password_field_tag 'password', '', :placeholder => 'token...', :class => 'col-12 p-2' %>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <%= button_tag('Sign In', :class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg', :data => { :disable_with => 'Please wait...' }) %>
+                </div>
+              </div>
+            </fieldset>
+          </fieldset>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<script type="text/javascript">
+  function smsAccountCreateOnclick() {
+    document.getElementById('sms_account_create_submit').disabled = true;
+    document.getElementById('sms_account_create_form').submit();
+    return true;
+  }
+  
+  function accountLoginOnclick() {
+    document.getElementById('account_login_submit').disabled = true;
+    document.getElementById('login_form_account').submit();
+    return true;
+  }
+</script>

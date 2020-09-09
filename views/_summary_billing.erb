@@ -1,0 +1,42 @@
+<div class="col-12 col-lg-6 mx-auto session-info">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-12">
+        <%= link_to( {:action => :billing} ) do %>
+          <%= portal_image_tag 'wallet.svg', :class => 'mx-auto d-block w-25' %>
+        <% end %>
+      </div>
+      <div class="col-12">
+        <h3 class="text-primary text-center">Billing</h3>
+      </div>
+    </div>
+    <div class="col-12">
+      <% if @current_account_or_token.merchant_transactions.exists? %>
+        <% invoice = @current_account_or_token.merchant_transactions.last %>
+        <p class="text-center">
+          Last invoice:
+          <%= link_to "#{invoice.price_display} - #{invoice.created_at.strftime("%m-%e-%y")}",
+          { :action => :invoice, :id => invoice.id } %>
+        </p>
+      <% else %>
+        <p class="text-center">No invoices</p>
+      <% end %>
+      <% if @current_account_or_token.bill_at && @current_account_or_token.usage_plan && !@current_account_or_token.usage_plan.price_free? %>
+        <% if @current_account_or_token.bill_at > Time.now %>
+          <div class='col-12'>
+            <p class="text-center">Your stored <%= link_to 'payment method', { :action => :payment_method_edit } %> will be automatically charged on <%= @current_account_or_token.bill_at.strftime("%A, %b %d %Y") %>.</p>
+          </div>
+        <% elsif @current_account_or_token.bill_at < Time.now %>
+          <div class='col-12'>
+            <p class="text-center">Your account failed to automatically recharge on <%= @current_account_or_token.bill_at.strftime("%A, %b %d %Y") %>. Please review your <%= link_to 'payment method', { :action => :payment_method_edit } %> to ensure continued access.</p>
+          </div>
+        <% end %>
+      <% end %>
+      <%= render :partial => 'current_usage_plan' %>
+      <div class="col-12">
+        <%= link_to 'Manage Billing', {:action => :billing}, {:class => 'd-block mx-auto col-6 text-center', :data => { :disable_with => 'Please wait...' } } %>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="col-9 col-lg-4 mx-auto border-dark d-lg-none separator">

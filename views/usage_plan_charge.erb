@@ -1,0 +1,77 @@
+<div class="container">
+  <div class='row'>
+    <h2 class='col-12 text-center'>Usage Plan Charge</h2>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <% if @current_account.portal_message.to_s.to_sym == :vta_changed %>
+        <p>You must reset your Wi-Fi connection now.</p>
+        <%= portal_image_tag('reset_wifi.png') %>
+        <p>
+          You will not be able to access the Internet until you reset your Wi-Fi
+          connection.
+        </p>
+        <p>
+          If your device has a button or switch that enables Wi-Fi, toggle it, wait
+          a few seconds, then toggle it again.
+        </p>
+        <p>
+          Reboot your device if you are unsure how to reset the Wi-Fi connection.
+        </p>
+      <% end %>
+      <% if @redeemed_coupon || @usage_plan.price_free? %>
+        <p class="text-center"> You may now access the Internet using the new usage plan. </p>
+      <% elsif @pms_response %>
+        <p class="text-center">
+          <% if @pms_response.success? %>
+            The charge was successfully posted to your room and you may now use the
+            Internet.
+          <% elsif @pms_response.room_not_found? %>
+            The room you entered does not exist. Please double-check your credentials
+            and <%= link_to 'try again', :action => :usage_plan_list %>.
+          <% elsif @pms_response.auth_failed? %>
+            Your reservation could not be found. Please double-check your credentials
+            and <%= link_to 'try again', :action => :usage_plan_list %>.
+          <% elsif @pms_response.connection_failed? %>
+            The Property Management System did not respond. Please <%= link_to 'try
+          again', :action => :usage_plan_list %>.
+          <% elsif @pms_response.charge_failed? %>
+            The charge did not complete. Please <%= link_to 'try again', :action =>
+          :usage_plan_list %>.
+          <% elsif @pms_response.duplicate_charge? %>
+            The charge was detected as a duplicate and was not posted to your room.
+            You may now use the Internet.
+          <% elsif @pms_response.connection_error? %>
+            There was an error when communicating with the Property Management System.
+            Please <%= link_to 'try again', :action => :usage_plan_list %>.
+          <% elsif @pms_response.no_post? %>
+            Unable to post additional charges to your room. Please contact
+            the front desk and then <%= link_to 'try again', :action => :usage_plan_list %>.
+          <% elsif @pms_response.invalid_arguments? %>
+            The Property Management System client is not configured correctly.
+          <% end %>
+        </p>
+      <% elsif @merchant_response %>
+        <% if @merchant_response.success? %>
+          <p class="text-center"> Usage plan charge was a success. </p>
+          <p class="text-center"> <%= @merchant_response.message %>. </p>
+          <p class="text-center"> Thank you for your payment. </p>
+          <p class="text-center"> You may now access the Internet using the new usage plan. </p>
+        <% else %>
+          <p class="text-center"> <%= @merchant_response.message %>. </p>
+          <p class="text-center">
+            Usage plan charge failed.
+            You will not be able to access the Internet.
+          </p>
+          <p class="text-center"> You may <%= link_to 'try again', :action => :usage_plan_list %>. </p>
+        <% end %>
+      <% else %>
+        <p class="text-center">
+          Fatal Error. No response was received from the remote merchant. Please
+          contact technical support. You will not be able to access the Internet.
+        </p>
+      <% end %>
+      <%= render :partial => 'login_success' %>
+    </div>
+  </div>
+</div>

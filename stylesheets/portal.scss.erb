@@ -1,0 +1,40 @@
+/* 
+CSS assets manifest for this custom portal.
+
+Bootstrap 4:
+*= require ./bootstrap.min
+*= require ./bootstrap-overrides
+
+NVD3 (graphs):
+*= require shared/nv.d3.min
+
+Custom Portal:
+
+*= require ./content
+*= require ./dialog
+*= require ./footer
+*= require ./location
+*= require ./graph
+*= require ./message
+
+
+Optional Extras:
+*= require ./extra
+
+Include CSS contained within this file HERE:
+*= require_self
+
+*/
+
+@media (min-width: 1540px) {
+  .container-fluid {
+    max-width: 1500px;
+    padding: 0 35px;
+  }
+}
+@media (min-width: 1640px) {
+  .container-fluid {
+    max-width: 1600px;
+    padding: 0 35px;
+  }
+}

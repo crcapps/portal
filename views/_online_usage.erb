@@ -1,0 +1,58 @@
+<h3>Online Usage</h3>
+<% if @current_account.usage_minutes.to_i > 0 %>
+  <p>
+    You started with
+    <strong>
+      <%= distance_of_time(@current_account.usage_minutes.minutes, highest_measures: 2) %>
+      of online time
+    </strong>
+    available when you last logged in or purchased a usage plan.
+  </p>
+<% elsif @current_account.unlimited_usage_minutes? %>
+  <p> You have <strong> unlimited online time </strong>available. </p>
+<% else %>
+  <p>
+    <strong> You have no online time available. </strong>
+    <%= link_to 'buy now', :action => :usage_plan_list %>
+  </p>
+<% end %>
+
+<% if @current_account.usage_bytes_up.to_i > 0 %>
+  <p>
+    You started with a
+    <strong>
+      <%= number_to_human_size(@current_account.usage_bytes_up) %> upload quota
+    </strong>
+    when you last logged in or purchased a usage plan.
+  </p>
+<% elsif @current_account.unlimited_usage_mb_up? %>
+  <p> You have an <strong> unlimited upload quota. </strong> </p>
+<% else %>
+  <strong> You have no upload quota. </strong> &nbsp;&nbsp;
+  <%= link_to 'buy now', :action => :usage_plan_list %>
+<% end %>
+
+<% if @current_account.usage_bytes_down.to_i > 0 %>
+  <p>
+    You started with a
+    <strong>
+      <%= number_to_human_size(@current_account.usage_bytes_down) %> download quota
+    </strong>
+    when you last logged in or purchased a usage plan.
+  </p>
+<% elsif @current_account.unlimited_usage_mb_down? %>
+  <p> You have an <strong> unlimited download quota. </strong> </p>
+<% else %>
+  <strong> You have no download quota. </strong>&nbsp;&nbsp;
+  <%= link_to 'buy now', :action => :usage_plan_list %>
+<% end %>
+
+<% if @current_account.usage_expiration %>
+  <p>
+    Your online usage <strong> expires in <%= distance_of_time_in_words(
+      Time.now, @current_account.usage_expiration, highest_measures: 2) %> </strong>
+    on <%= l(@current_account.usage_expiration) %>.
+  <p>
+<% else %>
+  <p> Your online usage <strong> never expires. </strong> </p>
+<% end %>

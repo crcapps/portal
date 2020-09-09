@@ -1,0 +1,23 @@
+<table class="summarysummary">
+  <tr>
+
+    <td align="left">
+      <span id="<%= dialog[:name] %>_graph_link">
+        <%= dialog_graph_link(dialog)%>
+      </span>
+    </td>
+    
+    <td align="left">
+      <span class="summarytext" id="<%= dialog[:name] %>_summary_text">
+        <%= dialog[:summary].to_s.html_safe %>
+      </span>
+    </td>
+
+    <td align="right">
+      <span id="<%= dialog[:name] %>_details_link">
+        <%= dialog_details_link(dialog) %>
+      </span>
+    </td>
+
+  </tr>
+</table>

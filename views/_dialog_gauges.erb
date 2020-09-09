@@ -1,0 +1,14 @@
+<%= instruments_dialog(type: dialog[:color], dialog_id: "#{dialog[:name]}_dialog") do %>
+  <%= render :partial => dialog_partial_path("dialog_color_reason"), :locals => { dialog: dialog } %>
+  <div class="container-fluid">
+    <% if dialog[:title] %>
+      <h2><%= dialog[:title] %></h2>
+    <% end %>
+    <div class="row text-center">
+      <% dialog[:gauges].to_a.each do |gauge| %>
+        <%= render :partial => dialog_partial_path("gauge"), :locals => gauge %>
+      <% end %>
+    </div>
+  </div>
+  <%= render :partial => dialog_partial_path("dialog_footer"), :locals => { dialog: dialog } %>
+<% end %>

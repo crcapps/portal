@@ -1,0 +1,38 @@
+<% if @current_account_or_token.can_set_psk? %>
+  <div class='rg-heading'>
+    <h2 class='uk-visible-small'>Manage Wireless</h2>
+    <h1 class='uk-hidden-small'>Manage Wireless</h1>
+  </div>
+  <div class="uk-grid rg-transparent-bg rg-margin-left rg-payment-form uk-padding-remove uk-margin-remove">
+    <div class="uk-width-1-1">
+      <p>
+        Setting an encryption key enables you to update the wireless passphrase used to encrypt your wireless traffic.
+      </p>
+      <p>After updating your pre-shared key, you will need to update your device's wireless settings to use the new key.</p>
+      <p>
+        Only devices registered to your account may use this key.  To onboard a new device,
+        add its mac to your device list above.
+      </p>
+      <p>
+        Pre-shared keys must be at least 8 characters.
+      </p>
+      <%= form_for( @current_account_or_token, :as => :current_account_or_token, :url => { :action => :psk_update },
+        :html => { :class => 'container-fluid', :name => 'account_form', :id => 'account_form' }) do |f| %>
+        <% unless @current_account_or_token.errors.empty? %>
+          <div class="uk-width-small-1-1 uk-width-large-1-3">
+            <div class="rg-transparent-bg error-messages">
+              <%= error_messages_for :current_account_or_token %>
+            </div>
+          </div>
+        <% end %>
+        <div>
+          <%= f.text_field :pre_shared_key, :placeholder => 'WPA2 Pre-shared Key', :class => 'col-12 p-2' %>
+        </div>
+        <div>
+          <%= button_tag('Update', :class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg', 
+            :data => { :disable_with => 'Please wait...', :confirm => "Changing this value will cause your wireless encryption configuration to change.\n\nYou must update the settings on your wireless device after changing.\n\nContinue?"}) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

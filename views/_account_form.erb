@@ -1,0 +1,133 @@
+<fieldset class="container-fluid">
+  <div class="form-row">
+    <legend class="col-12">Account Info</legend>
+        <hr class="col-10 border-dark mt-0 mb-3 ml-0">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.text_field :login, :placeholder => 'Login', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.password_field :password, :placeholder => 'Password', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.password_field :password_confirmation, :placeholder => 'Confirm Password', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= text_field_tag 'code', params[:code], :placeholder => 'Optional Coupon', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+</fieldset>
+<fieldset class="container-fluid">
+  <div class="form-row">
+    <legend class="col-12">Name</legend>
+        <hr class="col-10 border-dark mt-0 mb-3 ml-0">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.text_field :first_name, :placeholder => 'First Name', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.text_field :last_name, :placeholder => 'Last Name', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.label :email, 'Email', :class => 'sr-only' %>
+      <% if f.object.email_validated? %>
+        <i class="fas fa-check-square fa-sm"></div>
+        <%= f.text_field :email, :placeholder => 'Email', :class => 'col-12 p-2 validated_contact_info_field' %>
+      <% else %>
+        <%= f.text_field :email, :placeholder => 'Email', :class => 'col-12 p-2' %>
+      <% end %>
+    </div>
+  </div>
+  <!--
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.label :email2, 'Email 2', :class => 'sr-only' %>
+      <%= f.text_field :email2, :placeholder => 'Email 2', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  -->
+</fieldset>
+<fieldset class="container-fluid">
+  <div class="form-row">
+    <legend class="col-12">Address</legend>
+        <hr class="col-10 border-dark mt-0 mb-3 ml-0">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.label :address1, 'Address 1', :class => 'sr-only' %>
+      <%= f.text_field :address1, :placeholder => 'Address 1', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.label :address2, 'Address 2', :class => 'sr-only' %>
+      <%= f.text_field :address2, :placeholder => 'Address 2', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-6">
+      <%= f.label :city, 'City', :class => 'sr-only' %>
+      <%= f.text_field :city, :placeholder => 'City', :class => 'col-12 p-2' %>
+    </div>
+    <div class="form-group col-3">
+      <%= f.label :region, 'State', :class => 'sr-only' %>
+      <%= f.text_field :region, :placeholder => 'State', :class => 'col-12 p-2' %>
+    </div>
+    <div class="form-group col-3">
+      <%= f.label :zip, 'Zip', :class => 'sr-only' %>
+      <%= f.text_field :zip, :placeholder => 'Zip', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.label :country, 'Country', :class => 'sr-only' %>
+      <%= f.localized_country_select(:country, priority_countries=['US', 'CA'], {}, { :class => 'col-12 p-2 btn-light btn-lg shadow-sm' }) %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <% if f.object.phone_validated? %>
+        <i class="fas fa-check-square fa-sm"></i>
+        <%= f.text_field :phone, :placeholder => 'phone...', :class => 'col-12 p-2 validated_contact_info_field' %>
+      <% else %>
+        <%= f.text_field :phone, :placeholder => 'phone...', :class => 'col-12 p-2' %>
+      <% end %>
+    </div>
+  </div>
+</fieldset>
+<fieldset class="container-fluid">
+  <div class="form-row">
+    <legend class="col-12">Account Recovery</legend>
+        <hr class="col-10 border-dark mt-0 mb-3 ml-0">
+  </div>
+  <%= fields_for(@secret_question) do |f| %>
+    <div class="form-row">
+      <div class="form-group col-12">
+        <%= f.label :id, 'Secret Question', :class => 'sr-only' %>
+        <%= f.select(:id,
+        SecretQuestion.all.collect {|f| [ f.question, f.id ] },
+        { :prompt => 'Secret Question' }, { :class => 'col-12 p-2 btn-light btn-lg shadow-sm' }) %>
+      </div>
+    </div>
+  <% end %>
+  <%= fields_for(@secret_answer) do |f| %>
+    <div class="form-row">
+      <div class="form-group col-12">
+        <%= f.label :answer, 'Answer', :class => 'sr-only' %>
+        <%= f.text_field :answer, :placeholder => 'Answer', :class => 'col-12 p-2' %>
+      </div>
+    </div>
+  <% end %>
+</fieldset>

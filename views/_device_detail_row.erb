@@ -1,0 +1,92 @@
+<h4>Device Info</h4>
+<table class="uk-table uk-table-condensed rg-tiny">
+  <tr>
+    <th> Name </th>
+    <td>
+      <%= form_tag 'update_device', :class => 'uk-form' do %>
+        <%= fields_for device do |f| %>
+          <%= f.hidden_field :id %>
+          <%= f.text_field :name, :class => 'uk-width-1-2' %>
+          <%= submit_tag 'Save', :class => 'uk-button rg-button rg-button-inline small-min-width', :data => {:disable_with => 'Save' } %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th> MAC address </th>
+    <td><%= device.mac %></td>
+  </tr>
+  <% if device.hostname %>
+    <tr>
+      <th> Hostname </th>
+      <td> <%= device.hostname %> </td>
+    </tr>
+  <% end %>
+  <% if device.vendor %>
+    <tr>
+      <th> Device </th>
+      <td> <%= device.vendor %> </td>
+    </tr>
+  <% end %>
+  <% if @current_account_or_token.is_virtual_gateway? %>
+    <tr>
+      <th> DMZ </th>
+      <td>
+        <% confirm = begin
+          if device.binat?
+            "Are you sure you want to deactivate the DMZ for device #{device.mac}?"
+          elsif @current_account_or_token.devices.where(binat: true).count == @current_account_or_token.max_binats
+            "Activating the DMZ option for this device will disable it for the previously selected device and deactivate any port forwarding rules defined.  Continue?"
+          elsif @current_account_or_token.devices.where(binat: true).count >= @current_account_or_token.max_binats - 1
+            "Activating the DMZ option for this device will disable any port forwarding rules defined.  Continue?"
+          end
+        end %>
+        <%= link_to(device.binat? ? 'Deactivate' : 'Activate', {:action => :update_device_binat, :device_id => device.id}, :class => "uk-button uk-width-1-1 rg-button no-min-width #{ 'activated' if device.binat? }", :data => { :disable_with => device.binat? ? 'Deactivating' : 'Activating', :confirm => confirm }) %>
+      </td>
+    </tr>
+  <% end %>
+  <% if device.binat? %>
+    <tr>
+      <th>Public IP</th>
+      <td><%= NatAssignment.find_by(mac: device.mac).try(:nat_ip) %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <th>Usage</th>
+    <td><%= link_to('View Usage', {:action => :usage, :device_id => device.id}, {:class => 'uk-button uk-width-1-1 rg-button no-min-width', :data => { :disable_with => 'Please wait...' } }) %> </td>
+  </tr>
+  <% if @current_account && @current_account.lock_devices == false %>
+    <tr>
+      <td colspan="2" class="action-cell">
+        <%= link_to('Delete', {:action => :delete_device, :device_id => device.id}, {:class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg', :data => { :disable_with => 'Please wait...' } }) %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<% if @current_account_or_token.permits_port_forwards? %>
+  <h4>Device Port Forwards</h4>
+  <div class="uk-grid uk-grid-small uk-hidden-small">
+    <div class="uk-width-1-1 uk-width-medium-4-5">
+      <div class="uk-grid uk-grid-small thead">
+        <div class="uk-width-1-1 uk-width-medium-1-4">Name</div>
+        <div class="uk-width-1-1 uk-width-medium-2-4">
+          <div class="uk-grid uk-grid-small">
+            <div class="uk-width-1-1 uk-width-medium-1-3">External Port</div>
+            <div class="uk-width-1-1 uk-width-medium-1-3">Internal Port</div>
+            <div class="uk-width-1-1 uk-width-medium-1-3">Protocol</div>
+          </div>
+        </div>
+        <div class="uk-width-1-1 uk-width-medium-1-4">Device</div>
+      </div>
+    </div>
+  </div>
+  <% device.device_port_forwards.each do |pf| %>
+    <%= render :partial => 'device_port_forwards_form', :locals => {:pf => pf} %>
+  <% end %>
+  <% if device.device_port_forwards.any? %>
+    <%# insert a divider to separate the list of existing port forwards from the form to add a new one %>
+    <hr>
+  <% end %>
+  <%= render :partial => 'device_port_forwards_form', 
+             :locals => { :pf => DevicePortForward.new(device: device, account: @current_account_or_token) } %>
+<% end %>

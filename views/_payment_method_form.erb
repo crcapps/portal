@@ -1,0 +1,112 @@
+<!-- payment information form -->
+<fieldset class="container-fluid">
+  <div class="form-row">
+    <legend class="col-12">Payment Info</legend>
+    <hr class="col-10 border-dark mt-0 mb-3 ml-0">
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.text_field :first_name, :placeholder => 'First Name', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.text_field :middle_name, :placeholder => 'Middle Name', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.text_field :last_name, :placeholder => 'Last Name', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.text_field :company, :placeholder => 'Company', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.text_field :phone, :placeholder => 'Phone', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <% if ( (@usage_plan || @current_account_or_token.usage_plan).try(:is_stripe?) ) %>
+    <div class="form-row">
+      <div class="form-group col-12">
+        <p class="text-center">Payment information is securely stored offsite with Stripe.  You may 
+          <% if f.object.persisted? %>
+            replace your current payment method <strong><em><%= f.object.nickname %></em></strong>
+          <% else %>
+            add a payment method
+          <% end %>
+          by entering a new card below.
+        </p>
+      </div>
+    </div>
+    <%= render :partial => 'stripe_form_elements' %>
+  <% else %>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.text_field :cc_number, 
+            :value => nil, 
+            :placeholder => (f.object.cc_number.present? && !f.object.is_stripe_token?) ? f.object.cc_display_number + ' (saved)' : 'Card Number', 
+            :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-3">
+      <%= f.select :cc_expiration_month, %w( 01 02 03 04 05 06 07 08 09 10 11 12), { }, { :class => 'col-12 p-2 btn-light btn-lg shadow-sm' } %>
+      <!-- explicitly setting selected to f.object.cc_expiration_year.to_i is
+      necessary because the expiration year is stored as an encrypted string
+      and must be converted to an integer to be recognized as a valid value by
+      the form helper -->
+    </div>
+    <div class="form-group col-6">
+      <%= f.select :cc_expiration_year, Time.now.year .. Time.now.year + 20,
+        { :selected => f.object.nil? ? Time.now.year : f.object.cc_expiration_year.to_i },
+        { :class => 'col-12 p-2 btn-light btn-lg shadow-sm' } %>
+    </div>
+    <div class="form-group col-3">
+      <%= f.text_field :cc_cvv2, :size => 4, :placeholder => 'CVV2', :class => 'col-12 p-2' %>
+      <span class="small">
+        <a href="#securityCodeModal" style="text-decoration:underline;" data-toggle="modal">What is this?</a>
+        <%= render :partial => 'security_code_modal' %>
+      </span>
+  </div>
+</div>
+<% end %>
+</fieldset>
+<!-- address info -->
+<fieldset class="container-fluid">
+  <div class="form-row">
+    <legend class="col-12">Billing Address</legend>
+  </div>
+    <hr class="col-10 border-dark mt-0 mb-3 ml-0">
+
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.text_field :address1, :placeholder => 'Address 1', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.text_field :address2, :placeholder => 'Address 2', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-6">
+      <%= f.text_field :city, :placeholder => 'City', :class => 'col-12 p-2' %>
+    </div>
+    <div class="form-group col-3">
+      <%= f.text_field :state, :placeholder => 'State', :class => 'col-12 p-2' %>
+    </div>
+    <div class="form-group col-3">
+      <%= f.text_field :zip, :placeholder => 'Zip', :class => 'col-12 p-2' %>
+    </div>
+  </div>
+<div class="form-row">
+  <div class="form-group col-12">
+    <%= f.localized_country_select(:country, priority_countries=['US', 'CA'], {}, { :class => 'col-12 p-2 btn-light btn-lg shadow-sm' }) %>
+  </div>
+</div>
+</fieldset>

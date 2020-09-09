@@ -1,0 +1,100 @@
+<div class="row">
+<div class="col-12">
+  <h2 class='text-center'>Invoice</h2>
+</div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <% if @current_account && transaction = @current_account.merchant_transactions.find_by_id(params[:id].to_i) %>
+      <br/>
+      <table class="table col-12">
+        <tr>
+          <td><%= @current_account.full_name %> </td>
+          <tr>
+            <% if @current_account.address1 %>
+              <tr>
+                <td>
+                  <%= @current_account.address1 %>
+                  <% if @current_account.address2 %> <br/>
+                     <%= @current_account.address2 %> <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td><%= @current_account.city %>, <%= @current_account.region %> <%= @current_account.zip %></td>
+              </tr>
+              <tr>
+                <td><%= @current_account.phone %></td>
+              </tr>
+            <% end %>
+            <tr>
+              <td><%= @current_account.email %></td>
+            </tr>
+          </table>
+          <br/>
+          <% if usage_plan = transaction.usage_plan %>
+            <table class="rg-transparent-bg uk-width-1-1">
+              <tr>
+                <th> Category </th>
+                <th> Description </th>
+                <th> Price </th>
+              </tr>
+              <tr>
+                <td> Time </td>
+                <td> <%= usage_plan.time_plan.name %> </td>
+                <td align="right"> <%= usage_plan.time_plan.price_display %> </td>
+              </tr>
+              <tr>
+                <td> Quota </td>
+                <td> <%= usage_plan.quota_plan.name %> </td>
+                <td align="right"> <%= usage_plan.quota_plan.price_display %> </td>
+              </tr>
+              <% usage_plan.misc_plans.each do |misc_plan| %>
+                <tr>
+                  <td> Misc </td>
+                  <td> <%= misc_plan.name %> </td>
+                  <td align="right"> <%= misc_plan.price_display %> </td>
+                </tr>
+              <% end %>
+              <tr>
+                <td><strong>Total Plan</strong></td>
+                <td><strong><%= usage_plan.name %></strong></td>
+                <td align="right"><strong><%= usage_plan.price_display %></strong></td>
+              </tr>
+            </table>
+            <br/>
+          <% end %>
+          <table class="rg-transparent-bg uk-width-1-1">
+            <% if transaction.success %>
+              <tr>
+                <td>
+                  Paid <%= transaction.price_display %> on <%= transaction.created_at %>
+                </td>
+              </tr>
+              <tr>
+                <td> <br/>
+                   </td>
+              </tr>
+              <tr>
+                <td>
+                  Payment submitted via client on IP <%= transaction.ip %> with MAC <%= transaction.mac %>
+                </td>
+              </tr>
+            <% else %>
+              <tr class="text-danger">
+                <td><strong>This transaction failed with the following error:</strong></td>
+              </tr>
+              <tr class="text-danger">
+                <td><%= transaction.message %></td>
+              </tr>
+              <tr class="text-danger">
+                <td>Time: <%= transaction.created_at %></td>
+              </tr>
+            <% end %>
+          </table>
+          <br/>
+        <% else %>
+          <strong> Transaction not found! </strong>
+        <% end %>
+        <%= link_to 'Back to Billing', { action: 'billing' }, { :class => 'd-block mx-auto col-6' } %>
+      </div>
+    </div>

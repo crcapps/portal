@@ -1,0 +1,31 @@
+<%= form_tag({:action => :account_login}, {:id => 'account_login', :class => 'container-fluid'}) do %>
+  <fieldset class="container-fluid">
+    <div class="form-row">
+      <legend class="col-12 text-center">Existing User</legend>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12">
+        <label class="sr-only" for="login">Login</label>
+        <%= text_field_tag 'login', params[:login], :placeholder => 'Login', :class => 'col-12 p-2', :autocorrect => :off, :autocapitalize => :off %>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12">
+        <label class="sr-only" for="password">Password</label>
+        <%= password_field_tag 'password', '', :placeholder => 'Password', :class => 'col-12 p-2', :autocorrect => :off, :autocapitalize => :off %>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12">
+        <%= button_tag('Sign In', :class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg', :data => { :disable_with => 'Please wait...' }) %>
+      </div>
+    </div>
+    <% if @captive_portal.try(:allow_password_reset?) %>
+      <div class="form-row">
+        <div class="form-group col-12">
+          <%= link_to( 'Forgot password?', {action: :forgot_password}, :class => 'text-center mx-auto d-block' ) %>
+        </div>
+      </div>
+    <% end %>
+  </fieldset>
+<% end %>

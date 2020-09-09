@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <div class='row'>
+    <div class="col-3">
+      <%= portal_image_tag "dollar_sign.svg" %>
+    </div>
+    <div class="col-9">
+      <h2 class="text-primary bottom-left-align">Usage Plans</h2>
+    </div>
+    <hr class="col-10 border-dark my-1 ml-0">
+  </div>
+  <% unless @current_account %>
+    <div class="row">
+      <div class="col-12">
+      <p class="text-center py-1">
+        <% if @login_session %>
+          Please <%= link_to 'sign up', :action => :quick_purchase %> to purchase
+        <% else %>
+          Please <%= link_to 'sign up', :action => :quick_purchase %> or <%= link_to 'login', :action => :index %> to purchase
+        <% end %>
+        </p>
+        
+      </div>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col-12">
+      <% if @current_account && @current_account.usage_plan && @current_account.usage_plan.price %>
+        <div class="row mb-2">
+    <div class="col-3">
+      <%= portal_image_tag 'dollar_sign.svg', :class => 'w-75 mx-auto d-block align-middle' %>
+    </div>
+    <div class="col-9">
+        <p class="text-center align-middle">
+          Your most recent plan was the 
+          <strong><%=@current_account.usage_plan.name%></strong> plan at
+          <strong>$<%= sprintf("%.2f", @current_account.usage_plan.price) %></strong>
+        </p>
+        </div>
+        </div>
+      <% end %>
+      <%= render :partial => 'prorated_credit' %>
+        <% @usage_plans.each do |usage_plan|  %>
+          <div class="col-12 bg-white my-3">
+            <%= render :partial => 'usage_plan', :object => usage_plan %>
+            <div class="col-12">
+            <div class="col-9 ml-auto">
+              <%= render :partial => 'usage_plan_purchase_link', :locals => { :usage_plan => usage_plan, :merchant => @merchant } %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+    </div>
+  </div>
+</div>

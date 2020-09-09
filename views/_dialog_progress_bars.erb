@@ -1,0 +1,22 @@
+<div>
+  <%= instruments_dialog(type: dialog[:color], dialog_id: "#{dialog[:name]}_dialog") do %>
+    <%= render :partial => dialog_partial_path("dialog_color_reason"), :locals => { dialog: dialog } %>
+    <% if dialog[:title] %>
+      <h2 class="text-center"><%= dialog[:title] %></h2>
+    <% end %>
+    <table class="summary" id="<%= dialog[:name] %>">
+      <thead>
+        <tr>
+          <% dialog[:progress_bars][:headers].each do |th| %>
+            <th><%= th %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody id="<%= dialog[:name] %>">
+        <%= render :partial => dialog_partial_path("progress_bars"),
+        :locals => { bars: dialog[:progress_bars][:bars] } %>
+      </tbody>
+    </table>
+    <%= render :partial => dialog_partial_path("dialog_footer"), :locals => { dialog: dialog } %>
+  <% end %>
+</div>

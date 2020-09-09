@@ -1,0 +1,38 @@
+<aside id="securityCodeModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h2>What is the card security code for my credit card?</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      <main class="modal-body">
+        <p>
+          A card security code is a unique security feature of VISA, MasterCard,
+          Discover, and American Express credit cards. By including it with your
+          purchase, you help protect your account from fraud and you give us one
+          more way of being sure your purchase is legitimate.
+        </p>
+        <p>Finding your credit card security code:</p>
+        <%= portal_image_tag('payment/csc_visamc.gif', :size => '122x74') %>
+        <%= portal_image_tag('payment/csc_amex.gif',   :size => '238x74') %>
+        <p><strong>VISA, MC, Discover users</strong><br />
+        </p>
+        <p>
+          The Card security code is the 3-digit number located on the back of
+          your card, usually at the top of the signature strip.
+        </p>
+        <p><strong>American Express users</strong></p>
+        <p>Look for the 4-digit number printed on the front of your card.</p>
+        <p>
+          Depending on which card you have, you'll find this number in small type
+          above your credit card's main number on either the left or right side.
+        </p>
+      </main>
+      <footer class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>
+      </footer>
+    </div>
+  </div>
+</aside>

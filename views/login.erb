@@ -1,0 +1,20 @@
+<div class="rg-heading">
+  <h2 class='uk-visible-small'>Login</h2>
+  <h1 class='uk-hidden-small'>Login</h1>
+</div>
+
+<div class='uk-grid'>
+
+  <% if @survey_questions.any? %>
+    <div class="uk-width-small-1-1 uk-width-medium-1-1 uk-width-large-1-1">
+        <%= render :partial => 'survey_questions_form' %>
+    </div>
+  <% end %>
+
+  <% login_form_partials.sort.reverse.each do |login_form| %>
+    <div class="uk-width-small-1-1 uk-width-medium-1-2">
+      <%= render :partial => login_form %>
+    </div>
+  <% end %>
+  
+</div>

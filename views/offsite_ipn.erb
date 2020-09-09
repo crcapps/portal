@@ -1,0 +1,40 @@
+<div class="rg-heading">
+  <h2 class='uk-visible-small'>Offsite IPN</h2>
+  <h1 class='uk-hidden-small'>Offsite IPN</h1>
+</div>
+
+<div class="uk-grid rg-transparent-bg rg-margin-left rg-payment-form uk-padding-remove uk-margin-remove">
+  <div class="uk-width-1-1">
+    <% if (@integrations_class_name == 'FirstData') && @notify && @notify.complete? && @acknowledged %>
+
+      <pre>
+      Thank you for your order!
+
+      <%= @notify.response_reason_text %>
+  
+      Order Information
+      Invoice:
+      <%= @notify.invoice_num %>
+      Usage Plan: <%= @usage_plan.name %>
+      Account: <%= @account.login %>
+            
+      Billing Information 
+      <%= @notify.billing_address[:first_name] %> <%= @notify.billing_address[:last_name] %>
+      <%= @notify.billing_address[:email] %>
+
+      Total: US $<%= @notify.gross %>
+
+      <%= params[:x_card_type] %>
+      Date/Time: <%= l(Time.now) %>
+      Transaction ID: <%= @notify.transaction_id %>
+      </pre>
+    
+      <!-- First Data end-user is redirected to this page, so go ahead and render login information -->
+      <%= render :partial => 'login_success' %>
+      
+    <% elsif (@integrations_class_name == 'FirstData') %>
+      Payment not complete, or merchant configuration incorrect.  Please contact support.
+    <% end %>
+    <!-- else, end-user does not see this for PayPal -->
+  </div>
+</div>

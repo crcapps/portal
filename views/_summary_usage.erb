@@ -1,0 +1,32 @@
+<div class="col-12 col-lg-6 mx-auto session-info">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-12">
+        <%= link_to( {:action => :manage_devices} ) do %>
+          <%= portal_image_tag 'data_traffic.svg', :class => 'mx-auto d-block w-25' %>
+        <% end %>
+      </div>
+      <div class="col-12">
+        <h3 class="text-primary text-center">Usage</h3>
+      </div>
+    </div>
+    <div class="col-12">
+      <% graph = NetworkGraph.new(
+      name: "Daily Traffic",
+      # Display a plot for each Device's MAC address if the Account has more
+      # than one.
+      graphables: [ @current_account_or_token ],
+      graph_time: @graph_time || GraphTime.new(past_time: 1, past_time_unit: 'days'),
+      grouped_by: 'second',
+      unit: 'bits'
+    ) %>
+      <%= render :partial => 'shared/graph', :object => graph.set_tunables(
+        { :height => 250, range_selector: false, background: '#ffffff', border: false, inline: true }
+      ) %>
+    </div>
+    <div class="col-12">
+      <%= link_to 'View Usage', {:action => :usage}, {:class => 'd-block mx-auto col-6 text-center', :data => { :disable_with => 'Please wait...' } } %>
+    </div>
+  </div>
+</div>
+<hr class="col-9 col-lg-4 mx-auto border-dark d-lg-none separator">

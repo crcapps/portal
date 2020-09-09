@@ -1,0 +1,17 @@
+<%= form_tag({:action => :token_login}, {:id => 'token_login', :class => 'container-fluid'}) do %>
+  <fieldset class="container-fluid">
+    <div class="form-row">
+      <legend class="col-12 text-center">Token Login</legend>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12">
+        <%= text_field_tag 'login', params[:login], :title => 'Login', :placeholder => 'login...', :class => 'col-12 p-2' %>
+      </div>
+    </div>
+    <%= render :partial => 'terms_checkbox' %>
+    <div class="form-row">
+      <%= button_tag('Sign In', :class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg', :data => { :disable_with => 'Please wait...' }) %>
+    </div>
+  </div>
+</fieldset>
+<% end %>

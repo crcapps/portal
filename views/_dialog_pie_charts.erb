@@ -1,0 +1,32 @@
+<%= instruments_dialog(type: dialog[:color], dialog_id: "#{dialog[:name]}_dialog") do %>
+  <%= render :partial => dialog_partial_path("dialog_color_reason"), :locals => { dialog: dialog } %>
+  <div class="center-align">
+    <% if dialog[:title] %>
+      <h2><%= dialog[:title] %></h2>
+    <% end %>
+    <div class="row row-centered uk-grid">
+      <% dialog[:pie_charts].to_a.in_groups_of(4) do |group| %>
+        <% col_class = 
+              case group.compact.length
+                when 1
+                  'col-12'
+                when 2
+                  'col-6'
+                when 3
+                  'col-4'
+                when 4
+                  'col-md-3 col-6'
+              end %>
+        <% group.compact.each do |pie| %>
+          <div class="<%= col_class %>">
+            <% if pie[:title] %>
+              <h2><%= pie[:title] %></h2>
+            <% end %>
+            <%= render :partial => dialog_partial_path("pie_chart"), :locals => { pie: pie } %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <%= render :partial => dialog_partial_path("dialog_footer"), :locals => { dialog: dialog } %>
+<% end %>

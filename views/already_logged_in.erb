@@ -1,0 +1,114 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <h2 class='text-center'>Already Logged In</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <% if @existing_login_sessions.to_a.length >= 1 %>
+        <!-- Account's max_sessions > 1 -->
+        <div class="col-12">
+          <p>
+            <strong>
+              You have reached the maximum number of active devices allowed for this account.
+            </strong>
+          </p>
+          <p>
+            You currently have
+            <strong><%= pluralize(@existing_login_sessions.count, 'active device') %></strong>
+            being used to acquire Internet access.
+          </p>
+          <p>
+            If you would like to reuse an existing connection click the button next to
+            the desired session below.
+          </p>
+          <p>
+            Reusing an existing connection will disable Internet access for the device
+            currently using the connection and log you in.
+          </p>
+        </div>
+        <div class="col-12">
+          <h3 class="text-center"> Active Sessions </h3>
+          <table class="table col-12">
+            <tr>
+              <th> Logged-in </th>
+              <th> IP address </th>
+              <th> MAC address </th>
+              <th> Hostname </th>
+              <th> Device </th>
+            </tr>
+            <% @existing_login_sessions.sort_by {|ls| ls.updated_at }.each do |ls| %>
+              <tr>
+                <td> <%= l(ls.updated_at) %> </td>
+                <td> <%= ls.ip %> </td>
+                <td> <%= ls.mac %> </td>
+                <td> <%= ls.hostname %>
+                  <td> <%= Mac.vendor_for_mac(ls.mac) || 'unknown' %> </td>
+                  <td>
+                    <%= button_to('Reuse', { :action => :account_login,
+                :account_id => @account.id, :login => @account.login, :password => @account.crypted_password,
+                :seize_existing_login_session_id => ls.id,
+                :survey_questions => @survey_questions },
+                :data => { :disable_with => 'Please wait...' }) %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+          <div class="col-12">
+            <p>
+              You are coming from IP address <%= client_ip %> MAC address <%= client_mac || 'unknown' %> hostname <%= client_hostname || 'unknown' %>.
+            </p>
+          </div>
+        <% else %>
+          <!-- Account's max_sessions = 1 -->
+          <p>
+            Your account is <strong>already logged in</strong> from
+            IP address <strong><%= @existing_login_session.ip %></strong>
+            MAC address <strong><%= @existing_login_session.mac || 'unknown' %></strong>
+            hostname <strong><%= @existing_login_session.hostname || 'unknown' %></strong>.
+          </p>
+          <% if vendor = Mac.vendor_for_mac(@existing_login_session.mac) %>
+            <p>
+              The device using your login is manufactured by <strong><%= vendor %></strong>.
+            </p>
+          <% end %>
+          <p>
+            This existing session started on
+            <%= l(@existing_login_session.created_at) %>, which was
+            <strong><%= time_ago_in_words(@existing_login_session.created_at, highest_measures: 2) %></strong>
+            ago.
+          </p>
+          <p>
+            You are coming from IP address <%= client_ip %> MAC address <%= client_mac || 'unknown' %> hostname <%= client_hostname || 'unknown' %>.
+          </p>
+          <% if @existing_login_session.mac == client_mac %>
+            <p>
+              The device using your login has the same MAC address as you, which
+              probably means your IP address has changed since you last logged in, and
+              that it is safe to continue.
+            </p>
+          <% end %>
+          <p>
+            Clicking continue will log you in and disconnect the device that is already
+            using your login. Are you sure you want to continue?
+          </p>
+          <p>
+            <%= button_to('Continue logging in', { :action => :account_login,
+            :account_id => @account.id, :login => @account.login, :password => @account.crypted_password,
+            :seize_existing_login_session => true,
+            :survey_questions => @survey_questions },
+            :data => { :disable_with => 'Please wait...' }) %>
+          </p>
+        <% end %>
+        <% if @account.pms_guest %>
+          <p>
+            If you don't want to reuse an existing connection you may
+            <%= link_to 'upgrade your plan', :action => :pms_guest_purchase, :RN => @account.pms_guest.room, :GN => @account.pms_guest.name %>
+            to support more simultaneous devices.
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>

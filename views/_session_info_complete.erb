@@ -1,0 +1,138 @@
+  <div class="row">
+    <h3 class="col-12 text-center">Session Info</h3>
+    <hr class="col-9 col-lg-4 mx-auto border-dark">
+  </div>
+   <% if session[:desired_url] %>
+    <div class="row">
+      <div class="col-12">
+        <p class="text-center">
+          You originally requested:
+          <%= link_to session[:desired_url], session[:desired_url] %>
+        </p>
+      </div>
+      <hr class="col-9 col-lg-4 mx-auto border-dark d-lg-none separator">
+    </div>
+  <% end %>
+  <% if @login_session %>
+    <%# TODO: if logged in via facebook %>
+    <%# this shows facebook login status when logged in %>
+    <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
+    <p id="status">
+    </p>
+    <% if @login_session.online? %>
+      <div class="row">
+        <div class="col-12 col-lg-6 mx-auto session-info">
+          <div class="col-12">
+            <div class="col-12">
+              <%= portal_image_tag 'wireless_signal.svg', :class => 'w-25 mx-auto d-block' %>
+            </div>
+            <div class="col-12">
+              <p class="text-center"> You are online and connected to the Internet. </p>
+            </div>
+          </div>
+        </div>
+        <hr class="col-9 col-lg-4 mx-auto border-dark d-lg-none separator">
+        <% if @login_session.usage_bytes_down_remaining %>
+          <div class="col-12 col-lg-6 mx-auto session-info">
+            <div class="col-12">
+              <div class="col-12">
+                <%= portal_image_tag 'download.svg', :class => 'w-25 mx-auto d-block' %>
+              </div>
+              <div class="col-12">
+                <p class="text-center">You can transfer up to
+                  <strong>
+                    <%= number_to_human_size(@login_session.usage_bytes_down_remaining) %>
+                    download.
+                  </strong>
+                </p>
+              </div>
+            </div>
+          </div>
+          <hr class="col-9 col-lg-4 mx-auto border-dark d-lg-none separator">
+        <% end %>
+          <% if @login_session.usage_bytes_up_remaining %>
+          <div class="col-12 col-lg-6 mx-auto session-info">
+            <div class="col-12">
+              <div class="col-12">
+                <%= portal_image_tag 'upload.svg', :class => 'w-25 mx-auto d-block' %>
+              </div>
+              <div class="col-12">
+                <p class="text-center">
+                  You can transfer up to
+                  <strong>
+                    <%= number_to_human_size(@login_session.usage_bytes_up_remaining) %>
+                    upload.
+                  </strong>
+                </p>
+              </div>
+            </div>
+          </div>
+          <hr class="col-9 col-lg-4 mx-auto border-dark d-lg-none separator">
+        <% end %>
+      <% else %>
+        <div class="col-12 mx-auto">
+          <div class="col-12">
+            <div class="col-12">
+              <h3 class="no_usage text-center">
+                You have no online usage available and will not be able to access
+                the Internet.
+              </h3>
+            </div>
+            <div class="col-12">
+              <p class="purchase_more text-center">
+                <%= link_to 'purchase more usage', {:action => :usage_plan_list}, {:class => 'd-block mx-auto col-6', :data => { :disable_with => 'Please wait...' } } %>
+              </p>
+            </div>
+          </div>
+        </div>
+        <hr class="col-9 col-lg-4 mx-auto border-dark d-lg-none separator">
+      <% end %>
+       <div class="col-12 col-lg-6 mx-auto session-info">
+        <div class="col-12">
+          <div class="col-12">
+            <%= portal_image_tag 'time.svg', :class => 'w-25 mx-auto d-block' %>
+          </div>
+          <div class="col-12">
+            <% if @login_session.expires_at %>
+              <% if @login_session.online? %>
+                <p class='text-center'>
+                  Your online session
+                  <strong>
+                    expires in <%= distance_of_time(
+            @login_session.online_minutes_remaining.minutes, highest_measures: 2) %>
+                  </strong>
+                  on <%= l(@login_session.expires_at) %>.
+                </p>
+              <% else %>
+                <p class="text-center">
+                  Your login session
+                  <strong>
+                    expires in <%= distance_of_time(
+            @login_session.session_minutes_remaining.minutes, highest_measures: 2) %>
+                  </strong>
+                  on <%= l(@login_session.expires_at) %>.
+                </p>
+              <% end %> 
+            <% else %>
+              <p class="text-center"> Your online session <strong> never expires. </strong> </p>
+            <% end %>
+            <p class="text-center"> You logged in on <%= l(@login_session.created_at) %>. </p>
+             <% if @login_session.shared_credential_group %>
+              <p>
+                <strong>
+                  <%= @login_session.shared_credential_group.motd %>
+                </strong>
+              </p>
+            <% end %>
+          </div>
+        </div>
+        </div>
+          <hr class="col-9 col-lg-4 mx-auto border-dark d-lg-none separator">
+
+  <% else %>
+    <div class="row">
+      <div class="col-12">
+        <p class="text-center"> You are not logged in. </p>
+      </div>
+      </div>
+    <% end %>

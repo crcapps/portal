@@ -1,0 +1,66 @@
+<div class="rg-heading">
+  <h2 class='uk-visible-small'>Free Internet Access</h2>
+  <h1 class='uk-hidden-small'>Free Internet Access</h1>
+</div>
+<div class="uk-grid rg-transparent-bg rg-margin-left rg-payment-form uk-padding-remove uk-margin-remove">
+  <div class="uk-width-1-1">
+    <% if @logged_in %>
+      <p style="width:260px;">
+        This page is only to be used by guests who are not already logged in.
+      </p>
+    <% else %>
+      <% scg_credential = 'reset this to a credential that matches a shared credential group' %>
+      <% unless SharedCredentialGroup.find_by_credential(scg_credential) %>
+        <p style="width:260px;">
+          Free access via PMS authentication has not been configured by the operator of this network.
+        </p>
+      <% else %>
+        <table>
+          <%= form_tag :action => :pms_free do %>
+            <%= hidden_field_tag :credential, scg_credential %>
+            <tr>
+              <td>
+                <label for="RN">Room Number</label>
+              </td>
+              <td>
+                <%= text_field_tag 'RN', params[:RN], :size => 4 %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="GN">Last Name</label>
+              </td>
+              <td>
+                <%= text_field_tag 'GN', params[:GN], :size => 20 %>
+              </td>
+              <% if @pms_free_error_A0 == :no_custom_info %>
+                <th> This reservation does not have a membership number on file. </th>
+              <% end %>
+            </tr>
+            <!-- This section is a template for passing additional information
+            <tr>
+              <td>
+                <label for="A0">Membership Number</label>
+              </td>
+              <td>
+                <%= text_field_tag 'A0', params[:A0], :size => 20 %>
+              </td>
+              <% if @pms_free_error_A0 == :custom_info_mismatch %>
+                 <th> Membership number mismatch. </th>
+              <% end %>
+            </tr>
+            -->
+            <tr>
+              <td> </td>
+              <td>
+                <%= button_tag('Sign In',
+                  :class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg',
+                  :data => { :disable_with => 'Please wait...' }) %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<aside id="<%= "accept_invite_#{party.id}" %>" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h2 class="inline-block">Accept invitation to <strong><%= party.name %></strong> from <%= party.host_account.login %></h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      <main class="modal-body">
+        <p>
+          <strong>WARNING:</strong> By accepting this invitation, the
+          devices you select below will be placed into the
+          private network of the account shown, allowing direct
+          access and sharing of resources with another account.
+          Do not accept an invitation from someone you do not
+          know and trust.
+        </p>
+        <%= form_tag :action => :accept_lan_party_invitation, id: party.id do %>
+          <fieldset class="container-fluid">
+            <div class="form-row">
+              <legend class="col-12 text-center">
+              </div>
+              <% available_devices = @current_account_or_token.devices.portal_visible.where(Device.arel_table[:lan_party_id].eq(nil).or(Device.arel_table[:lan_party_id].not_eq(party.id))) %>
+              <% available_devices.each do |device| %>
+                <div class="form-row">
+                  <div class="form-group col-12">
+                    <label><%= check_box_tag "device_ids[]", device.id, party.devices.include?(device) %> <%= [device.name, device.mac].uniq.join(' ') %></label>
+                  </div>
+                </div>
+              <% end %>
+              <% if available_devices.exists? %>
+                <div class="form-row">
+                  <div class="form-group col-12">
+                    <%= submit_tag "Accept",
+                :class => 'd-block mx-auto col-6 btn btn-primary btn-lg',
+                :disabled => party.host_account.party_device_limit_reached? %>
+                  </div>
+                </div>
+              <% else %>
+                <div class="form-row">
+                  <div class="form-group col-12 text-center">
+                    <p>No available devices.</p>
+                  </div>
+                </div>
+                <div class="form-row">
+                <% end %>
+              </fieldset>
+            <% end %>
+          </main>
+          <footer class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Cancel</button>
+          </footer>
+        </div>
+      </div>
+    </aside>

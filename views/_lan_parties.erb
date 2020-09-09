@@ -1,0 +1,178 @@
+<% if @current_account_or_token.supports_lan_parties? || @current_account_or_token.lan_parties.exists? %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class='col-12'>
+        <h2 class='text-center'>LAN Parties</h2>
+      </div>
+    </div>
+    <% if @current_account_or_token.lan_parties.exists? %>
+      <div class="row">
+        <div class="col-12">
+          <h2>Received Party Invitations</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="uk-grid uk-grid-small thead">
+            <div class="uk-width-1-1 uk-width-medium-1-4">Sender</div>
+            <div class="uk-width-1-1 uk-width-medium-1-4">Name</div>
+            <div class="uk-width-1-1 uk-width-medium-1-3">Accepted Devices</div>
+            <div class="uk-width-1-1 uk-width-medium-1-6 center-align">Actions</div>
+          </div>
+        </div>
+      </div>
+      <% @received_lan_party_invites.each do |party| %>
+        <% next if @current_account_or_token == party.host_account %>
+        <div class="uk-form">
+          <%= fields_for party do |f| %>
+            <div class="uk-grid uk-grid-small">
+              <div class="uk-width-1-1">
+                <div class="uk-grid uk-grid-small">
+                  <div class="uk-width-1-1 uk-width-medium-1-4">
+                    <div class="uk-visible-small"><strong>Sender</strong></div>
+                    <%= party.host_account.login %>
+                  </div>
+                  <div class="uk-width-1-1 uk-width-medium-1-4">
+                    <div class="uk-visible-small"><strong>Name</strong></div>
+                    <%= party.name %>
+                  </div>
+                  <div class="uk-width-1-1 uk-width-medium-1-3">
+                    <div class="uk-visible-small"><strong>Accepted Devices</strong></div>
+                    <% party.devices.sort_by{ |d| d.account == @current_account_or_token ? 0 : 1 }.each do |device| %>
+                      <%= device.account.login %> - 
+                      [<%= [device.name, device.mac].uniq.join(', ') %>] - 
+                      <%= device.ip || 'offline' %>
+                      <% if device.account == @current_account_or_token %>
+                        <%= link_to 'Leave', action: :remove_device_from_lan_party, id: device.id %>
+                      <% end %>
+                      <br>
+                    <% end %>
+                  </div>
+                  <div class="uk-width-1-1 uk-width-medium-1-6">
+                    <%= 
+                      content_tag('button', { 
+                        :class => 'uk-button rg-button rg-button-inline small-min-width uk-width-1-1 uk-width-medium-1-2', 
+                        :data => { "uk-modal" => "{target:'#accept_invite_#{party.id}'}" }, 
+                        :disabled => party.host_account.party_device_limit_reached?
+                      }) do
+                       party.host_account.party_device_limit_reached? ? 'Party Full' : 'Accept'
+                     end
+                      
+                      %><%= link_to 'Delete', {action: :delete_lan_party_invitation, id: party.id}, 
+                      :class => 'uk-button rg-button rg-button-inline small-min-width uk-width-1-1 uk-width-medium-1-2' %>
+                    <%= render :partial => 'accept_lan_party_invite_modal', :locals => { :party => party} %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <hr class="uk-visible-small">
+      <% end %>
+    </div>
+  </div>
+<% end %>
+<% if @current_account_or_token.supports_lan_parties? %>
+  <div class="uk-grid rg-transparent-bg rg-margin-left rg-payment-form">
+    <div class="uk-width-1-1">
+      <h2>My LAN Parties</h2>
+      <% if @current_account_or_token.party_device_limit_reached? %>
+        You have reached your party device limit.  You may not create any 
+        additional LAN parties until you remove members from one or more of
+        your active LAN parties below.
+      <% else %>
+        <div class="uk-grid">
+          <div class="uk-width-1-1 uk-width-medium-1-2 center-align">
+            <%= link_to 'Create a new LAN Party', '#create_lan_party_modal', { :class => "uk-button rg-button rg-button-inline small-min-width uk-width-1-1 #{@lan_party.errors.any? ? 'rg-button-red' : ''}", data: {"uk-modal" => ""} } %>
+          </div>
+          <div class="uk-width-1-1 uk-width-medium-1-2 center-align">
+            <%= link_to 'Join a LAN Party', '#join_lan_party_modal', { :class => 'uk-button rg-button rg-button-inline small-min-width uk-width-1-1', data: {"uk-modal" => ""} } %>
+          </div>
+        </div>
+        <br>
+        <br>
+        <%= render :partial => 'create_lan_party_modal' %>
+        <%= render :partial => 'join_lan_party_modal' %>
+      <% end %>
+      <% if @hosted_lan_parties.any? %>
+        <div class="uk-grid uk-grid-small uk-hidden-small">
+          <div class="uk-width-1-1">
+            <div class="uk-grid uk-grid-small thead">
+              <div class="uk-width-1-1 uk-width-medium-1-5">Name</div>
+              <div class="uk-width-1-1 uk-width-medium-1-4">Invited Users</div>
+              <div class="uk-width-1-1 uk-width-medium-1-3">Accepted Devices</div>
+              <div class="uk-width-1-1 uk-width-medium-1-5 center-align">Actions</div>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <h2>No active LAN Parties</h2>
+      <% end %>
+      <% @hosted_lan_parties.each do |party| %>
+        <div class="uk-margin">
+          <div class="uk-grid uk-grid-small">
+            <div class="uk-width-1-1">
+              <div class="uk-grid uk-grid-small">
+                <div class="uk-width-1-1 uk-width-medium-1-5">
+                  <div class="uk-visible-small"><strong>Name</strong></div>
+                  <%= party.name %>
+                </div>
+                <div class="uk-width-1-1 uk-width-medium-1-4">
+                  <div class="uk-visible-small"><strong>Invited Users</strong></div>
+                  <% party.accounts.each do |account| %>
+                    <%= [ account.login, account.email ].compact.uniq.join(' - ') %>
+                    <%= link_to 'Revoke', action: :remove_account_from_lan_party, id: party.id, account_id: account.id %><br>
+                  <% end %>
+                </div>
+                <div class="uk-width-1-1 uk-width-medium-1-3">
+                  <div class="uk-visible-small"><strong>Member Devices</strong></div>
+                  <% party.devices.sort_by{ |d| d.account_id == @current_account_or_token.id ? 0 : 1 }.each do |device| %>
+                    <%= device.account.login %> - 
+                    [<%= [device.name, device.mac].uniq.join(', ') %>] - 
+                    <%= device.ip || 'offline' %>
+                    <%= link_to 'kick', action: :remove_device_from_lan_party, id: device.id %>
+                    <br>
+                  <% end %>
+                </div>
+                <div class="uk-width-1-1 uk-width-medium-1-5 center-align">
+                  <%= 
+                    content_tag('button', { 
+                      :class => 'uk-button rg-button rg-button-inline small-min-width uk-width-1-1 uk-width-medium-1-2', 
+                      :data => { "uk-modal" => "{target:'#invite_lan_party_#{party.id}'}" }, 
+                      :disabled => @current_account_or_token.party_device_limit_reached? 
+                    }) do
+                     'Invite'
+                   end
+                    %><%= link_to 'Edit',   "#update_lan_party_#{party.id}",   { :class => "uk-button rg-button rg-button-inline small-min-width uk-width-1-1 uk-width-medium-1-2 #{party.errors.any? ? 'rg-button-red' : ''}" , data: {"uk-modal" => ""} } %><%= 
+                    link_to 'Delete', {action: :delete_lan_party_invitation, id: party.id}, 
+                      { :class => 'uk-button rg-button rg-button-inline small-min-width uk-width-1-1 uk-width-medium-1-2', 
+                        :data => { confirm: 'Deleting this party will remove all of its guests from your network.  Proceed?' } } %>
+                </div>
+                <%= render :partial => 'invite_lan_party_modal', :locals => {party: party} %>
+                <%# Edit modal %>
+                <aside id="update_lan_party_<%= party.id %>" class="modal" tabindex="-1" role="dialog">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <header class="modal-header">
+                        <h2 class="inline-block">Edit LAN Party</h2>
+                        <a class="uk-modal-close uk-close"></a>
+                      </header>
+                      <main class="modal-body">
+                        <%= render :partial => 'lan_party_form', :locals => {lan_party: party} %>
+                      </main>
+                      <footer class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Cancel</button>
+                      </footer>
+                    </div>
+                  </div>
+                </aside>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end # hosted_lan_parties.each %>
+    </div>
+  </div>
+<% end %>
+</div>
+<% end %>

@@ -1,0 +1,89 @@
+<%= form_for(lan_party, 
+  html: {:class => 'container-fluid'}, 
+  url: { :action => lan_party.persisted? ? :update_lan_party : :create_lan_party, :id => lan_party.id }) do |f| %>
+  <% expires_at_field_id = lan_party.persisted? ? "lan_party_#{lan_party.id}_expires_at" : 'new_lan_party_expires_at' %>
+  <% no_expiration_field_id = lan_party.persisted? ? "lan_party_#{lan_party.id}_no_expiration" : 'new_lan_party_no_expiration' %>
+  <fieldset class="container-fluid">
+    <div class="form-row">
+      <legend class="col-12 text-center">Party Details</legend>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 <%= 'field_with_errors' if lan_party.errors.keys.include? :name %>">
+        <%= f.label :name, :class => 'sr-only' %>
+        <%= f.text_field :name, :placeholder => 'Party Name', :class => 'col-12 p-2' %>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 <%= 'field_with_errors' if lan_party.errors.keys.include? :description %>">
+        <%= f.label :description, :class => 'sr-only' %>
+        <%= f.text_area :description, :placeholder => 'Description (optional)', :class => 'col-12 p-2' %>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 <%= 'field_with_errors' if lan_party.errors.keys.include? :password && lan_party.errors[:password].any? %>">
+        <%= f.label :password, :class => 'sr-only' %>
+        <%= f.text_field :password, :placeholder => 'Password (optional, 8 char min, case-sensitive)', :class => 'col-12 p-2' %>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset class="container-fluid">
+    <div class="form-row">
+      <legend class="col-12 text-center">Expiration</legend>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 <%= 'field_with_errors' if lan_party.errors.keys.include? :expires_at %>">
+        <%=f.label :expires_at, :class => "sr-only" %>
+        <%= f.text_field :expires_at, :placeholder => 'Expiration', :class => 'col-12 p-2', :id => expires_at_field_id %>
+        <script type="text/javascript">
+          $(function () {
+            $('#<%= expires_at_field_id %>').datetimepicker({
+              date: '<%= lan_party.no_expiration? ? '' : ( lan_party.expires_at || Time.now.advance(hours: 1) ).iso8601 %>',
+              format: "D/M/YYYY, h:mm a",
+              // use the Fontawesome icons to avoid having to add bootstrap glyphicon fonts
+              icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-circle-up",
+                down: "fa fa-arrow-circle-down",
+                previous: "fa fa-arrow-circle-left",
+                next: "fa fa-arrow-circle-right",
+                today: 'fa fa-caret-square-o-down',
+                clear: 'fa fa-calendar-times-o',
+                close: 'fa fa-window-close'
+              },
+              showTodayButton: true,
+              keepOpen: true
+            }).on('dp.change', function(e){
+              // clear the no expiration checkbox if the user selected a date
+              if (e.date != false) {
+                $("#<%= no_expiration_field_id %>").prop( "checked", false );
+              }
+            });
+          });
+        </script>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 <%= 'field_with_errors' if lan_party.errors.keys.include? :no_expiration %>">
+        <label><%= f.check_box :no_expiration, :class => 'col-12 p-2', :id => no_expiration_field_id %> No expiration (remain active until deleted)</label>
+        <script>
+          $(function() {
+            // clear the datetime picker if the user checks the no expiration checkbox
+            $("#<%= no_expiration_field_id %>").change(function(){
+              var isChecked = $(this).is(":checked");
+              if (isChecked) {
+                $("#<%= expires_at_field_id %>").data("DateTimePicker").clear();
+              }
+            })
+          
+          })
+        </script>
+      </div>
+    </div>
+  </fieldset>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.submit f.object.persisted? ? 'Update LAN Party' : 'Create LAN Party', :class => 'd-block mx-auto col-6 btn btn-lg btn-primary' %>
+    </div>
+  </div>
+<% end %>

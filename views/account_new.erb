@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="row">
+    <%= form_for( @account, :as => :account, :url => { :action => :account_create },
+      :html => { :class => 'container-fluid', :name => 'account_form', :id => 'account_form' }) do |f| %>
+      <fieldset class="container-fluid">
+        <div class="form-row">
+          <legend class="col-12 text-center">Sign Up</legend>
+        </div>
+        <%= render :partial => 'account_form', :locals => { :f => f } %>
+        <%= render :partial => 'terms_checkbox' %>
+        <div class="form-row">
+          <div class="form-group col-12">
+            <%= button_tag('Sign up', :class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg', :data => { :disable_with => 'Please wait...' }) %>
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+  <div class="row">
+    <%= error_messages_for :account %>
+  </div>
+</div>

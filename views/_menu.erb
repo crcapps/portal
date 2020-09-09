@@ -1,0 +1,48 @@
+<li class="nav-item <%= params[:action] == 'index' ? 'active' : '' %>"><%= link_to 'Home', { :action => :index }, { :class => 'nav-link' } %></li>
+
+<% if @current_account_or_token.try(:can_manage_devices?) %>
+  <li class="nav-item <%= params[:action] == 'manage_devices' ? 'active' : '' %>"><%= link_to 'Devices', { :action => :manage_devices }, { :class => 'nav-link' } %></li>
+<% end %>
+
+<% if @current_account %>
+  <% unless @current_account.pms_room %>
+    <li class="nav-item <%= params[:action] == 'account_info' ? 'active' : '' %>"><%= link_to 'Profile', { :action => :account_info }, { :class => 'nav-link' } %></li>
+    <li class="nav-item <%= params[:action] == 'billing' ? 'active' : '' %>"><%= link_to 'Billing', { :action => :billing }, { :class => 'nav-link' } %></li>
+  <% end %>
+
+  <% unless @usage_plans.empty? %>
+    <li class="nav-item <%= params[:action] == 'usage_plan_list' ? 'active' : '' %>"><%= link_to 'Plans', { :action => :usage_plan_list}, { :class => 'nav-link' } %></li>
+
+    <% if Coupon.first %>
+      <li class="nav-item <%= params[:action] == 'coupon' ? 'active' : '' %>"><%= link_to 'Coupon', { :action => :coupon }, { :class => 'nav-link' } %></li>
+    <% end %>    
+  <% end %>
+
+  <li class="nav-item"><%= link_to 'Usage', { :action => :usage }, { :class => 'nav-link' } %></li>
+
+<!-- Optional link to allow an end-user to delete her Account and logout
+  <li class="nav-item"><a href="#deleteAccountModal">Delete Account</a>
+  <%= render :partial => 'delete_account_modal' %></li>
+-->
+
+<% end %>
+
+<% if client_floor %>
+  <li class="nav-item"><%= link_to 'Map', { :action => :map }, { :class => 'nav-link' } %></li>
+<% end %>
+
+<% if @logged_in %>
+  <% if ! @login_session.account || (@login_session.account && @login_session.account.lock_devices == false) %>
+  <li class="nav-item"><%= link_to 'Logout', { :action => :login_session_destroy, :method => :delete }, { :class => 'nav-link' } %></li>
+  <% end %>
+<% elsif ! @usage_plans.empty? %>
+  <li class="nav-item <%= params[:action] == 'quick_purchase' ? 'active' : '' %>"><%= link_to 'Sign Up', { :action => :quick_purchase }, { :class => 'nav-link' } %></li>
+<% end %>
+
+<!-- localization example
+<% if I18n.locale == :en %>
+  <li class="nav-item"><%= link_to 'Español', { :action => :index, :locale => :es }, { :class => 'nav-link' } %></li>
+<% else %>
+  <li class="nav-item"><%= link_to 'English', { :action => :index, :locale => :en }, { :class => 'nav-link' } %></li>
+<% end %>
+-->

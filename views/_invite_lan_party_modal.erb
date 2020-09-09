@@ -1,0 +1,72 @@
+<aside id="invite_lan_party_<%= party.id %>" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h2 class="inline-block">Invite a friend to your LAN Party</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      <main class="modal-body">
+        <h3>Name: <%= party.name %></h3>
+        <p>
+          <strong>WARNING:</strong> By inviting other users to join your 
+          network, you are allowing another person direct access 
+          to your devices. Up-to-date Anti-virus and firewalls 
+          are recommended to protect your devices.  Only invite 
+          users you trust to join your LAN Party.
+        </p>
+        <p>
+          <strong>Note:</strong> The user you invite must already have an  
+          existing account in order to receive your LAN Party
+          invitation.
+        </p>
+        <%= form_tag({action: :invite_lan_party, id: party.id}, {:class => 'container-fluid'}) do %>
+          <fieldset class="container-fluid">
+            <legend class="col-12 text-center">Invite a user by email:</legend>
+            <div class="form-group col-12">
+              <%= label_tag :email, :class => 'sr-only' %>
+              <%= text_field_tag :email, nil, { :class => 'col-12 p-2', placeholder: 'Email'} %>
+            </div>
+            <div class="form-group col-12">
+              <%= label_tag :invitation_text, :class => 'sr-only' %>
+              <%= text_area_tag :invitation_text, nil, { :class => 'col-12 p-2', placeholder: 'Invitation message (optional)'} %>
+            </div>
+            <div class="form-group col-12">
+              <%= submit_tag 'Send Invite', { :class => 'd-block mx-auto col-6 btn btn-primary btn-lg'} %>
+            </div>
+          </fieldset>
+        <% end %>
+        <% if party.password.present? %>
+          <p>
+            This LAN Party may also be joined by entering the 
+            password shown below.  You may update the password or 
+            remove it to allow only accounts you explicitly invite.
+          </p>
+        <% else %>
+          <p>
+            Password-based access to this LAN party is currently disabled.  You may 
+            enable it by setting a password below. When a password is set, any 
+            registered user may enter this LAN party by entering the password. 
+            Choose a complex password to protect your devices.
+          </p>
+        <% end %>
+        <%= form_for(party, url: {action: :update_lan_party, id: party.id}, :html => { :class => 'container-fluid' }) do |f| %>
+          <fieldset class="container-fluid">
+            <legend class="col-12 text-center">Set a password</legend>
+            <div class="form-group col-12">
+              <%= label_tag 'lan_party', :class => 'sr-only' %>
+              <%= text_field_tag 'lan_party[password]', party.password_was, { :class => 'col', placeholder: 'Password'} %>
+            </div>
+            <div class="form-group col-12">
+              <%= submit_tag 'Update', { :class => 'btn btn-primary btn-lg col-md-4'} %>
+            </div>
+          </fieldset>
+        <% end %>
+      </main>
+      <footer class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Cancel</button>
+      </footer>
+    </div>
+  </div>
+</aside>

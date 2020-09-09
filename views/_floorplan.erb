@@ -1,0 +1,37 @@
+<% if floor = client_floor %>
+  <% scale = floor.floorplan_scale %>
+  <% scaled_width = floor.floorplan.width * scale %>
+  <% scaled_height = floor.floorplan.height * scale %>
+  <div class="container-fluid">
+    <!-- container-fluid should not exceed image size as regions are relative to container-fluid -->
+    <div class="floorplan-container" style="max-width: <%= floor.floorplan.width %>px; max-height: <%= floor.floorplan.height %>px">
+      <%= image_tag floor.floorplan.url %>
+      <% if display_regions %>
+        <% floor.children.each do |region| %>
+          <% left_p  = ( region.x1 / (floor.floorplan.width / floor.floorplan_scale) ) * 100.0 %>
+          <% right_p = ((region.x2 * scale) / floor.floorplan.width) * 100.0 %>
+          <% width_p = right_p - left_p %>
+          <% bottom_p = ((region.y1 * scale) / floor.floorplan.height) * 100.0 %>
+          <% top_p    = 100 - (((region.y2 * scale) / floor.floorplan.height) * 100.0) %>
+          <% height_p = 100 - bottom_p - top_p %>
+          <%# Override the .region CSS class with additional styles if desired. %>
+          <%= content_tag('div', {:class => 'region', :style => "#{"background-color: \##{region.bgcolor};" if region.bgcolor} left: #{left_p}%; width: #{width_p}%; height: #{height_p}%; top: #{top_p}%;" }) do %>
+            <div class="region-name-container-fluid">
+              <div class="region-name">
+                <%= region.name  %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if client_location %>
+        <% p_xoffset = (client_location.x * scale / floor.floorplan.width) * 100 %>
+        <% p_yoffset = 100 - (client_location.y * scale / floor.floorplan.height) * 100 %>
+        <%# Override the .youarehere and .youarehere:after CSS rules to modify
+        position marker style and text box contents %>
+        <%= content_tag('div', {
+          :class => 'youarehere', style: "top: #{p_yoffset}%; left: #{p_xoffset}%;"}) { } %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

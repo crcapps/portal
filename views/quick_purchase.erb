@@ -1,0 +1,629 @@
+<div class="container-fluid">
+
+  <% if @payment_method.errors.empty? && @account.errors.empty? %>
+    <div class="row"></div>
+  <% end %>    
+  <%= form_for(@payment_method, :url => { :action => :quick_purchase_charge },
+    :html => { :class => 'container-fluid', :name => 'payment_form', :id => 'payment_form', :onsubmit => 'return paymentFormOnSubmit()' }) do |f| %>
+    <fieldset class="container-fluid">
+      <div class="form-row">
+        <legend class="col-12 text-center">Sign Up</legend>
+      </div>
+      <!-- list of available plans -->
+      <fieldset class="container-fluid">
+        <div class="form-row">
+          <legend class="col-12 text-center">Pricing Plans</legend>
+        </div>
+        <% @usage_plans.each do |usage_plan| %>
+          <% 
+            # Determine argument values to be passed to the function that modifies the form
+            # based upon the combination of direct/offsite merchants and pms servers associated 
+            # with the plan
+
+            direct                      = usage_plan.direct_merchant.present?
+            offsite                     = usage_plan.offsite_merchant.present?
+            pms                         = usage_plan.pms_server.present?
+            free                        = usage_plan.price_free?
+            token                       = usage_plan.supports_tokenization?
+            email_validation_supported  = usage_plan.requires_account_validation?(:email)
+            phone_validation_supported  = usage_plan.requires_account_validation?(:sms)
+            onclick_function = sprintf("usagePlanOnclick(this, %s, %s, %s, %s, %s, %s, %s);", direct,offsite,pms,free,token,email_validation_supported,phone_validation_supported)
+            onclick_function = nil unless @paid_plans.any? || usage_plan.requires_account_validation?
+          %>
+          <div class="form-row">
+            <div class="form-group col-12">
+              <%= radio_button(:usage_plan, :id, usage_plan.id, 
+                  :onclick => onclick_function,
+                  :data => {
+                    :direct           => direct,
+                    :offsite          => offsite,
+                    :pms              => pms,
+                    :free             => free,
+                    :token            => token,
+                    :email_validation_supported => email_validation_supported,
+                    :phone_validation_supported   => phone_validation_supported
+                  },
+                  :class => 'sr-only') %>
+              <label class="container-fluid py-2 px-4" for="usage_plan_id_<%=usage_plan.id.to_s%>" aria-hidden>
+                <span class="sr-only" for="usage_plan_id_<%=usage_plan.id.to_s%>" aria-hidden>Name: <%= h(usage_plan.name) %> Price: <%= h(usage_plan.price_display) %></span>
+                <span class="mr-3"><%= h(usage_plan.name) %></span>&nbsp;<span class="text-primary"><%= h(usage_plan.price_display) %></span>
+              </label>
+            </div>
+          </div>
+        <% end %>
+      </fieldset>
+
+      <div id="quick_purchase_fields">
+        <% if @paid_plans.any? %>
+          <!-- list of available payment options -->
+          <fieldset class="container-fluid">
+          <div class="form-row">
+            <legend class="col-12 text-center">Payment Options</legend>
+            </div>
+            <!-- DIRECT CREDIT CARD -->
+            <% if @direct_plans.any? %>
+            <div class="form-row">
+              <div class="form-group col-12">
+                <%= radio_button_tag(:method, :direct, params[:method].nil? ? true : params[:method] == 'direct', :onclick => 'directOnclick();', :class => 'sr-only') %>
+                <label for="method_direct" class="text-primary">
+                  <span class="sr-only">Credit Card</span>
+                  <i class="fab fa-cc-visa fa-lg" aria-hidden></i>
+                  <i class="fab fa-cc-mastercard fa-lg" aria-hidden></i>
+                  <i class="fab fa-cc-amex fa-lg" aria-hidden></i>
+                  <i class="fab fa-cc-discover fa-lg" aria-hidden></i>
+                </label>
+              </div>
+              </div>
+            <% end %>
+            <!-- END DIRECT CREDIT CARD -->
+            
+            <!-- OFFSITE/PAYPAL -->
+            <% if @offsite_plans.any? %>
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <%= radio_button_tag(:method, :offsite, params[:method] == 'offsite', :onclick => 'offsiteOnclick();', :class => 'sr-only') %>
+                  &nbsp;&nbsp;
+                  <label for="method_offsite" class="text-primary>
+                    <% offsite_merchants = @offsite_plans.collect(&:offsite_merchant).uniq %>
+                    <% offsite_integrations = offsite_merchants.collect(&:integration).uniq %>
+                    <% if offsite_integrations.include?("Paypal") %>
+                      <span class="sr-only">PayPal</span>
+                      <i class="fab fa-cc-paypal fa-lg" aria-hidden></i>
+                    <% else %>
+                      <%# there could conceivably be more than 1 offsite merchant %>
+                      <%= offsite_merchants.collect(&:name).join(", ") %> 
+                    <% end %>
+                  </label>
+                </div>
+              </div>
+            <% end %>
+            <!-- END OFFSITE/PAYPAL -->
+            
+            <!-- PMS -->
+            <% if @pms_plans.any? %>
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <%= radio_button_tag(:method, :pms, params[:method] == 'pms', :onclick => 'pmsOnclick();', :class => 'sr-only') %>
+                  <label for="method_pms">
+                    Charge to Room
+                  </label>
+                </div>
+              </div>
+            <% end %>
+            <!-- END PMS -->
+          </fieldset>
+        <% else %>
+          <%= f.hidden_field :method, :value => (@pms_plans.any? ? 'pms' : 'direct') %>
+        <% end %>
+
+        
+        <fieldset class="container-fluid">
+        <div class="form-row">
+          <legend class="col-12 text-center">Account Info</legend>
+          </div>
+          <!-- account login block, comment to have auto-generated username/password -->
+          <div class="form-row">
+          <div class="form-group col-12">
+            <%= label_tag 'login_static', 'Login', :class => 'sr-only' %>
+            <div class="<%= 'field_with_errors' if @account.errors.keys.include? :login %>">
+              <%= text_field_tag 'login_static', params[:login_static], :placeholder => 'Login', :class => 'col-12 p-2' %>
+            </div>
+          </div>
+          </div>
+          <div class="form-row">
+          <div class="form-group col-12">
+            <%= label_tag 'password_static', 'Password', :class => 'sr-only' %>
+            <div class="<%= 'field_with_errors' if @account.errors.keys.include? :password %>">
+              <%= password_field_tag 'password_static', '', :placeholder => 'Password', :class => 'col-12 p-2' %>
+            </div>
+          </div>
+          </div>
+          <div class="form-row">
+          <div class="form-group col-12">
+          <%= label_tag 'password_confirmation_static', 'Confirm Password', :class => 'sr-only' %>
+            <div class="<%= 'field_with_errors' if @account.errors.keys.include? :password_confirmation %>">
+              <%= password_field_tag 'password_confirmation_static', '', :placeholder => 'Confirm Password', :class => 'col-12 p-2' %>
+            </div>
+          </div>
+          </div>
+        <div class="form-row">
+          <div class="form-group col-12">
+          <%= label_tag 'email', 'Email', :class => 'sr-only' %>
+            <%= email_field_tag 'email', params[:email], :placeholder => 'Email', :class => 'col-12 p-2' %>
+          </div>
+        </div>
+        <% if VlanTagAssignment.find_by(mac: client_mac).try(:supports_wlan_dpsk?) %>
+        <div class="form-row">
+          <div class="form-group col-12">
+          <%= label_tag 'pre_shared_key', 'Wireless Pre-Shared Key', :class => 'sr-only' %>
+            <%= text_field_tag 'pre_shared_key', params[:pre_shared_key], :placeholder => 'Wireless Pre-Shared Key', 
+                :class => 'col-12 p-2', :autocomplete => "off", :autocorrect => "off", :autocapitalize => "off", :spellcheck => "false" %>
+          </div>
+        </div>
+        <% end %>
+
+            <%= f.hidden_field :country,  :value => 'US'             %>
+            <%= f.hidden_field :phone,    :value => 1234567890       %>
+
+              <!-- comment to here to remove username/password fields-->
+        <% unless @paid_plans.any? %>
+          <div class="form-row">
+            <div class="form-group col-12">
+              <%= label_tag 'first_name', params[:method] == 'pms' ? 'Room Number' : 'First Name', :class => 'sr-only' %>
+              <%= f.text_field :first_name, :placeholder => params[:method] == 'pms' ? 'Room Number' : 'First Name', :class => 'col-12 p-2' %>
+            </div>
+            </div>
+            <div class="form-row">
+            <div class="form-group col-12">
+              <%= label_tag 'last_name', 'Last Name', :class => 'sr-only' %>
+              <%= f.text_field :last_name, :placeholder => 'Last Name', :class => 'col-12 p-2' %>
+            </div>
+            </div>
+        <% end %>
+        </fieldset>
+      
+
+        <% if @paid_plans.any? %> 
+          
+          <!-- payment information form -->
+          <fieldset class="container-fluid">
+          <div class="form-row">
+            <legend id="account_payment_info_legend">Payment Info</legend>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-12">
+              <%= label_tag 'first_name', params[:method] == 'pms' ? 'Room Number' : 'First Name', :class => 'sr-only' %>
+              <%= f.text_field :first_name, :placeholder => params[:method] == 'pms' ? 'Room Number' : 'First Name', :class => 'col-12 p-2' %>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-12">
+              <%= label_tag 'last_name', 'Last Name', :class => 'sr-only' %>
+              <%= f.text_field :last_name, :placeholder => 'Last Name', :class => 'col-12 p-2' %>
+            </div>
+          </div>
+
+            <% if @validation_plans.any? %>
+              <div id="form-row validation_notice">
+                <div class="form-group col-12">
+                  Note: <strong>No</strong> payments will be processed until your account has been activated.
+                </div>
+              </div>
+            <% end %>
+
+            <!-- ONLY credit-based coupons will work here -->
+            <% if Coupon.exists? %>
+            <div class="form-row">
+              <div class="form-group col-12">
+                <%= label_tag 'coupon_code', 'Coupon Code', :class => 'sr-only' %>
+                <%= text_field_tag 'coupon_code', params[:coupon_code], :placeholder => 'coupon...', :class => 'col-12 p-2' %>
+              </div>
+            </div>
+            <% end %>
+
+            <% if @stripe_plans.any? %>
+              <%= render :partial => 'stripe_form_elements' %>
+            <% end %>
+
+            <% if @direct_plans.any? %>
+              <div id="payment_fields">
+              <div class="form-row">
+                <div class="form-group col-12">
+                  <%= f.label :cc_number, 'Card Number', :class => 'sr-only' %>
+                  <%= f.text_field :cc_number, :placeholder => 'Card Number', :disabled => params[:method].nil? ? false : params[:method] != 'direct', :class => 'col-12 p-2' %>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-4">
+                    <%= f.label :cc_expiration_month, 'Expiration Month', :class => 'sr-only' %>
+                    <%= f.select :cc_expiration_month, %w( 01 02 03 04 05 06 07 08 09 10 11 12), { }, { :disabled => params[:method].nil? ? false : params[:method] != 'direct', :class => 'col-3 p-2' } %>
+                    <!-- explicitly setting selected to f.object.cc_expiration_year.to_i is
+                    necessary because the expiration year is stored as an encrypted string
+                    and must be converted to an integer to be recognized as a valid value by
+                    the form helper -->
+                </div>
+                <div class="form-group col-4">
+                    <%= f.label :cc_expiration_year, 'Expiration Year', :class => 'sr-only' %>
+                    <%= f.select :cc_expiration_year, Time.now.year .. Time.now.year + 20,
+                      { :selected => f.object.nil? ? Time.now.year : f.object.cc_expiration_year.to_i },
+                      { :disabled => params[:method].nil? ? false : params[:method] != 'direct', :class => 'col-3 p-2' } %>
+                </div>
+                <div class="form-group col-4">
+                  <%= f.label :cc_cvv2, 'CVV2' %>
+                  <%= f.text_field :cc_cvv2, :size => 4, :placeholder => 'CVV2', :disabled => params[:method].nil? ? false : params[:method] != 'direct', :class => 'col-3 p-2' %>
+                  <span class="float-right">
+                    <a href="#securityCodeModal" style="text-decoration:underline;" data-toggle="modal" data-target="#securityCodeModal">What is this?</a>
+                    <%= render :partial => 'security_code_modal' %>
+                  </span>
+                </div>
+              </div>
+          </div>
+          <% end %>
+          </fieldset>
+
+        
+        <% end %>
+
+        <!-- address info -->
+        <% if @simple_form %>
+          <!-- fields that rXg requires but we don't want to require from customer -->
+          <%= f.hidden_field :address1, :value => "Quick Purchase" %>
+          <%= f.hidden_field :city,     :value => "Quick Purchase" %>
+          <%= f.hidden_field :state,    :value => "Quick Purchase" %>
+          <%= f.hidden_field :zip,      :value => 00000            %>
+        <% else %>
+          <fieldset class="container-fluid">
+          <div class="form-row">
+            <legend class="col-12 text-center">Address</legend>
+            </div>
+            <div class="form-row">
+
+            <div class="form-group col-12">
+              <%= f.label :address1, 'Street', :class => 'sr-only' %>
+              <%= f.text_field :address1, :placeholder => 'Street', :class => 'col-12 p-2' %>
+            </div>
+            </div>
+            <div class="form-row">
+            <div class="form-group col-6">
+            <%= f.label :city, 'City', :class => 'sr-only' %>
+            <%= f.text_field :city, :placeholder => 'City', :class => 'col-12 p-2' %>
+            </div>
+            <div class="form-group col-3">
+            <%= f.label :state, 'State', :class => 'sr-only' %>
+            <%= f.text_field :state, :placeholder => 'State', :class => 'col-12 p-2'%>
+            </div>
+            <div class="form-group col-3">
+            <%= f.label :zip, 'Zip', :class => 'sr-only' %>
+            <%= f.text_field :zip, :placeholder => 'Zip', :class => 'col-12 p-2' %>
+            </div>
+            </div>
+          </fieldset>
+        <% end %>      
+
+        <fieldset class="container-fluid">
+          <%= render :partial => 'terms_checkbox' %>
+          <div class="form-row">
+            <div class="form-group col-12">
+              <%= button_tag('Purchase', :id => 'submit_button', :class => 'd-block mx-auto col-6 btn btn-primary btn-lg' ) %>
+            </div>
+          </div>
+        </fieldset>
+
+      </div><!-- end quick_purchase_fields -->
+    </fieldset>
+  <% end %> <!-- end form -->
+    
+  <% if @validation_plans.any? %>
+    <div id="validation_required">
+      <%= form_for(@account, :as => :validation_account, :url => { :action => :validation_account_create }, :html => { :class => 'container-fluid' }) do |f| %>
+        <fieldset class="container-fluid">
+        <div class="form-row">
+        <legend class="col-12 text-center">This Usage Plan is only available after validating an account.</legend>
+        </div>
+        <%= f.hidden_field :usage_plan_id %>
+        <%= render :partial => 'validated_account_form', locals: { f: f } %>
+        <div class="form-group col-12">
+        <%= button_tag('Create Account', :id => 'validated_account_submit_button', :class => 'd-block mx-auto col-6 btn btn-primary btn-lg' ) %>
+        </div>
+      </fieldset>
+      <% end %>
+    </div>
+  <% end %>
+  
+
+  <% unless @payment_method.errors.empty? && @account.errors.empty? %>
+    <div class="row">
+      <%= error_messages_for :account %>
+      <%= error_messages_for :payment_method %>
+    </div>
+  <% end %>
+  
+</div>
+
+
+<%# Methods %>
+
+<script type="text/javascript">
+
+function scrollToElement(theElement){
+
+  var selectedPosX = 0;
+  var selectedPosY = 0;
+
+  while(theElement != null){
+    selectedPosX += theElement.offsetLeft;
+    selectedPosY += theElement.offsetTop;
+    theElement = theElement.offsetParent;
+  }
+
+ window.scrollTo(selectedPosX,selectedPosY);
+}
+
+function enableCreditCard() {
+  $('#payment_method_cc_number').prop('disabled', false);
+  $('#payment_method_cc_cvv2').prop('disabled', false);
+  $('#payment_method_cc_expiration_month').prop('disabled', false);
+  $('#payment_method_cc_expiration_year').prop('disabled', false);
+  $('#payment_method_cc_number').prop('disabled', false);
+}
+
+function disableCreditCard() {
+  $('#payment_method_cc_number').prop('disabled', true);
+  $('#payment_method_cc_cvv2').prop('disabled', true);
+  $('#payment_method_cc_expiration_month').prop('disabled', true);
+  $('#payment_method_cc_expiration_year').prop('disabled', true);
+  $('#payment_method_cc_number').prop('disabled', true);
+}
+
+function enablePmsMethod() {
+  $('#method_pms').prop('disabled', false);
+}
+
+function disablePmsMethod() {
+  $('#method_pms').prop('disabled', true);
+}
+
+function enableDirectMethod() {
+  $('#method_direct').prop('disabled', false);
+}
+
+function disableDirectMethod() {
+  $('#method_direct').prop('disabled', true);
+}
+
+function enableOffsiteMethod() {
+  $('#method_offsite').prop('disabled', false);
+}
+
+function disableOffsiteMethod() {
+  $('#method_offsite').prop('disabled', true);
+}
+
+function showToken() {
+  $('#token_fields').show();
+}
+function hideToken() {
+  $('#token_fields').hide();
+}
+function hideCreditCard() {
+  $('#payment_fields').hide(); 
+}
+function showCreditCard() {
+  $('#payment_fields').show(); 
+}
+function hideValidationNotice() {
+  $('#validation_notice').hide(); 
+}
+function showValidationNotice() {
+  $('#validation_notice').show(); 
+}
+function showValidationRequired() {
+  $('#validation_required').show();
+  $('#quick_purchase_fields').hide();
+}
+function hideValidationRequired() {
+  $('#validation_required').hide();
+  $('#quick_purchase_fields').show();
+}
+function showPhoneValidationNotice() {
+  $('#phone_verification_notice').show()
+}
+function hidePhoneValidationNotice() {
+  $('#phone_verification_notice').hide()
+}
+function showEmailValidationNotice() {
+  $('#email_verification_notice').show()
+}
+function hideEmailValidationNotice() {
+  $('#email_verification_notice').hide()
+}
+
+function enableSubmit() {
+  $('#submit_button').prop('disabled', false);
+}
+
+function usagePlanOnclick(input, direct, offsite, pms, free, token, email_validation_supported, phone_validation_supported) {
+  // Set the usage_plan_id value of the hidden field within the validated account form
+  $("#validation_account_usage_plan_id").val(input.value);
+
+  if (direct) {
+    enableDirectMethod();
+    if (free || token) {
+      hideCreditCard();
+      if (token) {
+        showToken();
+      } else {
+        hideToken();
+      }
+    } else {
+      hideToken();
+      showCreditCard();
+    }
+    if (!offsite && !pms) {
+     $('#method_direct').prop('checked', true);
+    }
+  } else {
+    if (free && !pms && !offsite) {
+      // A free plan with no merchants/pms servers
+      enableDirectMethod();
+    } else {
+      disableDirectMethod();
+    }
+  }
+
+  if (offsite) {
+    enableOffsiteMethod();
+    hideCreditCard();
+    hideToken();
+    if (!direct && !pms) {
+     $('#method_offsite').prop('checked', true);
+    }
+  } else {
+    if (free && !direct && !pms) {
+      // A free plan with no merchants/pms servers
+      enableOffsiteMethod();
+    } else {
+      disableOffsiteMethod();
+    }
+  }
+
+  if (pms) {
+    enablePmsMethod();
+    hideToken();
+    if (!direct) {
+      hideCreditCard();
+    }
+    if (!direct && !offsite) {
+      hideCreditCard();
+     $('#method_pms').prop('checked', true);
+     $('#payment_method_first_name').prop('placeholder', 'Room Number');
+    }
+  } else {
+   $('#payment_method_first_name').prop('placeholder', 'First Name');
+    if (free && !direct && !offsite) {
+      // A free plan with no merchants/pms servers
+      enableDirectMethod();
+     $('#method_direct').prop('checked', true);
+    } else {
+      disablePmsMethod();
+    }
+  }
+
+  if (free) {
+    hideCreditCard();
+    hideToken();
+    disablePmsMethod();
+    disableDirectMethod();
+    disableOffsiteMethod();
+  } else {
+    if (!token && !pms && !offsite) {
+      showCreditCard();
+      hideToken();
+    } else if (!token) {
+      hideToken();
+    }
+  }
+
+  if (email_validation_supported || phone_validation_supported) {
+    showValidationRequired();
+    if (email_validation_supported) {
+      showEmailValidationNotice();
+    } else {
+      hideEmailValidationNotice();
+    }
+    if (phone_validation_supported) {
+      showPhoneValidationNotice();
+    } else {
+      hidePhoneValidationNotice();
+    }
+  } else {
+    hideValidationRequired();
+  }
+  
+}
+
+
+
+function directOnclick () {
+  // switch first name field back to "First Name"
+ $('#payment_method_first_name').prop('placeholder', 'first name...');
+  enableCreditCard();
+  // scroll to input form, make CC number field active
+  // scrollToElement(document.getElementById('payment_method_cc_number'));
+  $('#payment_method_cc_number').focus();
+}
+
+function offsiteOnclick() {
+  // switch first name field back to "First Name"
+ $('#payment_method_first_name').prop('placeholder', 'first name...');
+  disableCreditCard();
+  // scroll to input form, make first name field active
+  // scrollToElement(document.getElementById('payment_method_first_name'));
+  $('#payment_method_first_name').focus();
+}
+
+function pmsOnclick() {
+  // change first name field to "Room Number"
+ $('#payment_method_first_name').prop('placeholder', 'room number...');
+  disableCreditCard();
+  // scroll to input form, make first name field active
+  // scrollToElement(document.getElementById('payment_method_first_name'));
+  $('#payment_method_first_name').focus();
+}
+
+
+function paymentFormOnSubmit() {
+
+  var selected_plan = $("input[name='usage_plan[id]']:checked");
+  if (selected_plan.data('token') == true) {
+    stripeFormOnSubmit();
+    // stripe handler will take care of submitting form if validation passes.
+    return false;
+  }
+
+  var password = document.getElementById('password_static');
+  var password_confirmation = document.getElementById('password_confirmation_static');
+
+  var str=document.getElementById('email');
+  var filter=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+
+  var do_submit = true;
+
+  if (password.value != password_confirmation.value) {
+    alert("Password does not match confirmation.");
+    password.style.border = "1px solid red";
+    password_confirmation.style.border = "1px solid red";
+    do_submit = false;
+  } else {
+    password.style.border = "1px solid #ddd";
+    password_confirmation.style.border = "1px solid #ddd";
+  }
+
+  if (!filter.test(str.value)) {
+    alert("Please input a valid email address.");
+    str.style.border = "1px solid red";
+    do_submit = false;
+  } else {
+    str.style.border = "1px solid #ddd";
+  }
+
+  var tos_checkbox = document.getElementById('tos');
+  if (tos_checkbox && tos_checkbox.checked != true) {
+    alert("You must accept the Terms of Service to continue.");
+    do_submit = false;
+  }
+
+  if (do_submit == true) {
+    $('#submit_button').prop('disabled', do_submit);
+  }
+
+  return do_submit;
+}
+
+$(function () {
+  // trigger the onclick function when the page is loaded
+  $('input[name="usage_plan[id]"]:checked').trigger('click');
+
+});
+
+</script>

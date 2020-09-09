@@ -1,0 +1,144 @@
+:root {
+--dropShadow: #00000029;
+--textColor: #707070;
+--transparentPrimary: #29ABE2C0;
+}
+.bottom-left-align {
+position: absolute;
+bottom: 0;
+left: 0;
+}
+.hero {
+  background-image: url(<%= portal_asset_data_uri 'hotel.svg' %>);
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: bottom;
+  background-color: #DBE3E2;
+  background-size: contain;
+
+}
+
+div.separator {
+display: flex;
+align-items: center;
+text-align: center;
+margin-bottom: 1rem;
+}
+div.separator::before,
+.separator::after {
+content: '';
+flex: 1;
+border-bottom: 1px solid var(--dark)
+}
+div.separator::before {
+margin-right: 1rem;
+margin-left: 0.5rem;
+}
+div.separator::after {
+margin-right: 0.5rem;
+margin-left: 1rem;
+}
+input[type="radio"]:checked+label {
+border: 1px var(--primary) solid;
+}
+@media (max-width: 991.98px) {
+.offcanvas-collapse {
+position: fixed;
+bottom: 0;
+top: 0;
+width: 100%;
+padding-right: 1rem;
+padding-left: 1rem;
+overflow-y: auto;
+transition: transform .3s ease-in-out;
+transform: translateX(100%);
+z-index: 100;
+}
+.offcanvas-collapse.open {
+transform: translateX(-1rem);
+/* Account for horizontal padding on navbar */
+}
+.offcanvas-menu {
+background-color: var(--transparentPrimary);
+padding: 5rem 2rem;
+font-size: 1.5rem;
+}
+.offcanvas-menu .nav-item .nav-link{
+color: var(--white) !important;
+}
+.offcanvas-menu .nav-item.active .nav-link{
+color: var(--text-color) !important;
+}
+}
+@media (min-width: 992px) {
+.offcanvas-collapse {
+position: absolute;
+right: 0.5rem;
+}
+.offcanvas-overlay {
+display:none;
+}
+.session-info {
+padding: 0.75rem 0.5rem;
+}
+.session-info>div {
+border: 1px solid var(--dark);
+}
+}
+/* include -custom in the class names to prevent AdBlockPlus from blocking 
+the social media login buttons */
+.btn-facebook,
+.btn-facebook-custom {
+border-color: #2d5073;
+background-color: #3b5998;
+background-image: url(<%= portal_asset_data_uri 'facebook-icon.png' %>);
+}
+.btn-twitter,
+.btn-twitter-custom {
+border-color: #007aa6;
+background-color: #008cbf;
+background-image: url(<%= portal_asset_data_uri 'twitter-icon.png' %>);
+background-size: 40px;
+}
+.btn-googleplus,
+.btn-googleplus-custom {
+border-color: #111;
+background-color: #222;
+text-shadow: #333 -1px -1px 0;
+background-image: url(http://www.iconsdb.com/icons/preview/white/google-plus-xxl.png);
+}
+.btn-google_oauth2,
+.btn-google_oauth2-custom,
+.btn-google,
+.btn-google-custom {
+border: none;
+background-color: #FFF;
+color: #515151;
+text-shadow: inherit;
+background-image: url(<%= portal_asset_data_uri 'google-icon.svg' %>);
+}
+.btn-instagram,
+.btn-instagram-custom {
+background-image: url(<%= portal_asset_data_uri 'instagram-icon.png' %>);
+border: none;
+background-color: #db3075;
+color: #FFF;
+text-shadow: inherit;
+background-size: 17px;
+background-position: right 8px center;
+}
+.btn-linked_in,
+.btn-linked_in-custom {
+border: none;
+background-color: #0377b5;
+color: #FFF;
+text-shadow: inherit;
+background-image: url(<%= portal_asset_data_uri 'linked_in-icon.svg' %>);
+}
+.btn-saml-custom {
+background-color: #428bca;
+border-color: #357ebd;
+/* Remove padding-right: 0px; and add a background-image to add a logo to button */
+padding-right: 0px;
+}
+/* END SOCIAL LOGIN BUTTONS */

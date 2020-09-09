@@ -1,0 +1,47 @@
+# Example English (en) locale file for the default Portal. Copy to another file
+# and translate to implement localization (e.g., es.yml, fr.yml).
+
+en: # Change this to the desired locale (e.g., es, fr).
+
+  # Layouts
+  layouts: # Namespace of all layouts
+    portal: # Namespace of all Custom Portal layouts
+
+      designmock: # The name of the Custom Portal controller.
+      
+        # Strings living in default.erb layout file.
+      
+        # en.layouts.portal.default.title
+        # <%= t('.title') %> # lazy lookup
+        # or
+        # <%= t(:title, :scope => [:layouts, :portal, :default]) %> # explicit scope
+        title: Designmock Portal
+        welcome: Welcome %{login} # example of variable interpolation
+      
+      
+  # Views
+  portal: # Namespace of all Portal views
+
+    designmock: # The name of the Custom Portal controller.
+      
+      # Strings living in index.erb view files.
+      index: # named after the view
+        
+        # en.portal.default.index.back_at_portal
+        # <%= t('.back_at_portal') %> # lazy lookup
+        # or
+        # <%= t(:back_at_portal, :scope => [:portal, :default]) %> # explicit scope        
+        back_at_portal: You are back at the portal.
+        
+        # en.portal.default.index.welcome
+        # <%= t('.welcome', :login => @login_session.login) %> # lazy lookup
+        # or
+        # <%= t(:welcome, :login => @login_session.login, :scope => [:portal, :default]) %> # explicit scope        
+        # All options besides :default and :scope that are passed to #translate will be
+        # interpolated to the translation:
+        
+      # logout_success.erb
+      logout_success:
+        header: Logout Successful
+        logout_ok: You have successfully logged out.
+        visit_again: Please come and visit us again.

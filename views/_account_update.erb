@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <%# if @current_account.errors.empty? %>
+  <%# end %>
+  <div class="row">
+    <div class="col-3">
+<%= portal_image_tag "profile_icon.svg" %>
+</div>
+<div class="col-9">
+  <h2 class="text-primary bottom-left-align">Account Profile</h2>
+</div>
+<hr class="col-10 border-dark my-1 ml-0">
+    </div>
+    <%= form_for( @current_account, :as => :current_account, :url => { :action => :current_account_update },
+      :html => { :class => 'container-fluid', :name => 'account_form', :id => 'account_form' }) do |f| %>
+      <%= render :partial => 'account_form', :locals => { :f => f } %>
+      <div class="form-row">
+      <div class="form-group col-12">
+        <%= button_tag('Update', :class => 'd-block mx-auto col-6 btn btn-primary btn-lg', :data => { :disable_with => 'Please wait...' }) %>
+      </div>
+      </div>
+      <div class="form-row">
+      <div class="form-group col-12">
+        <%= link_to('Update Payment Method', {:action => 'payment_method_edit'}, :class => 'd-block mx-auto col-6') %>
+      </div>
+      </div>
+    <% end %>
+  <% unless @current_account.errors.empty? %>
+    <div class="row">
+      <div class="col-12 text-center">
+        <%= error_messages_for :current_account %>
+      </div>
+    </div>
+  <% end %>
+</div>

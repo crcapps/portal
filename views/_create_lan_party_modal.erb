@@ -1,0 +1,26 @@
+<aside id="create_lan_party_modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h2 class="inline-block">Create a LAN Party</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      <main class="modal-body">
+        <p>
+          <strong>WARNING:</strong> By inviting other users to join your network, you are
+          allowing another person direct access to your devices. Up-to-date 
+          Anti-virus and firewalls are recommended to protect your devices.
+          Only invite users you trust to join your LAN Party.
+        </p>
+        <p>
+          <%= render :partial => 'lan_party_form', :locals => {lan_party: @lan_party} %>
+        </p>
+      </main>
+      <footer class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Cancel</button>
+      </footer>
+    </div>
+  </div>
+</aside>

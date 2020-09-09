@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <div class="row">
+    <h2 class="col-12 text-center">Redeem Coupon</h2>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <% if @current_account %>
+        <%= render :partial => 'redeem_coupon_form' %>
+      <% else %>
+        <p class="text-center">
+          Please <%= link_to 'sign up', :action => :quick_purchase %> or 
+          login before redeeming a coupon.
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

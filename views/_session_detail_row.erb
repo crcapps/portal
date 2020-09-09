@@ -1,0 +1,40 @@
+<div class="row">
+<div class="col-12">
+<h4>Session Info</h4>
+</div>
+<div class="col-12">
+<table class="table">
+  <tr>
+    <th>Logged-in</th>
+    <td><%= l(ls.updated_at) %></td>
+  </tr>
+  <tr>
+    <th>IP address</th>
+    <td><%= ls.ip %></td>
+  </tr>
+  <% if ls.http_user_agent %>
+    <tr>
+      <th>Browser</th>
+      <td><%= ls.http_user_agent.name %></td>
+    </tr>
+  <% end %>
+  <% if @current_account && @current_account.lock_devices == false %>
+  <tr>
+    <td colspan="2" class="action-cell">
+      
+      <% if ls.mac == client_mac %>
+        <%= link_to('Logout', {:action => :login_session_destroy}, {:class => 'd-block mx-auto text-center', :data => { :disable_with => 'Please wait...', data: { confirm: 'This will log you out. Proceed?' } }}) %>
+      <% else %>
+        <%= form_tag(:action => :logout_device, :existing_login_session_id => ls.id) do %>
+          <%# Prevent an end-user from logging out her current session %>
+
+          <%= button_tag('Logout', :class => 'd-block mx-auto text-center', :data => { :disable_with => 'Please wait...' }) %>
+
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+</div>
+</div>

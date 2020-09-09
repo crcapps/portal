@@ -1,0 +1,44 @@
+<aside id="deleteAccountModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h2 class="modal-title">Delete Account</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+      <main class="modal-body">
+        <%= form_tag( {:action => :delete_account}, { :class => 'container-fluid' } ) do %>
+          <fieldset class="container-fluid border-danger">
+            <div class="form-row">
+              <legend class="col-12 text-center text-danger">WARNING</legend>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-12">
+                <p class="text-center">
+                  Clicking the button below will cause your account to be 
+                  permanently erased, including any remaining usage or account credit.  
+                  This action is unrecoverable.
+                </p>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="container-fluid">
+          </div>
+          <div class="form-row">
+            <legend class="col-12 text-center">Do you wish to proceed?</legend>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-12">
+              <%= button_tag('Delete my account', :class => 'btn btn-danger btn-lg', :data => { :confirm => 'Are you really sure?', :disable_with => 'Please wait...' }) %>
+            </div>
+          </div>
+        </fieldset>
+      <% end %>
+    </main>
+    <footer class="modal-footer">
+      <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>
+    </footer>
+  </div>
+</div>
+</aside>

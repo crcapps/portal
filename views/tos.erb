@@ -1,0 +1,19 @@
+<div class="rg-heading">
+  <h2 class='uk-visible-small'>Terms of Service</h2>
+  <h1 class='uk-hidden-small'>Terms of Service</h1>
+</div>
+<div class="uk-grid rg-transparent-bg rg-margin-left rg-payment-form uk-padding-remove uk-margin-remove">
+  <div class="uk-width-1-1">
+    <p>
+      Before continuing, you must agree to the Terms of Service for this network.
+    </p>
+    <%= render :partial => 'tos' %>
+    <br/>
+    <br/>
+    <%= form_tag :action => :tos_submit do %>
+      <p class="center-align"><label for='tos'>I agree to the Terms of Service: </label>
+        <%= check_box('tos', 'checked', { }, 'yes', 'no') %></p>
+      <%= button_tag('Continue', :class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg', :data => { :disable_with => 'Please wait...' }) %>
+    <% end %>
+  </div>
+</div>
