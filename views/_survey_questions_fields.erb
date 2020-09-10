@@ -36,7 +36,7 @@
           <%= field.check_box :answer, {:required => survey_question.required}, true, false %>
           <%= field.label :answer, survey_question.question %>
         <% when 'number_field' %>
-          <% allowable_options = [:min, :max, :in, :within, :step, :required] %>
+          <% allowable_options = [:min, :max, :in, :within, :step, :required, :class] %>
           <% options = {:class => 'form-control form-control-lg' } %>
           <% survey_question.survey_question_options.each do |o| %>
             <% options[o.display_text.to_sym] = o.value %>
