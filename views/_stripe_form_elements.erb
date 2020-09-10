@@ -9,6 +9,18 @@
      ) 
     merchant ||= usage_plan.direct_merchant 
 %>
+<style>
+    /* Stripe card input field follows the initial styling of the card element */
+    #card-element {
+      box-shadow: 0px 3px 6px var(--dropShadow) !important;
+      border: none !important;
+      border-radius: 5px !important;
+      background: var(--white) !important;
+      color: var(--textColor) !important;
+      padding: 0.5rem !important;
+    }
+    
+  </style>
 <div class="form-row">
   <div class="form-group col-12" id="token_fields">
     <div id="card-element">

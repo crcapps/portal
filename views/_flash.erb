@@ -82,8 +82,6 @@
   :lan_party_invitation_sent        => 'I, The invitation has been sent',
   :lan_party_invitation_not_sent    => 'E, The invitation could not be sent'
 } %>
-
-
 <% modal_messages = {
   :pms_guest_name_missing => '
 <h3>Access Denied</h3>
@@ -161,21 +159,18 @@ supplied your key. Try again when you have found your room number.
 '
 
 } %>
-    
 <%# flash[:exception]: a raw error string describing the cause of an exception %>
 <%# @exception:        a raw error string describing the cause of an exception %>
 <%# flash[:notice]:    either a symbol that maps to a string in the notice_messages hash defined above, or a raw string %>
 <%# @notice:           either a symbol that maps to a string in the notice_messages hash defined above, or a raw string %>
 <%# flash[:message]:   a raw string containing an informative message, usually in addition to a notice %>
 <%# @message:          a raw string containing an informative message, usually in addition to a notice %>
-
 <%# an action might populate more than one type of notice %>
 <% [ flash[:exception], @exception,
      flash[:notice], @notice,
      flash[:message], @message,
      @current_account.nil? ? nil : @current_account.portal_message
    ].flatten.compact.uniq.each do |notice| %>
-
   <% 
   # Map flash message severity indicator to uikit alert level
   severity_hash = {
@@ -191,41 +186,37 @@ supplied your key. Try again when you have found your room number.
     severity     = severity_hash[notice_array[0]]
   end
   %>
-
   <aside class="alert alert-<%= severity %>">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
+      <span aria-hidden="true">&times;</span>
+    </button>
     <span><%= truncate(message.to_s, :length => 80) %></span>
   </aside>
-
   <% if modal_messages[notice.to_sym] %>
     <aside id="rg-modal">
       <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <header class="modal-header">
-        <h2 class="modal-title">Delete Account</h2>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </header>
-      <main class="modal-body">
-        <span><%= modal_messages[notice.to_sym].gsub(/\n/, '').html_safe %></span>
-      </main>
-      <footer class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>
-      </footer>
-    </div>
-  </div>
+        <div class="modal-content">
+          <header class="modal-header">
+            <h2 class="modal-title">Delete Account</h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </header>
+          <main class="modal-body">
+            <span><%= modal_messages[notice.to_sym].gsub(/\n/, '').html_safe %></span>
+          </main>
+          <footer class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">Close</button>
+          </footer>
+        </div>
+      </div>
     </aside>
     <script type="text/javascript">
       const alert = $("#rg-modal");
       alert.modal('show')
     </script>
   <% end %>
-
 <% end %>
-
 <%# Clear the message from the Account record, skipping validation and callbacks %>
 <% if @current_account %>
   <% @current_account.update_column(:portal_message, nil) if @current_account.portal_message %>
