@@ -1,19 +1,19 @@
-<table class="summarysummary">
+<table class="table summarysummary">
   <tr>
 
-    <td align="left">
+    <td align="left border-0">
       <span id="<%= dialog[:name] %>_graph_link">
         <%= dialog_graph_link(dialog)%>
       </span>
     </td>
     
-    <td align="left">
+    <td align="left border-0">
       <span class="summarytext" id="<%= dialog[:name] %>_summary_text">
         <%= dialog[:summary].to_s.html_safe %>
       </span>
     </td>
 
-    <td align="right">
+    <td align="right border-0">
       <span id="<%= dialog[:name] %>_details_link">
         <%= dialog_details_link(dialog) %>
       </span>
