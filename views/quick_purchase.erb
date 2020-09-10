@@ -44,9 +44,10 @@
                     :phone_validation_supported   => phone_validation_supported
                   },
                   :class => 'sr-only') %>
-              <label class="container-fluid py-2 px-4" for="usage_plan_id_<%=usage_plan.id.to_s%>" aria-hidden>
+              <label class="col-12 py-2 px-4" for="usage_plan_id_<%=usage_plan.id.to_s%>" aria-hidden>
                 <span class="sr-only" for="usage_plan_id_<%=usage_plan.id.to_s%>" aria-hidden>Name: <%= h(usage_plan.name) %> Price: <%= h(usage_plan.price_display) %></span>
-                <span class="mr-3"><%= h(usage_plan.name) %></span>&nbsp;<span class="text-primary"><%= h(usage_plan.price_display) %></span>
+                            <%= render :partial => 'usage_plan', :object => usage_plan %>
+
               </label>
             </div>
           </div>
