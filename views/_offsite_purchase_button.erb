@@ -174,7 +174,7 @@
     <!-- insert the image submit tag for the payment button -->
     <% if integrations_class_name == 'Paypal' %>
       <!-- PayPal likes you to use their special "pay now" button -->
-      <%= image_button_tag 'https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png', :class => 'submit_button' %>
+      <%= image_button_tag 'https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-medium.png', :class => submit_button %>
     <% else %>
       <!-- Authorize.Net SIM and FirstData don't seem to have a cool button to use -->
       <%= button_tag('Purchase', :class => 'form-control form-control-lg btn-primary', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
