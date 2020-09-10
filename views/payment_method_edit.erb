@@ -26,13 +26,13 @@
         <%= render :partial => 'payment_method_form', :locals => { :f => f } %>
         <div class="form-row">
         <div class="form-group col-12">
-          <%= button_tag('Update', :class => 'd-block mx-auto col-6 btn btn-primary btn-lg', :data => { :disable_with => 'Please wait...' }) %>
+          <%= button_tag('Update', :class => 'd-block mx-auto col-6 btn btn-primary btn-lg', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
         </div>
         </div>
         <% if @payment_method.persisted? %>
         <div class="form-row">
         <div class="form-rgroup col-12">
-          <%= link_to 'Delete Payment Method', { :action => :payment_method_delete, :id => @payment_method.id }, { :class => 'd-block mx-auto col-6 text-danger', :data => { :confirm => 'This will remove your payment method and prevent recurring billing from taking place. You will no longer be able to use the network once your usage expires. Are you sure you want to continue?', :disable_with => 'Please wait...'}} %>
+          <%= link_to 'Delete Payment Method', { :action => :payment_method_delete, :id => @payment_method.id }, { :class => 'd-block mx-auto col-6 text-danger', :data => { :confirm => 'This will remove your payment method and prevent recurring billing from taking place. You will no longer be able to use the network once your usage expires. Are you sure you want to continue?', :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe}} %>
         </div>
         </div>
         <% end %>

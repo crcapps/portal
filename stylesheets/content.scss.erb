@@ -63,6 +63,18 @@ div.separator:last-of-type:not(:only-of-type) {
 input[type="radio"]:checked+label {
 border: 1px var(--primary) solid;
 }
+
+.progress-bar-title {
+  position: absolute;
+  text-align: center;
+  line-height: 20px; /* line-height should be equal to bar height */
+  overflow: hidden;
+  color: #fff;
+  right: 0;
+  left: 0;
+  top: -2px;
+}
+
 @media (max-width: 991.98px) {
 .offcanvas-collapse {
 position: fixed;

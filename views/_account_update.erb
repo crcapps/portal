@@ -15,12 +15,12 @@
       <%= render :partial => 'account_form', :locals => { :f => f } %>
       <div class="form-row">
       <div class="form-group col-12">
-        <%= button_tag('Update', :class => 'd-block mx-auto col-6 btn btn-primary btn-lg', :data => { :disable_with => 'Please wait...' }) %>
+        <%= button_tag('Update', :class => 'd-block mx-auto col-6 btn btn-primary btn-lg', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
       </div>
       </div>
       <div class="form-row">
       <div class="form-group col-12">
-        <%= link_to('Update Payment Method', {:action => 'payment_method_edit'}, :class => 'd-block mx-auto col-6') %>
+        <%= link_to('Update Payment Method', {:action => 'payment_method_edit'}, :class => 'd-block mx-auto col-6 text-center') %>
       </div>
       </div>
     <% end %>

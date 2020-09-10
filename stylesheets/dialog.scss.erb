@@ -11,10 +11,7 @@ font-size: 75%;
 font-family: Arial,sans-serif;
 text-decoration: none;
 z-index: 1;
--moz-border-radius: none;
--webkit-border-radius: none;
 border-radius: 0px;
--webkit-box-shadow: none;
 box-shadow: none;
 }
 .carousel .rxg_portal_dialog {
@@ -91,19 +88,19 @@ table.summary img:hover {
 border-left: 2px solid #D9D9D9;
 }
 .rxg_portal_dialog a:hover {
-color: blue;
+color: var(--primary);
 background-color: transparent;
 }
 .rxg_portal_dialog a:link {
-color: blue;
+color: var(--primary);
 background-color: transparent;
 }
 .rxg_portal_dialog a:visited {
-color: blue;
+color: var(--primary);
 background-color: transparent;
 }
 .rxg_portal_dialog a:active {
-color: blue;
+color: var(--primary);
 background-color: transparent;
 }
 a.global_search_link {
@@ -168,25 +165,21 @@ text-align: right;
 .rxg_portal_dialog.yellow .t,
 .rxg_portal_dialog.yellow .b,
 .rxg_portal_dialog.yellow .b div {
-background-color: #FFFF66;
+background-color: var(--yellow);
 }
 .rxg_portal_dialog.red .content,
 .rxg_portal_dialog.red .t,
 .rxg_portal_dialog.red .b,
 .rxg_portal_dialog.red .b div {
-background-color: #FF8080;
+background-color: var(--red);
 }
 /*
 .rxg_portal_dialog.red .content {
 background-color: inherit;
--webkit-box-shadow: inset 0px 0px 62px 10px rgba(240,128,128,1);
--moz-box-shadow: inset 0px 0px 62px 10px rgba(240,128,128,1);
 box-shadow: inset 0px 0px 62px 10px rgba(240,128,128,1);
 }
 .rxg_portal_dialog.yellow .content {
 background-color: inherit;
--webkit-box-shadow: inset 0px 0px 62px 10px rgba(255,255,102,1);
--moz-box-shadow: inset 0px 0px 62px 10px rgba(255,255,102,1);
 box-shadow: inset 0px 0px 62px 10px rgba(255,255,102,1);
 }
 */
@@ -195,8 +188,6 @@ position: relative;
 overflow: hidden;
 padding: 5px 5px 5px 5px;
 border-radius: none;
--moz-border-radius: none;
--webkit-border-radius: none;
 }
 .rxg_portal_dialog .hd,
 .rxg_portal_dialog .bd,
@@ -214,19 +205,13 @@ overflow: auto; /* note that overflow:auto causes a rather annoying redraw "lag"
 margin: 0px; /* margins will blow out backgrounds, leaving whitespace. */
 padding:0.5em 0px 0.5em 0px;
 }
-.rxg_portal_dialog h1 {
-padding-bottom: 0px;
-}
-.uk-progress {
-background: #555;
-margin: 1px 10px 1px 0px;
-}
+
 .progress-bar-hidden {
--webkit-box-shadow: none;
 box-shadow: none;
 background: none;
 }
-.progress-bar-hidden .uk-progress-bar {
+
+.progress-bar-hidden .progress-bar {
 background: none;
 color: #555;
 }

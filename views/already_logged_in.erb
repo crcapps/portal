@@ -50,7 +50,7 @@
                 :account_id => @account.id, :login => @account.login, :password => @account.crypted_password,
                 :seize_existing_login_session_id => ls.id,
                 :survey_questions => @survey_questions },
-                :data => { :disable_with => 'Please wait...' }) %>
+                :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
                   </td>
                 </tr>
               <% end %>
@@ -99,7 +99,7 @@
             :account_id => @account.id, :login => @account.login, :password => @account.crypted_password,
             :seize_existing_login_session => true,
             :survey_questions => @survey_questions },
-            :data => { :disable_with => 'Please wait...' }) %>
+            :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
           </p>
         <% end %>
         <% if @account.pms_guest %>

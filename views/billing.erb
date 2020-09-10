@@ -61,7 +61,7 @@
 <div class="row">
   <div class="col-12 text-center">
     <%= link_to 'Edit Payment Method', { :action => :payment_method_edit }, 
-      { :class => 'd-block mx-auto col-6', :disable_with => 'Please wait...' } %>
+      { :class => 'd-block mx-auto col-6', :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } %>
     <% if @current_account && 
           @current_account.usage_plan.try(:recurring_method) != "none" &&
           @current_account.bill_at.nil? %>
@@ -73,7 +73,7 @@
           :class => 'd-block mx-auto col-6 text-danger', 
           :data => { 
             :confirm => 'This will disable recurring payments, and you may continue to use the network until your usage has expired.  Are you sure you wish to continue?', 
-            :disable_with => 'Please wait...' } } %>
+            :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } } %>
   <% end %>
   <% if Coupon.first %>
     <%= link_to 'Redeem a Coupon', { :action => :coupon }, { :class => 'uk-button rg-button rg-button-inline' } %>

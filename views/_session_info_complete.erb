@@ -80,7 +80,7 @@
             </div>
             <div class="col-12">
               <p class="purchase_more text-center">
-                <%= link_to 'purchase more usage', {:action => :usage_plan_list}, {:class => 'd-block mx-auto col-6', :data => { :disable_with => 'Please wait...' } } %>
+                <%= link_to 'purchase more usage', {:action => :usage_plan_list}, {:class => 'd-block mx-auto col-6', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } } %>
               </p>
             </div>
           </div>

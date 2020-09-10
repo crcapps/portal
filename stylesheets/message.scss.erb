@@ -14,9 +14,7 @@
 .field_with_errors input[type="select"],
 .field_with_errors input[type="radio"],
 .field_with_errors input[type="checkbox"] {
-  border: 1px solid #dc8d99;
-  background-color: #fff7f8;
-  color: #d85030;
+  border: 1px solid var(--danger);
 }
 
 /* ruby on rails error text */
@@ -27,9 +25,9 @@ div#errorExplanation {
 
 div#errorExplanation h2 {
   border: 0px none white;
-  color: red;
+  color: var(--danger);
   font-weight: bold;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid var(--danger);
   font-size: 10px;
   line-height: 13px;
   padding-top: 8px;
@@ -38,15 +36,19 @@ div#errorExplanation h2 {
 
 div#errorExplanation p {
   border: 0px none white;
-  color: red;
+  color: var(--danger);
   font-size: 9px;
   line-height: 12px;
 }
 
 div#errorExplanation li {
-  color: red;
+  color: var(--danger);
   font-size: 9px;
   line-height: 12px;
   list-style: none;
   padding-bottom: 5px;
+}
+
+div#errorExplanation ul {
+  padding-left: 0;
 }

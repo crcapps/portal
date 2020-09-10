@@ -53,12 +53,12 @@
   <% end %>
   <tr>
     <th>Usage</th>
-    <td><%= link_to('View Usage', {:action => :usage, :device_id => device.id}, {:class => 'uk-button uk-width-1-1 rg-button no-min-width', :data => { :disable_with => 'Please wait...' } }) %> </td>
+    <td><%= link_to('View Usage', {:action => :usage, :device_id => device.id}, {:class => 'uk-button uk-width-1-1 rg-button no-min-width', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } }) %> </td>
   </tr>
   <% if @current_account && @current_account.lock_devices == false %>
     <tr>
       <td colspan="2" class="action-cell">
-        <%= link_to('Delete', {:action => :delete_device, :device_id => device.id}, {:class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg', :data => { :disable_with => 'Please wait...' } }) %>
+        <%= link_to('Delete', {:action => :delete_device, :device_id => device.id}, {:class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } }) %>
       </td>
     </tr>
   <% end %>

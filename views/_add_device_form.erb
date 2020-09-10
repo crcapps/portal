@@ -29,7 +29,7 @@
   </div>
   <div class="form-row">
   <div class="form-group col-12">
-  <%= button_tag('Add', :class => 'col-12 btn btn-primary btn-large', :data => { :disable_with => 'Please wait...' }) %>
+  <%= button_tag('Add', :class => 'col-12 btn btn-primary btn-large', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
   </div>
   </div>
   </fieldset>

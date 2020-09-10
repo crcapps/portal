@@ -45,10 +45,10 @@
       <div class="form-row">
         <% if pf.persisted? %>
           <div class="form-group col-12">
-            <%= button_tag 'Update', :class => 'col-12 btn btn-primary btn-lg', :data => {:disable_with => 'Updating' } %>
+            <%= button_tag 'Update', :class => 'col-12 btn btn-primary btn-lg', :data => {:disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Updating'.html_safe } %>
           </div>
           <div class="form-group col-12">
-            <%= button_tag 'Delete', :class => 'col-12 btn btn-danger btn-lg', :data => {:confirm => 'Are you sure you want to delete this port forward?', :disable_with => 'Deleting' } %>
+            <%= button_tag 'Delete', :class => 'col-12 btn btn-danger btn-lg', :data => {:confirm => 'Are you sure you want to delete this port forward?', :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span>Deleting'.html_safe } %>
           </div>
         <% else %>
           <div class="form-group col-12">

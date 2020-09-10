@@ -30,7 +30,7 @@
           </div>
           <div class="form-row">
             <div class="form-group col-12">
-              <%= button_tag('Delete my account', :class => 'btn btn-danger btn-lg', :data => { :confirm => 'Are you really sure?', :disable_with => 'Please wait...' }) %>
+              <%= button_tag('Delete my account', :class => 'btn btn-danger btn-lg', :data => { :confirm => 'Are you really sure?', :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
             </div>
           </div>
         </fieldset>
