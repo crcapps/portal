@@ -7,7 +7,7 @@
     :html => { :class => 'container-fluid', :name => 'payment_form', :id => 'payment_form', :onsubmit => 'return paymentFormOnSubmit()' }) do |f| %>
     <fieldset class="container-fluid">
       <div class="form-row">
-        <legend class="col-12 text-center">Sign Up</legend>
+        <legend class="col-12 text-center display-4 text-primary">Sign Up</legend>
       </div>
       <!-- list of available plans -->
       <fieldset class="container-fluid">
@@ -44,10 +44,11 @@
                     :phone_validation_supported   => phone_validation_supported
                   },
                   :class => 'sr-only') %>
-              <label class="col-12 py-2 px-4" for="usage_plan_id_.id.to_s%>" aria-hidden>
-                <span class="sr-only" for="usage_plan_id_<%= usage_plan.id.to_s%>" aria-hidden>Name: <%= h(usage_plan.name) %> Price: <%= h(usage_plan.price_display) %></span>
-                            <%= render :partial => 'usage_plan', :object => usage_plan %>
-
+<label class="col-12 py-2 px-4" for="usage_plan_id_<%=usage_plan.id.to_s%>">
+                 <span class="sr-only" for="usage_plan_id_<%=usage_plan.id.to_s%>">Name: <%= h(usage_plan.name) %> Price: <%= h(usage_plan.price_display) %></span>
+                 <div aria-hidden>
+                <%= render :partial => 'usage_plan', :object => usage_plan %>
+                </div>
               </label>
             </div>
           </div>
@@ -66,7 +67,7 @@
             <div class="form-row">
               <div class="form-group col-12">
                 <%= radio_button_tag(:method, :direct, params[:method].nil? ? true : params[:method] == 'direct', :onclick => 'directOnclick();', :class => 'sr-only') %>
-                <label for="method_direct" class="text-primary">
+                <label for="method_direct">
                   <span class="sr-only">Credit Card</span>
                   <i class="fab fa-cc-visa fa-lg" aria-hidden></i>
                   <i class="fab fa-cc-mastercard fa-lg" aria-hidden></i>
@@ -84,7 +85,7 @@
                 <div class="form-group col-12">
                   <%= radio_button_tag(:method, :offsite, params[:method] == 'offsite', :onclick => 'offsiteOnclick();', :class => 'sr-only') %>
                   &nbsp;&nbsp;
-                  <label for="method_offsite" class="text-primary>
+                  <label for="method_offsite">
                     <% offsite_merchants = @offsite_plans.collect(&:offsite_merchant).uniq %>
                     <% offsite_integrations = offsite_merchants.collect(&:integration).uniq %>
                     <% if offsite_integrations.include?("Paypal") %>

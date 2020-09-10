@@ -60,10 +60,15 @@ margin-left: 1rem;
 div.separator:last-of-type:not(:only-of-type) {
   display: none;
 }
-input[type="radio"]:checked+label {
+input[type="radio"]:checked+label>div {
 border: 1px var(--primary) solid;
 }
-
+input[type="radio"]:checked+label .collapse {
+display: block !important;
+}
+.div+.collapse {
+  border: 1px #f00 solid !important;
+}
 .progress-bar-title {
   position: absolute;
   text-align: center;
