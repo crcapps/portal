@@ -1,6 +1,6 @@
 <div class="container-fluid">
 <div class="row">
-  <div class="col-12">
+  <div class="col-12 purchase-plan">
     <% if @usage_plan.price_free? %>
       <%= form_for(@payment_method, :url => { :action => :usage_plan_charge, :id => @usage_plan.id },
         :html => { :name => 'payment_form', :id => 'payment_form', :class => 'container-fluid' }) do |f| %>
@@ -48,7 +48,7 @@
             <%= text_field_tag 'pms_credential_a', @current_account.first_name, :placeholder => 'Room Number...', :class => 'form-control form-control-lg' %>
           </div>
           <div>
-            <%= text_field_tag 'pms_credential_b', @current_account.last_name, :placeholder => @pms_server.second_credential == 'G#' ? 'guest number...' : 'last name...', :class => 'form-control form-control-lg' %>
+            <%= text_field_tag 'pms_credential_b', @current_account.last_name, :placeholder => @pms_server.second_credential == 'G#' ? 'Guest Number...' : 'Last Name...', :class => 'form-control form-control-lg' %>
           </div>
           <div>
             <%= button_tag('Purchase', :class => 'd-block mx-auto col-6 btn btn-lg btn-light shadow-sm', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
