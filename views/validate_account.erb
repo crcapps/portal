@@ -10,7 +10,7 @@
     <%= link_to 'click here', {action: :resend_validation_code, desired_usage_plan_id: @usage_plan.try(:id)} %> to resend.</p>
   <%= hidden_field_tag :desired_usage_plan_id, @usage_plan.try(:id) %>
   <div>
-    <%= text_field_tag :code, nil, :class => 'col-12 p-2', :placeholder => 'code...', autofocus: true  %>
+    <%= text_field_tag :code, nil, :class => 'col-12 p-2', :placeholder => 'Code', autofocus: true  %>
   </div>
   <div>
     <%= button_tag('Proceed', :class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg' ) %>
@@ -23,7 +23,7 @@
     <%= hidden_field_tag :desired_usage_plan_id, @usage_plan.try(:id) %>
     <p>If you need to update your mobile number, you may do so below:</p>
     <div>
-      <%= f.text_field :phone, :class => 'col-12 p-2', :placeholder => 'mobile...' %>
+      <%= f.text_field :phone, :class => 'col-12 p-2', :placeholder => 'Mobile' %>
     </div>
     <div>
       <%= f.button 'Update', :class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg' %>

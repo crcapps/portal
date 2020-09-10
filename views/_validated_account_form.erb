@@ -118,7 +118,7 @@
           <%= f.label :id, "Secret Question",  :class => 'sr-only' %>
           <%= f.select(:id,
           SecretQuestion.all.collect {|f| [ f.question, f.id ] },
-          { :prompt => 'Secret Question' }, { :class => 'col-12 p-2' }) %>
+          { :prompt => 'Secret Question' }, { :class => 'col-12 p-2 btn btn-light shadow-sm' }) %>
         </div>
       </div>
     <% end %>

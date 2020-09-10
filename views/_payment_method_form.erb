@@ -55,7 +55,7 @@
   </div>
   <div class="form-row">
     <div class="form-group col-3">
-      <%= f.select :cc_expiration_month, %w( 01 02 03 04 05 06 07 08 09 10 11 12), { }, { :class => 'col-12 p-2 btn-light btn-lg shadow-sm' } %>
+      <%= f.select :cc_expiration_month, %w( 01 02 03 04 05 06 07 08 09 10 11 12), { }, { :class => 'col-12 p-2 btn-light shadow-sm' } %>
       <!-- explicitly setting selected to f.object.cc_expiration_year.to_i is
       necessary because the expiration year is stored as an encrypted string
       and must be converted to an integer to be recognized as a valid value by

@@ -18,7 +18,7 @@
     <div class="form-row">
       <div class="form-group col-12">
         <%= select :radius_realm, :id,
-        RadiusRealm.portal_auth.collect { |rr| [ rr.name, rr.id ] }, {}, {:class => 'col-12 p-2 btn btn-light btn-lg shadow-sm'} %>
+        RadiusRealm.portal_auth.collect { |rr| [ rr.name, rr.id ] }, {}, {:class => 'col-12 p-2 btn btn-light shadow-sm'} %>
       </div>
     </div>
     <div class="form-row">

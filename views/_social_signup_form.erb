@@ -8,7 +8,7 @@
     <legend class="col-12 text-center">Usage Plans</legend>
     <% @omniauth_strategy.usage_plans.sort_by(&:price).each do |usage_plan| %>
       <div class="form-group col-12">
-        <%= radio_button_tag(:usage_plan_id, usage_plan.id) %>&nbsp;&nbsp;<label for="usage_plan_id_<%=usage_plan.id.to_s%>"><%= h(usage_plan.name) %></label>
+        <%= radio_button_tag(:usage_plan_id, usage_plan.id) %>&nbsp;&nbsp;<label for="usage_plan_id_<%= usage_plan.id.to_s%>"><%= h(usage_plan.name) %></label>
         <span><%= h(usage_plan.price_display) %></span>
       </div>
     <% end %>

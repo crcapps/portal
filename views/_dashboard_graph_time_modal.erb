@@ -19,7 +19,7 @@
               <div class="form-group col-12">
                 <%= select_tag('device_id',
                       options_for_select(@current_account_or_token.devices.portal_visible.map{|d| ["#{d.name} (#{d.mac})", d.id]}, :selected => @device.try(:id)),
-                      include_blank: 'All Devices', :class => 'col-12 p-2 btn-light btn-lg shadow-sm' ) %>
+                      include_blank: 'All Devices', :class => 'col-12 p-2 btn-light shadow-sm' ) %>
               </div>
             </div>
           </fieldset>

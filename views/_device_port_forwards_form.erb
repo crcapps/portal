@@ -33,13 +33,13 @@
       <div class="form-row">
         <div class="form-group col-12">
           <%= f.label :name, "Protocol", :class => 'font-weight-bold' %>
-          <%= f.collection_select :protocol, NetApp::PORT_PROTOCOLS, :to_s, :to_s, {}, {:class => 'col-12 p-2', :id => nil, :placeholder => 'Protocol', :class => "col-12 p-2 btn btn-light btn-lg shadow-sm" }  %>
+          <%= f.collection_select :protocol, NetApp::PORT_PROTOCOLS, :to_s, :to_s, {}, {:class => 'col-12 p-2 btn btn-light shadow-sm', :id => nil, :placeholder => 'Protocol', :class => "col-12 p-2 btn btn-light btn-lg shadow-sm" }  %>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-12">
           <%= f.label :device_id, "Device", :class => 'font-weight-bold' %>
-          <%= f.collection_select :device_id, @current_account_or_token.devices.portal_visible, :id, :name, {include_blank: 'Disabled'}, {:class => 'col-12 p-2 btn btn-light btn-lg shadow-sm', :id => nil} %>
+          <%= f.collection_select :device_id, @current_account_or_token.devices.portal_visible, :id, :name, {include_blank: 'Disabled'}, {:class => 'col-12 p-2 btn btn-light shadow-sm', :id => nil} %>
         </div>
       </div>
       <div class="form-row">

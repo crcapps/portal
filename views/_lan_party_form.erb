@@ -32,7 +32,7 @@
     </div>
     <div class="form-row">
       <div class="form-group col-12 <%= 'field_with_errors' if lan_party.errors.keys.include? :expires_at %>">
-        <%=f.label :expires_at, :class => "sr-only" %>
+        <%= f.label :expires_at, :class => "sr-only" %>
         <%= f.text_field :expires_at, :placeholder => 'Expiration', :class => 'col-12 p-2', :id => expires_at_field_id %>
         <script type="text/javascript">
           $(function () {

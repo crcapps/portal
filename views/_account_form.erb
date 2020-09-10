@@ -100,9 +100,9 @@
     <div class="form-group col-12">
       <% if f.object.phone_validated? %>
         <i class="fas fa-check-square fa-sm"></i>
-        <%= f.text_field :phone, :placeholder => 'phone...', :class => 'col-12 p-2 validated_contact_info_field' %>
+        <%= f.text_field :phone, :placeholder => 'Phone', :class => 'col-12 p-2 validated_contact_info_field' %>
       <% else %>
-        <%= f.text_field :phone, :placeholder => 'phone...', :class => 'col-12 p-2' %>
+        <%= f.text_field :phone, :placeholder => 'Phone', :class => 'col-12 p-2' %>
       <% end %>
     </div>
   </div>

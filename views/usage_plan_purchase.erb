@@ -45,7 +45,7 @@
               your room</strong>.
           </legend>
           <div>
-            <%= text_field_tag 'pms_credential_a', @current_account.first_name, :placeholder => 'room number...', :class => 'col-12 p-2' %>
+            <%= text_field_tag 'pms_credential_a', @current_account.first_name, :placeholder => 'Room Number', :class => 'col-12 p-2' %>
           </div>
           <div>
             <%= text_field_tag 'pms_credential_b', @current_account.last_name, :placeholder => @pms_server.second_credential == 'G#' ? 'guest number...' : 'last name...', :class => 'col-12 p-2' %>
