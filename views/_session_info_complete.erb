@@ -21,7 +21,7 @@
     </p>
     <% if @login_session.online? %>
       <div class="row">
-        <div class="col-12 col-lg-6 mx-auto session-info">
+        <div class="col-12 mx-auto session-info">
           <div class="col-12">
             <div class="col-12">
               <%= portal_image_tag 'wireless_signal.svg', :class => 'w-25 mx-auto d-block' %>
@@ -31,9 +31,9 @@
             </div>
           </div>
         </div>
-        <hr class="col-9 col-lg-4 mx-auto border-dark d-lg-none separator">
+        <hr class="col-9 col-lg-4 mx-auto border-dark separator">
         <% if @login_session.usage_bytes_down_remaining %>
-          <div class="col-12 col-lg-6 mx-auto session-info">
+          <div class="col-12 mx-auto session-info">
             <div class="col-12">
               <div class="col-12">
                 <%= portal_image_tag 'download.svg', :class => 'w-25 mx-auto d-block' %>
@@ -51,7 +51,7 @@
           <hr class="col-9 col-lg-4 mx-auto border-dark d-lg-none separator">
         <% end %>
           <% if @login_session.usage_bytes_up_remaining %>
-          <div class="col-12 col-lg-6 mx-auto session-info">
+          <div class="col-12 mx-auto session-info">
             <div class="col-12">
               <div class="col-12">
                 <%= portal_image_tag 'upload.svg', :class => 'w-25 mx-auto d-block' %>
@@ -87,7 +87,7 @@
         </div>
         <hr class="col-9 col-lg-4 mx-auto border-dark d-lg-none separator">
       <% end %>
-       <div class="col-12 col-lg-6 mx-auto session-info">
+       <div class="col-12 mx-auto session-info">
         <div class="col-12">
           <div class="col-12">
             <%= portal_image_tag 'time.svg', :class => 'w-25 mx-auto d-block' %>

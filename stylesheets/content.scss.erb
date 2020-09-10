@@ -57,9 +57,11 @@ div.separator::after {
 margin-right: 0.5rem;
 margin-left: 1rem;
 }
+
 .separator:last-of-type:not(:only-of-type) {
   display: none;
 }
+
 input[type="radio"]:checked+label>div {
 border: 1px var(--primary) solid;
 }
@@ -148,9 +150,6 @@ display:none;
 }
 .session-info {
 padding: 0.75rem 0.5rem;
-}
-.session-info>div {
-border: 1px solid var(--dark);
 }
 }
 /* include -custom in the class names to prevent AdBlockPlus from blocking 
