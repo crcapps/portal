@@ -10,7 +10,7 @@
     <div class="form-row">
       <div class="form-group col-12 <%= 'field_with_errors' if lan_party.errors.keys.include? :name %>">
         <%= f.label :name, :class => 'sr-only' %>
-        <%= f.text_field :name, :placeholder => 'Party Name', :class => 'form-control form-control-lg' %>
+        <%= f.text_field :name, :placeholder => 'Party Name...', :class => 'form-control form-control-lg' %>
       </div>
     </div>
     <div class="form-row">
@@ -33,7 +33,7 @@
     <div class="form-row">
       <div class="form-group col-12 <%= 'field_with_errors' if lan_party.errors.keys.include? :expires_at %>">
         <%= f.label :expires_at, :class => "sr-only" %>
-        <%= f.text_field :expires_at, :placeholder => 'Expiration', :class => 'form-control form-control-lg', :id => expires_at_field_id %>
+        <%= f.text_field :expires_at, :placeholder => 'Expiration...', :class => 'form-control form-control-lg', :id => expires_at_field_id %>
         <script type="text/javascript">
           $(function () {
             $('#<%= expires_at_field_id %>').datetimepicker({

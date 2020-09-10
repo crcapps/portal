@@ -31,7 +31,7 @@
               <div class="form-row">
                 <div class="form-group col-6">
                   <%= f.label :past_time, "Past", :class => 'sr-only'%>
-                  <%= f.text_field :past_time, {:size => 3, :placeholder => 'Past', :class => 'form-control form-control-lg'} %>
+                  <%= f.text_field :past_time, {:size => 3, :placeholder => 'Past...', :class => 'form-control form-control-lg'} %>
                 </div>
                 <div class="form-group col-6">
                   <%= f.collection_select :past_time_unit, GraphTime::PAST_TIME_UNITS.reject {|k,v| %w( years seconds ).include?(v) }, :last, :first, {}, {:class => 'col-12 form-control form-control-lg'} %>

@@ -7,27 +7,27 @@
 
   <div class="form-row">
     <div class="form-group col-12">
-      <%= f.text_field :first_name, :placeholder => 'First Name', :class => 'form-control form-control-lg' %>
+      <%= f.text_field :first_name, :placeholder => 'First Name...', :class => 'form-control form-control-lg' %>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-12">
-      <%= f.text_field :middle_name, :placeholder => 'Middle Name', :class => 'form-control form-control-lg' %>
+      <%= f.text_field :middle_name, :placeholder => 'Middle Name...', :class => 'form-control form-control-lg' %>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-12">
-      <%= f.text_field :last_name, :placeholder => 'Last Name', :class => 'form-control form-control-lg' %>
+      <%= f.text_field :last_name, :placeholder => 'Last Name...', :class => 'form-control form-control-lg' %>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-12">
-      <%= f.text_field :company, :placeholder => 'Company', :class => 'form-control form-control-lg' %>
+      <%= f.text_field :company, :placeholder => 'Company...', :class => 'form-control form-control-lg' %>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-12">
-      <%= f.text_field :phone, :placeholder => 'Phone', :class => 'form-control form-control-lg' %>
+      <%= f.text_field :phone, :placeholder => 'Phone...', :class => 'form-control form-control-lg' %>
     </div>
   </div>
   <% if ( (@usage_plan || @current_account_or_token.usage_plan).try(:is_stripe?) ) %>
@@ -67,7 +67,7 @@
         { :class => 'form-control form-control-lg' } %>
     </div>
     <div class="form-group col-3">
-      <%= f.text_field :cc_cvv2, :size => 4, :placeholder => 'CVV2', :class => 'form-control form-control-lg' %>
+      <%= f.text_field :cc_cvv2, :size => 4, :placeholder => 'CVV2...', :class => 'form-control form-control-lg' %>
       <span class="small">
         <a href="#securityCodeModal" style="text-decoration:underline;" data-toggle="modal">What is this?</a>
         <%= render :partial => 'security_code_modal' %>
@@ -85,23 +85,23 @@
 
   <div class="form-row">
     <div class="form-group col-12">
-      <%= f.text_field :address1, :placeholder => 'Address 1', :class => 'form-control form-control-lg' %>
+      <%= f.text_field :address1, :placeholder => 'Address 1...', :class => 'form-control form-control-lg' %>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-12">
-      <%= f.text_field :address2, :placeholder => 'Address 2', :class => 'form-control form-control-lg' %>
+      <%= f.text_field :address2, :placeholder => 'Address 2...', :class => 'form-control form-control-lg' %>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-6">
-      <%= f.text_field :city, :placeholder => 'City', :class => 'form-control form-control-lg' %>
+      <%= f.text_field :city, :placeholder => 'City...', :class => 'form-control form-control-lg' %>
     </div>
     <div class="form-group col-3">
-      <%= f.text_field :state, :placeholder => 'State', :class => 'form-control form-control-lg' %>
+      <%= f.text_field :state, :placeholder => 'State...', :class => 'form-control form-control-lg' %>
     </div>
     <div class="form-group col-3">
-      <%= f.text_field :zip, :placeholder => 'Zip', :class => 'form-control form-control-lg' %>
+      <%= f.text_field :zip, :placeholder => 'Zip...', :class => 'form-control form-control-lg' %>
     </div>
   </div>
 <div class="form-row">

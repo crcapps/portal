@@ -15,25 +15,25 @@
       <div class="form-row">
         <div class="form-group col-12">
           <%= f.label :name, "Name (Optional)", :class => 'sr-only' %>
-          <%= f.text_field :name, :placeholder => 'Name (Optional)', :class => 'form-control form-control-lg', :id => nil  %>
+          <%= f.text_field :name, :placeholder => 'Name (Optional)...', :class => 'form-control form-control-lg', :id => nil  %>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-12">
           <%= f.label :external_ports, "External Port(s)", :class => 'sr-only' %>
-          <%= f.text_field :external_ports, :placeholder => 'External Port(s)', :class => 'form-control form-control-lg', :id => nil  %>
+          <%= f.text_field :external_ports, :placeholder => 'External Port(s)...', :class => 'form-control form-control-lg', :id => nil  %>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-12">
           <%= f.label :internal_ports, "Internal Ports (Optional)", :class => 'sr-only' %>
-          <%= f.text_field :internal_ports, :placeholder => 'Internal Ports(Optional)', :class => 'form-control form-control-lg', :id => nil  %>
+          <%= f.text_field :internal_ports, :placeholder => 'Internal Ports (Optional)...', :class => 'form-control form-control-lg', :id => nil  %>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-12">
           <%= f.label :name, "Protocol", :class => 'font-weight-bold' %>
-          <%= f.collection_select :protocol, NetApp::PORT_PROTOCOLS, :to_s, :to_s, {}, {:class => 'form-control form-control form-control-lg', :id => nil, :placeholder => 'Protocol', :class => "form-control form-control-lg" }  %>
+          <%= f.collection_select :protocol, NetApp::PORT_PROTOCOLS, :to_s, :to_s, {}, {:class => 'form-control form-control form-control-lg', :id => nil, :placeholder => 'Protocol...', :class => "form-control form-control-lg" }  %>
         </div>
       </div>
       <div class="form-row">
