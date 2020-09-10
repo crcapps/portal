@@ -21,9 +21,9 @@
   <%= render_dashboard_dialogs(:account_usage_summary) %>
 <% end %>
 
-<div class="uk-grid uk-grid-small">
-  <div class="uk-width-1-1 uk-width-medium-1-2"><%= render_dashboard_dialogs(:data_usage_summary) %></div>
-  <div class="uk-width-1-1 uk-width-medium-1-2"><%= render_dashboard_dialogs(:pf_states_summary) %></div>
+<div class="col-12">
+  <div class="col-12 col-md-6"><%= render_dashboard_dialogs(:data_usage_summary) %></div>
+  <div class="col-12 col-md-6"><%= render_dashboard_dialogs(:pf_states_summary) %></div>
 </div>
 
 <%= render_dashboard_dialogs(:traffic_by_destination) %>
@@ -34,7 +34,7 @@
 
 <%= render :partial => dialog_partial_path('dashboard_graph_time_modal') %>
 
-<div class="uk-width-1-1">
+<div class="col-12">
   
   <% 
 

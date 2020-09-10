@@ -7,7 +7,7 @@
         <%= fields_for media_converter do |f| %>
           <%= f.hidden_field :id %>
           <%= f.text_field :name, :class => 'uk-width-1-2' %>
-          <%= submit_tag 'Save', :class => 'uk-button rg-button rg-button-inline small-min-width', :data => {:disable_with => 'Save' } %>
+          <%= button_tag 'Save', :class => 'uk-button rg-button rg-button-inline small-min-width', :data => {:disable_with => 'Save' } %>
         <% end %>
       <% end %>
     </td>

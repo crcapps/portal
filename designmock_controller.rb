@@ -7,5 +7,6 @@ class Portal::DesignmockController < PortalController
 # Methods defined here will be available as custom actions of this custom portal
 # controller.
 
+
 end
 
