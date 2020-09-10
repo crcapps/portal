@@ -46,7 +46,7 @@
           <%= text_field_tag 'email', params[:email], :placeholder => 'Enter Email...', :class => 'form-control form-control-lg' %>
         </div>
         <div>
-          <%= button_tag('Select', :id => 'submit_button', :class => 'd-block mx-auto col-6 btn btn-lg' ) %>
+          <%= button_tag('Select', :id => 'submit_button', :class => 'd-block mx-auto col-6 btn btn-lg btn-light' ) %>
         </div>
       <% end %>
       <% if @guest.no_post? && @usage_plans.empty? %>

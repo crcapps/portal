@@ -1,6 +1,6 @@
 <% if @current_account %>
   <% if @current_account.validation_pending?(usage_plan) %>
-    <%= link_to('Validate Account', { :action => :usage_plan_purchase, :id => usage_plan.id }, { :class => 'd-block mx-auto col-4 btn btn-sm btn-primary', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } } ) %>
+    <%= link_to('Validate Account', { :action => :usage_plan_purchase, :id => usage_plan.id }, { :class => 'd-block mx-auto col-12 btn btn-sm btn-primary', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } } ) %>
   <% else %>
     <!-- optionally override the Merchant to be used when rendering this partial (via
     a "locals" variable), for when a UsagePlan is associated with more than one
@@ -19,12 +19,12 @@
     <% else %>
       <% if @current_account.usage_plan %>
         <% if usage_plan == @current_account.usage_plan %>
-          <%= link_to('Recharge this plan', { :action => :usage_plan_purchase, :id => usage_plan.id }, { :class => 'd-block mx-auto col-4 btn btn-sm btn-primary', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } } ) %>
+          <%= link_to('Recharge this plan', { :action => :usage_plan_purchase, :id => usage_plan.id }, { :class => 'd-block mx-auto col-12 btn btn-sm btn-primary', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } } ) %>
         <% else %>
-          <%= link_to('Upgrade to this plan', { :action => :usage_plan_purchase, :id => usage_plan.id }, { :class => 'd-block mx-auto col-4 btn btn-sm btn-primary', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } } ) %>
+          <%= link_to('Upgrade to this plan', { :action => :usage_plan_purchase, :id => usage_plan.id }, { :class => 'd-block mx-auto col-12 btn btn-sm btn-primary', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } } ) %>
         <% end %>
       <% else %>
-        <%= link_to('Purchase this plan', { :action => :usage_plan_purchase, :id => usage_plan.id }, { :class => 'd-block mx-auto col-4 btn btn-sm btn-primary', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } } ) %>
+        <%= link_to('Purchase this plan', { :action => :usage_plan_purchase, :id => usage_plan.id }, { :class => 'd-block mx-auto col-12 btn btn-sm btn-primary', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } } ) %>
       <% end %>
     <% end %>
   <% end %>

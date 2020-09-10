@@ -13,7 +13,7 @@
     <%= form_tag :action => :tos_submit do %>
       <p class="center-align"><label for='tos'>I agree to the Terms of Service: </label>
         <%= check_box('tos', 'checked', { }, 'yes', 'no') %></p>
-      <%= button_tag('Continue', :class => 'd-block mx-auto col-6 btn btn-lg', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
+      <%= button_tag('Continue', :class => 'd-block mx-auto col-6 btn btn-lg btn-light', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
     <% end %>
   </div>
 </div>

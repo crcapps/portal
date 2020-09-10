@@ -1,24 +1,21 @@
 <div class="col-12 mb-2 bg-white px-2 py-3">
   <div class="col-12">
     <div class="row">
-      <div class="col-4">
-        <span class="small usage-plan-field">Name:</span>
-      </div>
       <div class="col-12">
         <span class="text-primary usage-plan-name"><%= h(usage_plan.name) %></span>
       </div>
     </div>
     <div class="row">
-      <div class="col-4">
-        <span class="small usage-plan-field">Price:</span>
-      </div>
       <div class="col-12">
+            <% if usage_plan.price_display == %>
+        <span class="small usage-plan-field">Price:</span> <br>
+      <% end %>
         <span class="text-primary usage-plan-price"><%= h(usage_plan.price_display) %></span>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-        <a class="text-primary" data-toggle="collapse" href="#collapse-<%= usage_plan.name.parameterize %>" role="button" aria-expanded="false" aria-controls="collapse-<%= usage_plan.name.parameterize %>">
+        <a class="text-primary usage-plan-details" data-toggle="collapse" href="#collapse-<%= usage_plan.name.parameterize %>" role="button" aria-expanded="false" aria-controls="collapse-<%= usage_plan.name.parameterize %>">
       Show Details
       </a>
       </div>
