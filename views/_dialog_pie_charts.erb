@@ -2,7 +2,7 @@
   <%= render :partial => dialog_partial_path("dialog_color_reason"), :locals => { dialog: dialog } %>
   <div class="center-align">
     <% if dialog[:title] %>
-      <h2><%= dialog[:title] %></h2>
+      <h4><%= dialog[:title] %></h4>
     <% end %>
     <div class="row">
       <% dialog[:pie_charts].to_a.in_groups_of(4) do |group| %>
@@ -22,7 +22,11 @@
             <% if pie[:title] %>
               <h2><%= pie[:title] %></h2>
             <% end %>
+            <% if pie[:data].empty? %>
+            <p class="text-center bg-white mx-2">&nbsp;–&nbsp;–&nbsp;</p>
+            <% else %>
             <%= render :partial => dialog_partial_path("pie_chart"), :locals => { pie: pie } %>
+            <% end %>
           </div>
         <% end %>
       <% end %>
