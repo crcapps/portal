@@ -6,18 +6,18 @@
     <div class="form-row">
       <div class="form-group col-12">
         <label class="sr-only" for="login">Login</label>
-        <%= text_field_tag 'login', params[:login], :placeholder => 'Login', :class => 'col-12 p-2', :autocorrect => :off, :autocapitalize => :off %>
+        <%= text_field_tag 'login', params[:login], :placeholder => 'Login', :class => 'form-control form-control-lg', :autocorrect => :off, :autocapitalize => :off %>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-12">
         <label class="sr-only" for="password">Password</label>
-        <%= password_field_tag 'password', '', :placeholder => 'Password', :class => 'col-12 p-2', :autocorrect => :off, :autocapitalize => :off %>
+        <%= password_field_tag 'password', '', :placeholder => 'Password', :class => 'form-control form-control-lg', :autocorrect => :off, :autocapitalize => :off %>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-12">
-        <%= button_tag('Sign In', :class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
+        <%= button_tag('Sign In', :class => 'd-block mx-auto col-6 form-control form-control-lg', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
       </div>
     </div>
     <% if @captive_portal.try(:allow_password_reset?) %>

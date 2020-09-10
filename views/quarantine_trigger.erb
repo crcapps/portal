@@ -20,7 +20,7 @@
       <p>By clicking Accept below, you agree to abide by the terms of service.</p>
 
       <%= button_to('Accept', { :action => :quarantine_trigger_accept, :id => @tgm.id },
-        :class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg',
+        :class => 'd-block mx-auto col-6 form-control form-control-lg',
         :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
 
     <% else %>

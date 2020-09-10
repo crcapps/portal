@@ -15,7 +15,7 @@
 <div class="form-row">
 <div class="form-group col-12">
   <%= label_tag('device_mac', 'MAC Address:') %>
-  <%= text_field_tag(:device_mac, @device_mac, :size => 20, :placeholder => '00:00:00:00:00:00', :class => 'col-12 p-2') %>
+  <%= text_field_tag(:device_mac, @device_mac, :size => 20, :placeholder => '00:00:00:00:00:00', :class => 'form-control form-control-lg') %>
   
   <% if @current_account_or_token.is_virtual_gateway? %>
   <div class="form-row">

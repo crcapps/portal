@@ -5,19 +5,19 @@
   <div class="form-row">
     <div class="form-group col-12">
       <%= f.label :login, 'Login', :class => 'sr-only' %>
-      <%= f.text_field :login, :placeholder => 'Login', :class => 'col-12 p-2' %>
+      <%= f.text_field :login, :placeholder => 'Login', :class => 'form-control form-control-lg' %>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-12">
       <%= f.label :password, 'Password', :class => 'sr-only' %>
-      <%= f.password_field :password, :placeholder => 'Password', :class => 'col-12 p-2' %>
+      <%= f.password_field :password, :placeholder => 'Password', :class => 'form-control form-control-lg' %>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-12">
       <%= f.label :password_confirmation, 'Password Confirmation', :class => 'sr-only' %>
-      <%= f.password_field :password_confirmation, :placeholder => 'Confirmation', :class => 'col-12 p-2' %>
+      <%= f.password_field :password_confirmation, :placeholder => 'Confirmation', :class => 'form-control form-control-lg' %>
     </div>
   </div>
 </fieldset>
@@ -28,13 +28,13 @@
   <div class="form-row">
     <div class="form-group col-12">
       <%= f.label :first_name, 'First Name', :class => 'sr-only' %>
-      <%= f.text_field :first_name, :placeholder => 'First Name', :class => 'col-12 p-2' %>
+      <%= f.text_field :first_name, :placeholder => 'First Name', :class => 'form-control form-control-lg' %>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-12">
       <%= f.label :last_name, 'Last Name', :class => 'sr-only' %>
-      <%= f.text_field :last_name, :placeholder => 'Last Name', :class => 'col-12 p-2' %>
+      <%= f.text_field :last_name, :placeholder => 'Last Name', :class => 'form-control form-control-lg' %>
     </div>
   </div>
   <% if @validation_plans.select { |p| p.validation_method =~ /email/ }.any? %>
@@ -45,14 +45,14 @@
   <div class="form-row">
     <div class="form-group col-12">
       <%= f.label :email, 'Email', :class => 'sr-only' %>
-      <%= f.email_field :email, :placeholder => 'Email', :class => 'col-12 p-2' %>
+      <%= f.email_field :email, :placeholder => 'Email', :class => 'form-control form-control-lg' %>
     </div>
   </div>
   <!--
   <div class="form-row">
     <div class="form-group col-12">
     <%= f.label :email2, 'Email 2', :class => 'sr-only' %>
-      <%= f.email_field :email2, :placeholder => 'Email 2', :class => 'col-12 p-2' %>
+      <%= f.email_field :email2, :placeholder => 'Email 2', :class => 'form-control form-control-lg' %>
     </div>
     </div>
     -->
@@ -64,27 +64,27 @@
   <div class="form-row">
     <div class="form-group col-12">
       <%= f.label :address1, 'Address 1', :class => 'sr-only' %>
-      <%= f.text_field :address1, :placeholder => 'Address 1', :class => 'col-12 p-2' %>
+      <%= f.text_field :address1, :placeholder => 'Address 1', :class => 'form-control form-control-lg' %>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-12">
       <%= f.label :address2, 'Address 2', :class => 'sr-only' %>
-      <%= f.text_field :address2, :placeholder => 'Address 2', :class => 'col-12 p-2' %>
+      <%= f.text_field :address2, :placeholder => 'Address 2', :class => 'form-control form-control-lg' %>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-3">
       <%= f.label :city, 'City', :class => 'sr-only' %>
-      <%= f.text_field :city, :placeholder => 'City', :class => 'col-12 p-2' %>
+      <%= f.text_field :city, :placeholder => 'City', :class => 'form-control form-control-lg' %>
     </div>
     <div class="form-group col-3">
       <%= f.label :region, 'State', :class => 'sr-only' %>
-      <%= f.text_field :region, :placeholder => 'State', :class => 'col-12 p-2' %>
+      <%= f.text_field :region, :placeholder => 'State', :class => 'form-control form-control-lg' %>
     </div>
     <div class="form-group col-3">
       <%= f.label :zip, 'Zip', :class => 'sr-only' %>
-      <%= f.text_field :zip, :placeholder => 'Zip', :class => 'col-12 p-2' %>
+      <%= f.text_field :zip, :placeholder => 'Zip', :class => 'form-control form-control-lg' %>
     </div>
   </div>
   <% if @validation_plans.select { |p| p.validation_method =~ /sms/ }.any? %>
@@ -97,13 +97,13 @@
   <div class="form-row">
     <div class="form-group col-12">
       <%= f.label :country, 'Country', :class => 'sr-only' %>
-      <%= f.localized_country_select(:country, priority_countries=['US', 'CA'], {}, { :class => 'col-12 p-2 btn btn-light shadow-sm', :required => true }) %>
+      <%= f.localized_country_select(:country, priority_countries=['US', 'CA'], {}, { :class => 'form-control form-control form-control-lg', :required => true }) %>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-12">
       <%= f.label :phone, 'Phone', :class => 'sr-only' %>
-      <%= f.text_field :phone, :placeholder => 'Phone Number', :class => 'col-12 p-2', :required => true %>
+      <%= f.text_field :phone, :placeholder => 'Phone Number', :class => 'form-control form-control-lg', :required => true %>
     </div>
   </div>
 </fieldset>
@@ -118,7 +118,7 @@
           <%= f.label :id, "Secret Question",  :class => 'sr-only' %>
           <%= f.select(:id,
           SecretQuestion.all.collect {|f| [ f.question, f.id ] },
-          { :prompt => 'Secret Question' }, { :class => 'col-12 p-2 btn btn-light shadow-sm' }) %>
+          { :prompt => 'Secret Question' }, { :class => 'form-control form-control form-control-lg' }) %>
         </div>
       </div>
     <% end %>
@@ -126,7 +126,7 @@
       <div class="form-group col-12">
         <%= fields_for(@secret_answer) do |f| %>
           <%= f.label :anser, 'Answer', :class => 'sr-only' %>
-          <%= f.text_field :answer, :placeholder => 'Answer', :class => 'col-12 p-2' %>
+          <%= f.text_field :answer, :placeholder => 'Answer', :class => 'form-control form-control-lg' %>
         </div>
       </div>
     <% end %>

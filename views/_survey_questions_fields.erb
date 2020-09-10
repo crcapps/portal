@@ -4,9 +4,9 @@
       <div class="form-group col-12">
         <% case survey_question.question_type %>
         <% when 'text_box', nil %>
-        <%= field.text_field :answer, :placeholder => survey_question.question, :size => 20, :class => 'col-12 p-2', :required => survey_question.required  %>
+        <%= field.text_field :answer, :placeholder => survey_question.question, :size => 20, :class => 'form-control form-control-lg', :required => survey_question.required  %>
         <% when 'text_area' %>
-        <%= survey_question.question %> <%= field.text_area :answer, :placeholder => survey_question.question, :size => 20, :class => 'col-12 p-2', :required => survey_question.required  %>
+        <%= survey_question.question %> <%= field.text_area :answer, :placeholder => survey_question.question, :size => 20, :class => 'form-control form-control-lg', :required => survey_question.required  %>
         <% when 'email' %>
         <%# The field's placeholder, size, pattern, or class and required
           attributes can be overridden by creating survey question options with
@@ -23,7 +23,7 @@
         <% options.reject! { |k,v| ! allowable_options.include?(k) } %>
         <% options.delete_if { |k,v| v.nil? } %>
         <% options[:size] ||= 20 %>
-        <% options[:class] ||= 'col-12 p-2' %>
+        <% options[:class] ||= 'form-control form-control-lg' %>
         <%= field.email_field :answer, options %>
         <% when 'radio' %>
         <%= survey_question.question %><br>
@@ -32,7 +32,7 @@
         <% end %>
         <% when 'select' %>
         <%= survey_question.question %><br>
-        <%= field.collection_select :answer, survey_question.survey_question_options, :value, :display_text, {}, {:name => "survey_questions[#{survey_question.id}][answer]", :class => 'col-12 p-2 btn btn-light shadow-sm', :required => survey_question.required} %>
+        <%= field.collection_select :answer, survey_question.survey_question_options, :value, :display_text, {}, {:name => "survey_questions[#{survey_question.id}][answer]", :class => 'form-control form-control form-control-lg', :required => survey_question.required} %>
         <% when 'check_box' %>
         <%= field.check_box :answer, {:required => survey_question.required}, true, false %>
         <%= field.label :answer, survey_question.question %>

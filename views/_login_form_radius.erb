@@ -6,24 +6,24 @@
     <div class="form-row">
       <div class="form-group col-12">
         <%= label_tag 'login', 'Login', {:class => 'sr-only'} %>
-        <%= text_field_tag 'login', params[:login], :title => 'Login', :placeholder => 'Login', :class => 'col-12 p-2', :autocorrect => :off, :autocapitalize => :off %>
+        <%= text_field_tag 'login', params[:login], :title => 'Login', :placeholder => 'Login', :class => 'form-control form-control-lg', :autocorrect => :off, :autocapitalize => :off %>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-12">
         <%= label_tag 'password', 'Password', {:class => 'sr-only'} %>
-        <%= password_field_tag 'password', '', :title => 'Password', :placeholder => 'Password', :class => 'col-12 p-2' %>
+        <%= password_field_tag 'password', '', :title => 'Password', :placeholder => 'Password', :class => 'form-control form-control-lg' %>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-12">
         <%= select :radius_realm, :id,
-        RadiusRealm.portal_auth.collect { |rr| [ rr.name, rr.id ] }, {}, {:class => 'col-12 p-2 btn btn-light shadow-sm'} %>
+        RadiusRealm.portal_auth.collect { |rr| [ rr.name, rr.id ] }, {}, {:class => 'form-control form-control form-control-lg'} %>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-12">
-        <%= button_tag('Sign In', :class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
+        <%= button_tag('Sign In', :class => 'd-block mx-auto col-6 form-control form-control-lg', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
       </div>
     </div>
   </fieldset>

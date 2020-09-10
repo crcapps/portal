@@ -41,7 +41,7 @@
   <% if @current_account && @current_account.lock_devices == false %>
     <tr>
       <td colspan="2" class="action-cell">
-        <%= link_to('Delete', {:action => :delete_media_converter, :media_converter_id => media_converter.id}, {:class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } }) %>
+        <%= link_to('Delete', {:action => :delete_media_converter, :media_converter_id => media_converter.id}, {:class => 'd-block mx-auto col-6 form-control form-control-lg', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } }) %>
       </td>
     </tr>
   <% end %>

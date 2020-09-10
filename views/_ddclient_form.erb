@@ -32,25 +32,25 @@
         <div class="col-9 col-md-6">
           <div class="form-group col-12">
             <%= f.label :protocol, 'Protocol', :class => 'sr-only '%>
-            <%= f.collection_select :protocol, Ddclient::PROTOCOLS, :last, :first, { }, {:class => 'col-12 p-2 btn btn-light shadow-sm', :id => nil}  %>
+            <%= f.collection_select :protocol, Ddclient::PROTOCOLS, :last, :first, { }, {:class => 'form-control form-control form-control-lg', :id => nil}  %>
           </div>
         </div>
         <div class="col-12 col-md-8">
           <div class="form-group col-4">
             <%= f.label :hosts, 'Host', :class => 'sr-only '%>
-            <%= f.text_field :hosts, {:class => 'col-12 p-2', :id => nil, :placeholder => "Host"} %>
+            <%= f.text_field :hosts, {:class => 'form-control form-control-lg', :id => nil, :placeholder => "Host"} %>
           </div>
           <div class="col-4">
             <%= f.label :login, 'Login', :class => 'sr-only '%>
-            <%= f.text_field :login, {:class => 'col-12 p-2', :id => nil, :autocomplete => "off", :placeholder => "Login"} %>
+            <%= f.text_field :login, {:class => 'form-control form-control-lg', :id => nil, :autocomplete => "off", :placeholder => "Login"} %>
           </div>
           <div class="col-4">
             <%= f.label :protocol, 'Password', :class => 'sr-only '%>
-            <%= f.password_field :password, {:class => 'col-12 p-2', :id => nil, :autocomplete => "new-password", :placeholder => (ddclient.persisted? ? 'Saved' : 'Password')} %>
+            <%= f.password_field :password, {:class => 'form-control form-control-lg', :id => nil, :autocomplete => "new-password", :placeholder => (ddclient.persisted? ? 'Saved' : 'Password')} %>
           </div>
         </div>
         <div class="col-md-2">
-          <%= button_tag 'Save', :class => 'col-12 btn btn-primary btn-lg' %>
+          <%= button_tag 'Save', :class => 'col-12 btn form-control form-control-lg btn-primary' %>
         </div>
         <% if ddclient.persisted? %>
           <div class="row">

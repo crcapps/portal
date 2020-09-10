@@ -43,10 +43,10 @@
         <div>
         </div>
         <div>
-          <%= text_field_tag 'email', params[:email], :placeholder => 'Enter Email', :class => 'col-12 p-2' %>
+          <%= text_field_tag 'email', params[:email], :placeholder => 'Enter Email', :class => 'form-control form-control-lg' %>
         </div>
         <div>
-          <%= button_tag('Select', :id => 'submit_button', :class => 'd-block mx-auto col-6 btn btn-light shadow-sm btn-lg' ) %>
+          <%= button_tag('Select', :id => 'submit_button', :class => 'd-block mx-auto col-6 form-control form-control-lg' ) %>
         </div>
       <% end %>
       <% if @guest.no_post? && @usage_plans.empty? %>

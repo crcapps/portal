@@ -10,19 +10,19 @@
     <div class="form-row">
       <div class="form-group col-12 <%= 'field_with_errors' if lan_party.errors.keys.include? :name %>">
         <%= f.label :name, :class => 'sr-only' %>
-        <%= f.text_field :name, :placeholder => 'Party Name', :class => 'col-12 p-2' %>
+        <%= f.text_field :name, :placeholder => 'Party Name', :class => 'form-control form-control-lg' %>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-12 <%= 'field_with_errors' if lan_party.errors.keys.include? :description %>">
         <%= f.label :description, :class => 'sr-only' %>
-        <%= f.text_area :description, :placeholder => 'Description (optional)', :class => 'col-12 p-2' %>
+        <%= f.text_area :description, :placeholder => 'Description (optional)', :class => 'form-control form-control-lg' %>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-12 <%= 'field_with_errors' if lan_party.errors.keys.include? :password && lan_party.errors[:password].any? %>">
         <%= f.label :password, :class => 'sr-only' %>
-        <%= f.text_field :password, :placeholder => 'Password (optional, 8 char min, case-sensitive)', :class => 'col-12 p-2' %>
+        <%= f.text_field :password, :placeholder => 'Password (optional, 8 char min, case-sensitive)', :class => 'form-control form-control-lg' %>
       </div>
     </div>
   </fieldset>
@@ -33,7 +33,7 @@
     <div class="form-row">
       <div class="form-group col-12 <%= 'field_with_errors' if lan_party.errors.keys.include? :expires_at %>">
         <%= f.label :expires_at, :class => "sr-only" %>
-        <%= f.text_field :expires_at, :placeholder => 'Expiration', :class => 'col-12 p-2', :id => expires_at_field_id %>
+        <%= f.text_field :expires_at, :placeholder => 'Expiration', :class => 'form-control form-control-lg', :id => expires_at_field_id %>
         <script type="text/javascript">
           $(function () {
             $('#<%= expires_at_field_id %>').datetimepicker({
@@ -65,7 +65,7 @@
     </div>
     <div class="form-row">
       <div class="form-group col-12 <%= 'field_with_errors' if lan_party.errors.keys.include? :no_expiration %>">
-        <label><%= f.check_box :no_expiration, :class => 'col-12 p-2', :id => no_expiration_field_id %> No expiration (remain active until deleted)</label>
+        <label><%= f.check_box :no_expiration, :class => 'form-control form-control-lg', :id => no_expiration_field_id %> No expiration (remain active until deleted)</label>
         <script>
           $(function() {
             // clear the datetime picker if the user checks the no expiration checkbox
@@ -83,7 +83,7 @@
   </fieldset>
   <div class="form-row">
     <div class="form-group col-12">
-      <%= f.submit f.object.persisted? ? 'Update LAN Party' : 'Create LAN Party', :class => 'd-block mx-auto col-6 btn btn-lg btn-primary' %>
+      <%= f.button f.object.persisted? ? 'Update LAN Party' : 'Create LAN Party', :class => 'd-block mx-auto col-6 form-control form-control lg btn-primary' %>
     </div>
   </div>
 <% end %>
