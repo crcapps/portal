@@ -29,7 +29,7 @@
           <%= f.text_field :pre_shared_key, :placeholder => 'WPA2 Pre-shared Key', :class => 'form-control form-control-lg' %>
         </div>
         <div>
-          <%= button_tag('Update', :class => 'd-block mx-auto col-6 btn btn-lg btn-light', 
+          <%= button_tag('Update', :class => 'd-block mx-auto col-6 btn btn-lg btn-light shadow-sm', 
             :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe, :confirm => "Changing this value will cause your wireless encryption configuration to change.\n\nYou must update the settings on your wireless device after changing.\n\nContinue?"}) %>
         </div>
       <% end %>

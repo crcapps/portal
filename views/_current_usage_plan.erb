@@ -1,12 +1,17 @@
 <div class="col-12">
-  <h4 class="text-center">Current Usage Plan</h4>
+  <h4>Current Usage Plan</h4>
+  <hr class="col-10 border-dark my-1 ml-0">
+
   <% if @current_account_or_token.usage_plan %>
+  <div class="shadow-sm">
+
     <%= render :partial => 'usage_plan', :object => @current_account_or_token.usage_plan %>
-    <br />
+      </div>
     <% if @current_account_or_token.usage_plan.direct_merchant &&
         @current_account_or_token.usage_plan.direct_merchant.store_payment_methods? %>
     <% if @current_account_or_token.payment_method %>
-      <p>
+    <div class="col-12">
+      <p class="text-center text-danger mx-auto">
         Current payment method:
         <%= link_to @current_account_or_token.payment_method.cc_display_number,
           :action => :payment_method_edit %>
@@ -14,6 +19,7 @@
         <%= link_to 'delete', { :action => :payment_method_delete, :method => :delete },
           data: { confirm: 'Delete payment method?' } %>
       </p>
+      </div>
     <% else %>
       <p>
         You currently do not have an active payment method. You may
@@ -24,12 +30,12 @@
           @current_account_or_token.usage_plan.try(:recurring_method) != "none" &&
           @current_account_or_token.bill_at.nil? %>
     <div class="col-12">
-      Recurring billing has been disabled.  When your usage expires, you will no longer be able to access the internet.  <%= link_to 'Purchase more usage', {action: 'usage_plan_list'} %> to extend your usage.
+      Recurring billing has been disabled.  When your usage expires, you will no longer be able to access the internet.  <%= link_to 'Purchase more usage', {action: 'usage_plan_list'}, :class => 'text-primary' %> to extend your usage.
     </div>
   <% end %>
 <% end %>
 <% else %>
-  <strong> You are not currently subscribed to a Usage Plan. </strong>&nbsp;&nbsp;
-  <%= link_to 'Buy Now', :action => :usage_plan_list %>
+  <strong> You are not currently subscribed to a Usage Plan. </strong>
+  <%= link_to 'Buy Now', {:action => :usage_plan_list}, :class => 'text-primary d-block mx-auto my-2 text-center' %>
 <% end %>
 </div>
