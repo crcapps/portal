@@ -306,7 +306,7 @@
           <%= render :partial => 'terms_checkbox' %>
           <div class="form-row">
             <div class="form-group col-12">
-              <%= button_tag('Purchase', :id => 'submit_button', :class => 'd-block mx-auto col-6 btn form-control form-control-lg btn-primary' ) %>
+              <%= button_tag('Purchase', :id => 'submit_button', :class => 'd-block mx-auto col-6 form-control form-control-lg btn-primary' ) %>
             </div>
           </div>
         </fieldset>
@@ -325,7 +325,7 @@
         <%= f.hidden_field :usage_plan_id %>
         <%= render :partial => 'validated_account_form', locals: { f: f } %>
         <div class="form-group col-12">
-        <%= button_tag('Create Account', :id => 'validated_account_submit_button', :class => 'd-block mx-auto col-6 btn form-control form-control-lg btn-primary' ) %>
+        <%= button_tag('Create Account', :id => 'validated_account_submit_button', :class => 'd-block mx-auto col-6 form-control form-control-lg btn-primary' ) %>
         </div>
       </fieldset>
       <% end %>
