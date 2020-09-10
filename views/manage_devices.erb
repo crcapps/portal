@@ -1,4 +1,13 @@
 <div class="container-fluid">
+<div class="row">
+<div class="col-3">
+<%= portal_image_tag "devices.svg" %>
+</div>
+<div class="col-9">
+  <h2 class="text-primary bottom-left-align">Devices</h2>
+</div>
+<hr class="col-10 border-dark mt-1 mb-4 ml-0">
+</div>
   <div class="row">
     <div class="col-12">
       <%= render_dashboard_dialogs(:device_session_summary) %>
@@ -16,20 +25,20 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <p class="text-center">
+      <p>
         You have
         <strong><%= pluralize(@current_account_or_token.devices.portal_visible.count, 'configured device') %></strong>
         that may be used to acquire Internet access.
       </p>
       <% if ! @current_account_or_token.unlimited_devices? && @current_account_or_token.max_devices <= @current_account_or_token.devices.portal_visible.count %>
-        <p class="text-center">
+        <p>
           Your account <strong>does not support any additional configured
             devices.</strong> Please delete at least one configured device below if
           you wish to add a different one.
         </p>
       <% else %>
         <% unless @current_account_or_token.unlimited_devices? %>
-          <p class="text-center">
+          <p>
             You may
             <strong>configure up to <%= pluralize(@current_account_or_token.max_devices, 'device') %></strong>
             in your account.
@@ -42,7 +51,7 @@
         </div>
       <% end %>
       <% if @current_account_or_token.is_virtual_gateway? %>
-        <p class="text-center">
+        <p>
           You may specify
           <strong><%= pluralize(@current_account_or_token.max_binats, 'device') %></strong>
           to act as a DMZ host by clicking the <strong>Activate</strong> button under the desired device.
@@ -51,7 +60,7 @@
         </p>
       <% end %>
       <% if @current_account_or_token.login_sessions.any? %>
-        <p class="text-center">
+        <p>
           You currently have
           <strong><%= pluralize(@current_account_or_token.login_sessions.count, 'active session') %></strong>
           being used to acquire Internet access.
@@ -83,7 +92,7 @@
           <h3>Active Devices - <a href='' class='expand_all'>Expand All</a> | <a href='' class='collapse_all'>Collapse All</a></h3>
           <% active_devices = @current_account_or_token.login_sessions.where(mac: @current_account_or_token.devices.portal_visible.map(&:mac)).order('updated_at DESC') %>
           <% if active_devices.empty? %>
-            <p>
+            <p class="text-center">
               None of your devices have active login sessions.
             </p>
           <% end %>
@@ -113,7 +122,7 @@
           <% if inactive_devices.any? %>
             <p>The following devices have been registered to your account, but do not currently have active login sessions:</p>
           <% else %>
-            <p>You do not have any inactive devices.</p>
+            <p class="text-center">You do not have any inactive devices.</p>
           <% end %>
           <% inactive_devices.each do |device| %>
             <div class="device_summary_row offline">
