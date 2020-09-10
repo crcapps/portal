@@ -46,7 +46,7 @@
                   :class => 'sr-only') %>
 <label class="col-12 py-2 px-4" for="usage_plan_id_<%=usage_plan.id.to_s%>">
                  <span class="sr-only" for="usage_plan_id_<%=usage_plan.id.to_s%>">Name: <%= h(usage_plan.name) %> Price: <%= h(usage_plan.price_display) %></span>
-                 <div aria-hidden>
+                 <div class=" quick-purchase-plan" aria-hidden>
                 <%= render :partial => 'usage_plan', :object => usage_plan %>
                 </div>
               </label>
@@ -66,7 +66,7 @@
             <% if @direct_plans.any? %>
             <div class="form-row">
               <div class="form-group col-12">
-                <%= radio_button_tag(:method, :direct, params[:method].nil? ? true : params[:method] == 'direct', :onclick => 'directOnclick();', :class => 'sr-only') %>
+                <%= radio_button_tag(:method, :direct, params[:method].nil? ? true : params[:method] == 'direct', :onclick => 'directOnclick();', :class => '') %>
                 <label for="method_direct">
                   <span class="sr-only">Credit Card</span>
                   <i class="fab fa-cc-visa fa-lg" aria-hidden></i>
