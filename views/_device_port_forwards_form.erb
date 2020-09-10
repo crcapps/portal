@@ -45,14 +45,14 @@
       <div class="form-row">
         <% if pf.persisted? %>
           <div class="form-group col-12">
-            <%= button_tag 'Update', :class => 'col-12 form-control form-control-lg btn-primary', :data => {:disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Updating'.html_safe } %>
+            <%= button_tag 'Update', :class => 'col-12 btn btn-lg btn-primary', :data => {:disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Updating'.html_safe } %>
           </div>
           <div class="form-group col-12">
-            <%= button_tag 'Delete', :class => 'col-12 form-control form-control-lg btn-danger', :data => {:confirm => 'Are you sure you want to delete this port forward?', :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span>Deleting'.html_safe } %>
+            <%= button_tag 'Delete', :class => 'col-12 btn btn-lg btn-danger', :data => {:confirm => 'Are you sure you want to delete this port forward?', :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span>Deleting'.html_safe } %>
           </div>
         <% else %>
           <div class="form-group col-12">
-            <%= button_tag 'Add' , :class => 'col-12 form-control form-control-lg btn-primary' %>
+            <%= button_tag 'Add' , :class => 'col-12 btn btn-lg btn-primary' %>
           </div>
         <% end %>
     </div>

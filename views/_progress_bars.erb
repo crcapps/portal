@@ -1,12 +1,18 @@
+  <% if bars.empty? %>
+    <td class="bg-white mx-2 text-center">&nbsp;–&nbsp;–&nbsp;</td>
+    <td class="bg-white mx-2 text-center">&nbsp;–&nbsp;–&nbsp;</td>
+<% else %>
 <% bars.each do |bar| %>
   <tr>
+
     <% bar[:columns].each do |td| %>
-      <td><%= td %></td>
+      <td class="text-center"><%= td %></td>
     <% end %>
-    <td>
+    <td class="bg-white mx-2 text-center">
       <div class="progress position-relative">
         <div class="progress-bar bg-primary" role="progressbar" style="width: <%= bar[:percent] %>%;" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<%= bar[:value] %>"><span class="progress-bar-title align-middle"><%= bar[:value] %></small></div>
       </div>
     </td>
+    <% end %>
   </tr>
 <% end %>

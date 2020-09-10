@@ -33,7 +33,7 @@
               <%= text_area_tag :invitation_text, nil, { :class => 'form-control form-control-lg', placeholder: 'Invitation message (optional)'} %>
             </div>
             <div class="form-group col-12">
-              <%= button_tag 'Send Invite', { :class => 'd-block mx-auto col-6 form-control form-control-lg btn-primary'} %>
+              <%= button_tag 'Send Invite', { :class => 'd-block mx-auto col-6 btn btn-lg btn-primary'} %>
             </div>
           </fieldset>
         <% end %>
@@ -59,7 +59,7 @@
               <%= text_field_tag 'lan_party[password]', party.password_was, { :class => 'col', placeholder: 'Password'} %>
             </div>
             <div class="form-group col-12">
-              <%= button_tag 'Update', { :class => 'form-control form-control-lg btn-primary col-md-4'} %>
+              <%= button_tag 'Update', { :class => 'btn btn-lg btn-primary col-md-4'} %>
             </div>
           </fieldset>
         <% end %>

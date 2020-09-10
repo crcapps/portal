@@ -13,7 +13,7 @@
     <%= text_field_tag :code, nil, :class => 'form-control form-control-lg', :placeholder => 'Code...', autofocus: true  %>
   </div>
   <div>
-    <%= button_tag('Proceed', :class => 'd-block mx-auto col-6 form-control form-control-lg' ) %>
+    <%= button_tag('Proceed', :class => 'd-block mx-auto col-6 btn btn-lg' ) %>
   </div>
 <% end %>
 <% if @current_account_or_token.phone_validation_pending?(@usage_plan) %>
@@ -26,7 +26,7 @@
       <%= f.text_field :phone, :class => 'form-control form-control-lg', :placeholder => 'Mobile...' %>
     </div>
     <div>
-      <%= f.button 'Update', :class => 'd-block mx-auto col-6 form-control form-control-lg' %>
+      <%= f.button 'Update', :class => 'd-block mx-auto col-6 btn btn-lg' %>
     </div>
   <% end %>
 <% end %>

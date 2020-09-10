@@ -9,7 +9,7 @@
           Click Continue below to obtain this plan at no charge.
         </p>
 
-          <%= button_tag('Continue', :class => 'd-block mx-auto col-6 form-control form-control-lg btn-primary', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
+          <%= button_tag('Continue', :class => 'd-block mx-auto col-6 btn btn-lg btn-primary', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
 
       <% end %>
     <% elsif @merchant && @merchant.direct_gateway? %>
@@ -32,7 +32,7 @@
           specified above.
         </p>
         <div>
-          <%= button_tag('Purchase', :class => 'd-block mx-auto col-6 form-control form-control-lg', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
+          <%= button_tag('Purchase', :class => 'd-block mx-auto col-6 btn btn-lg', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
         </div>
       <% end %>
     <% elsif @pms_server %>
@@ -51,7 +51,7 @@
             <%= text_field_tag 'pms_credential_b', @current_account.last_name, :placeholder => @pms_server.second_credential == 'G#' ? 'guest number...' : 'last name...', :class => 'form-control form-control-lg' %>
           </div>
           <div>
-            <%= button_tag('Purchase', :class => 'd-block mx-auto col-6 form-control form-control-lg', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
+            <%= button_tag('Purchase', :class => 'd-block mx-auto col-6 btn btn-lg', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
           </div>
         </fieldset>
       <% end %>
