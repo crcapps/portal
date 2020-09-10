@@ -36,7 +36,7 @@
   <li class="nav-item"><%= link_to 'Logout', { :action => :login_session_destroy, :method => :delete }, { :class => 'nav-link' } %></li>
   <% end %>
 <% elsif ! @usage_plans.empty? %>
-  <li class="nav-item <%= params[:action] == 'quick_purchase' ? 'active' : '' %>"><%= link_to 'Sign Up', { :action => :quick_purchase }, { :class => 'nav-link' } %></li>
+  <li class="nav-item <%= params[:action] == 'quick_purchase' ? 'active' : '' %>"><%= link_to 'Sign&nbsp;Up'.html_safe, { :action => :quick_purchase }, { :class => 'nav-link' } %></li>
 <% end %>
 
 <!-- localization example
