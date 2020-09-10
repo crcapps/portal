@@ -1,11 +1,11 @@
 <% if @logged_in %>
     <div class="container-fluid">
-
+        <div class="row">
       <% if @current_account_or_token %>
         <% if ! @current_account_or_token.can_be_online? %>
           <%= render :partial => 'session_info_complete' %>
         <% end %>
-        <div class="row">
+
         <%= render :partial => 'summary_devices' %>
         <%= render :partial => 'summary_usage' %>
         <%= render :partial => 'summary_billing' %>
