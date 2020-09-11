@@ -7,7 +7,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </header>
-      <p class="">
+      <p class="text-center">
         <strong>WARNING:</strong> By joining a LAN Party, you are entering the
         network of another user who will have direct access to your
         devices. Up-to-date Anti-virus and firewalls are recommended to 
@@ -20,7 +20,7 @@
           </div>
           <div class="form-row">
             <div class="form-group col-12">
-              <%= label_tag :party_password, { :class => 'sr-only'} %>
+              <%= label_tag :party_password, "Password", { :class => 'sr-only'} %>
               <%= text_field_tag :party_password, nil, { :class => 'form-control form-control-lg', placeholder: 'Password'} %>
             </div>
           </div>

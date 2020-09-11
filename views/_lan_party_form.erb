@@ -65,7 +65,7 @@
     </div>
     <div class="form-row">
       <div class="form-group col-12 <%= 'field_with_errors' if lan_party.errors.keys.include? :no_expiration %>">
-        <label><%= f.check_box :no_expiration, :class => 'form-control form-control-lg', :id => no_expiration_field_id %> No expiration (remain active until deleted)</label>
+        <label><%= f.check_box :no_expiration, :class => '', :id => no_expiration_field_id %> No expiration (remain active until deleted)</label>
         <script>
           $(function() {
             // clear the datetime picker if the user checks the no expiration checkbox
@@ -83,7 +83,7 @@
   </fieldset>
   <div class="form-row">
     <div class="form-group col-12">
-      <%= f.button f.object.persisted? ? 'Update LAN Party' : 'Create LAN Party', :class => 'd-block mx-auto col-6 lg btn-primary' %>
+      <%= f.button f.object.persisted? ? 'Update LAN Party' : 'Create LAN Party', :class => 'd-block mx-auto col-6 btn btn-lg btn-primary' %>
     </div>
   </div>
 <% end %>
