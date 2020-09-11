@@ -77,10 +77,13 @@
     </table>
   </div>
   <% if @current_account_or_token.permits_port_forwards? %>
-    <div class="row">
-      <div class="col-12">
-        <h4>Device Port Forwards</h4>
-      </div>
+<div class="row mb-2">
+          <div class="col-12 justify-content-between d-flex align-items-center">
+            <h4 class="align-middle d-inline mb-0">Device Port Forwards</h4>
+            <a class="collapser btn btn-sm btn-primary collapsed align-middle d-inline-block" data-toggle="collapse" href="#activeDevicesCollapse_<%= device.id %>" role="button" aria-expanded="false" aria-controls="activeDevicesCollapse"></a>
+          </div>
+        </div>
+      <div class="row collapse" id="activeDevicesCollapse_<%= device.id %>">
       <% device.device_port_forwards.each do |pf| %>
         <%= render :partial => 'device_port_forwards_form', :locals => {:pf => pf} %>
       <% end %>
@@ -90,6 +93,7 @@
       <% end %>
       <%= render :partial => 'device_port_forwards_form', 
              :locals => { :pf => DevicePortForward.new(device: device, account: @current_account_or_token) } %>
+    </div>
     </div>
   <% end %>
 </div>

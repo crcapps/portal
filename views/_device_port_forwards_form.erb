@@ -31,23 +31,21 @@
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group col-12">
+        <div class="form-group col-6">
           <%= f.label :name, "Protocol", :class => 'font-weight-bold' %>
           <%= f.collection_select :protocol, NetApp::PORT_PROTOCOLS, :to_s, :to_s, {}, {:class => 'form-control form-control form-control-lg', :id => nil, :placeholder => 'Protocol...', :class => "form-control form-control-lg" }  %>
         </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-12">
+        <div class="form-group col-6">
           <%= f.label :device_id, "Device", :class => 'font-weight-bold' %>
           <%= f.collection_select :device_id, @current_account_or_token.devices.portal_visible, :id, :name, {include_blank: 'Disabled'}, {:class => 'form-control form-control form-control-lg', :id => nil} %>
         </div>
       </div>
       <div class="form-row">
         <% if pf.persisted? %>
-          <div class="form-group col-12">
+          <div class="form-group col-6">
             <%= button_tag 'Update', :class => 'col-12 btn btn-lg btn-primary', :data => {:disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Updating'.html_safe } %>
           </div>
-          <div class="form-group col-12">
+          <div class="form-group col-6">
             <%= button_tag 'Delete', :class => 'col-12 btn btn-lg btn-danger', :data => {:confirm => 'Are you sure you want to delete this port forward?', :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span>Deleting'.html_safe } %>
           </div>
         <% else %>

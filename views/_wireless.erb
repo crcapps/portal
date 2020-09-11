@@ -1,10 +1,11 @@
 <% if @current_account_or_token.can_set_psk? %>
-  <div class='rg-heading'>
-    <h2 class='uk-visible-small'>Manage Wireless</h2>
-    <h1 class='uk-hidden-small'>Manage Wireless</h1>
+  <div class='row'>
+  <div class="col-12">
+    <h4 class='uk-visible-small'>Manage Wireless</h2>
   </div>
-  <div class="uk-grid rg-transparent-bg rg-margin-left rg-payment-form uk-padding-remove uk-margin-remove">
-    <div class="uk-width-1-1">
+  </div>
+  <div class="row">
+    <div class="col=12">
       <p>
         Setting an encryption key enables you to update the wireless passphrase used to encrypt your wireless traffic.
       </p>
@@ -19,8 +20,8 @@
       <%= form_for( @current_account_or_token, :as => :current_account_or_token, :url => { :action => :psk_update },
         :html => { :class => 'container-fluid', :name => 'account_form', :id => 'account_form' }) do |f| %>
         <% unless @current_account_or_token.errors.empty? %>
-          <div class="uk-width-small-1-1 uk-width-large-1-3">
-            <div class="rg-transparent-bg error-messages">
+          <div class="col-12">
+            <div class="error-messages">
               <%= error_messages_for :current_account_or_token %>
             </div>
           </div>
