@@ -1,23 +1,23 @@
 <div class="container-fluid">
-<div class="row">
-<div class="col-3">
-<%= portal_image_tag "devices.svg" %>
-</div>
-<div class="col-9">
-  <h2 class="text-primary bottom-left-align">Devices</h2>
-</div>
-<hr class="col-10 mt-1 mb-4 ml-0">
-</div>
   <div class="row">
-      <%= render_dashboard_dialogs(:device_session_summary) %>
+    <div class="col-3">
+      <%= portal_image_tag "devices.svg" %>
+    </div>
+    <div class="col-9">
+      <h2 class="text-primary bottom-left-align">Devices</h2>
+    </div>
+    <hr class="col-10 mt-1 mb-4 ml-0">
+  </div>
+  <div class="row">
+    <%= render_dashboard_dialogs(:device_session_summary) %>
   </div>
   <%= render :partial => 'lan_parties' %>
-    <div class="row">
-      <div class='col-12'>
-        <h3>Manage Devices</h3>
-      </div>
-      <hr class="col-10 mt-0 mb-3 ml-0">
+  <div class="row">
+    <div class='col-12'>
+      <h3>Manage Devices</h3>
     </div>
+    <hr class="col-10 mt-0 mb-3 ml-0">
+  </div>
   <div class="row">
     <div class="col-12">
       <p>
@@ -62,44 +62,44 @@
         </p>
       <% end %>
       <div id="device_list row">
-      <div id="col-12">
-        <% deviceless_sessions = @current_account_or_token.login_sessions.where('mac IS NULL OR mac NOT IN (?)', @current_account_or_token.devices.map(&:mac)) %>
-        <% if deviceless_sessions.any? %>
-          <div class="manage_devices_section row">
-            <div class="col-12">
-              <h3>Sessions Without a Device - <a href='' class='expand_all'>Expand All</a> | <a href='' class='collapse_all'>Collapse All</a></h3>
-            </div>
-            <div>
-            <% deviceless_sessions.each do |ls| %>
-              <div class="device_summary_row row">
+        <div id="col-12">
+          <% deviceless_sessions = @current_account_or_token.login_sessions.where('mac IS NULL OR mac NOT IN (?)', @current_account_or_token.devices.map(&:mac)) %>
+          <% if deviceless_sessions.any? %>
+            <div class="manage_devices_section row">
               <div class="col-12">
-                <span class="device_header">
-                  <%= [ ls.ip, ls.mac, ls.http_user_agent.try(:name) ].compact.join(' - ') %>
-                </span>
-                </div>
-                </div>
-                <div class="detail_row row">
-                  <div class="col-12">
-                    <%= render :partial => 'session_detail_row', :locals => {ls: ls} %>
+                <h3>Sessions Without a Device - <a href='' class='expand_all'>Expand All</a> | <a href='' class='collapse_all'>Collapse All</a></h3>
+              </div>
+              <div>
+                <% deviceless_sessions.each do |ls| %>
+                  <div class="device_summary_row row">
+                    <div class="col-12">
+                      <span class="device_header">
+                        <%= [ ls.ip, ls.mac, ls.http_user_agent.try(:name) ].compact.join(' - ') %>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="detail_row row">
+                    <div class="col-12">
+                      <%= render :partial => 'session_detail_row', :locals => {ls: ls} %>
+                    </div>
                   </div>
                 </div>
+              </div>
             <% end %>
           </div>
-          </div>
-          <!-- sessionless devices manage_devices_section -->
-        <% end %>
-        <div class="manage_devices_section mb-4">
+        </div>
+        <!-- sessionless devices manage_devices_section -->
+      <% end %>
+      <div class="manage_devices_section mb-4">
         <div class="row mb-2">
-                  <div class="col-12 justify-content-between d-flex align-items-center">
-          <h4 class="align-middle d-inline mb-0">Active Devices</h4>
-          <a class="collapser btn btn-sm btn-primary collapsed align-middle d-inline-block" data-toggle="collapse" href="#activeDevicesCollapse" role="button" aria-expanded="false" aria-controls="activeDevicesCollapse"></a>
+          <div class="col-12 justify-content-between d-flex align-items-center">
+            <h4 class="align-middle d-inline mb-0">Active Devices</h4>
+            <a class="collapser btn btn-sm btn-primary collapsed align-middle d-inline-block" data-toggle="collapse" href="#activeDevicesCollapse" role="button" aria-expanded="false" aria-controls="activeDevicesCollapse"></a>
           </div>
-                    </div>
-          <% active_devices = @current_account_or_token.login_sessions.where(mac: @current_account_or_token.devices.portal_visible.map(&:mac)).order('updated_at DESC') %>
-
-
-          <div class="row collapse" id="activeDevicesCollapse">
-                    <% if active_devices.empty? %>
+        </div>
+        <% active_devices = @current_account_or_token.login_sessions.where(mac: @current_account_or_token.devices.portal_visible.map(&:mac)).order('updated_at DESC') %>
+        <div class="row collapse" id="activeDevicesCollapse">
+          <% if active_devices.empty? %>
             <p class="text-center">
               None of your devices have active login sessions.
             </p>
@@ -122,10 +122,10 @@
               </div>
             </div>
           <% end %>
-          </div>
         </div>
-        <!-- active devices manage_devices_section -->
-        <div class="manage_devices_section mb-4">
+      </div>
+      <!-- active devices manage_devices_section -->
+      <div class="manage_devices_section mb-4">
         <div class="row mb-2">
           <div class="col-12 justify-content-between d-flex align-items-center">
             <h4 class="align-middle d-inline mb-0">Inactive Devices</h4>
@@ -135,12 +135,12 @@
         <div class="row collapse" id="inactiveDevicesCollapse">
           <% inactive_devices = @current_account_or_token.devices.portal_visible.where.not(mac: @current_account_or_token.login_sessions.map(&:mac)) %>
           <% if inactive_devices.any? %>
-          <div class="col-12">
-            <p>The following devices have been registered to your account, but do not currently have active login sessions:</p>
+            <div class="col-12">
+              <p>The following devices have been registered to your account, but do not currently have active login sessions:</p>
             </div>
           <% else %>
             <div class="col-12">
-            <p class="text-center">You do not have any inactive devices.</p>
+              <p class="text-center">You do not have any inactive devices.</p>
             </div>
           <% end %>
           <% inactive_devices.each do |device| %>
@@ -159,73 +159,35 @@
               </div>
             </div>
           <% end %>
-          </div>
         </div>
-        <!-- inactive devices manage_devices_section -->
-        <% if @current_account_or_token.media_converters.portal_visible.exists? %>
-          <div class="manage_devices_section row mb-4">
+      </div>
+      <!-- inactive devices manage_devices_section -->
+      <% if @current_account_or_token.media_converters.portal_visible.exists? %>
+        <div class="manage_devices_section row mb-4">
           <div class="col-12">
-                    <div class="row mb-2">
-                  <div class="col-12 justify-content-between d-flex align-items-center">
-          <h4 class="align-middle d-inline mb-0">>Media Converter Equipment</h4>
-          <a class="collapser btn btn-sm btn-primary collapsed align-middle d-inline-block" data-toggle="collapse" href="#mediaConverterCollapse" role="button" aria-expanded="false" aria-controls="mediaConverterCollapse"></a>
-          </div>
-        </div>
-        <div class="row collapse" id="mediaConverterCollapse">
-            <% @current_account_or_token.media_converters.portal_visible.each do |media_converter| %>
-              <div class="device_summary_row col-12">
-                <span class="device_header"><%= media_converter.name %></span>
-                <div class="detail_row">
-                  <%= render :partial => 'media_converter_detail_row', :locals => {media_converter: media_converter} %>
-                </div>
+            <div class="row mb-2">
+              <div class="col-12 justify-content-between d-flex align-items-center">
+                <h4 class="align-middle d-inline mb-0">>Media Converter Equipment</h4>
+                <a class="collapser btn btn-sm btn-primary collapsed align-middle d-inline-block" data-toggle="collapse" href="#mediaConverterCollapse" role="button" aria-expanded="false" aria-controls="mediaConverterCollapse"></a>
               </div>
-            <% end %>
+            </div>
+            <div class="row collapse" id="mediaConverterCollapse">
+              <% @current_account_or_token.media_converters.portal_visible.each do |media_converter| %>
+                <div class="device_summary_row col-12">
+                  <span class="device_header"><%= media_converter.name %></span>
+                  <div class="detail_row">
+                    <%= render :partial => 'media_converter_detail_row', :locals => {media_converter: media_converter} %>
+                  </div>
+                </div>
+              <% end %>
             </div>
           </div>
-          </div>
-          <!-- media converters manage_devices_section -->
-        <% end %>
-      </div>
-      <!-- device_list -->
+        </div>
+        <!-- media converters manage_devices_section -->
+      <% end %>
     </div>
+    <!-- device_list -->
   </div>
-  <%= render :partial => 'port_forwards' %>
-  <%= render :partial => 'wireless' %>
 </div>
-</div>
-<script>
-  $(function(){
-    $(".device_summary_row, .session_summary_row").click(function(e){
-      if ($(e.target).is('.device_summary_row')  ||
-          $(e.target).is('.session_summary_row') ||
-          $(e.target).is('.device_header')       ||
-          $(e.target).is('.device_header_badge')) {
-  
-        $(this).find('.detail_row').slideToggle();
-        $(this).toggleClass('open');
-      }
-  
-    });
-  
-    $(".expand_all").click(function(e){
-      e.preventDefault();
-      $(this).closest('.manage_devices_section')
-             .find('.device_summary_row, .session_summary_row')
-             .addClass('open')
-             .find('.detail_row')
-             .slideDown();
-    })
-    $(".collapse_all").click(function(e){
-      e.preventDefault();
-      $(this).closest('.manage_devices_section')
-             .find('.device_summary_row, .session_summary_row')
-             .removeClass('open')
-             .find('.detail_row')
-             .slideUp();
-    })
-  
-    $(".nearby_mac").click(function(e){
-      $("#device_mac").val($(this).data('mac'))
-    })
-  })
-</script>
+<%= render :partial => 'port_forwards' %>
+<%= render :partial => 'wireless' %>
