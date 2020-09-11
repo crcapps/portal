@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-3">
-      <%= portal_image_tag "gears.svg" %>
+      <%= portal_image_tag "data_traffic.svg" %>
     </div>
     <div class="col-9">
       <h2 class='text-primary bottom-left-align'>Network Reports 
@@ -11,7 +11,7 @@
         <a href='#graphTimeModal' id="dialog_config_button"  data-toggle="modal"><%= portal_image_tag('dialog_config.svg') %></a>
       </h2>
     </div>
-    <hr class="col-10 my-1 ml-0">
+    <hr class="col-10 mt-1 mb-4 ml-0">
   </div>
   <div class="row">
   <% unless @current_account_or_token.unlimited_usage_minutes? && 
