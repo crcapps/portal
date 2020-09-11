@@ -39,6 +39,8 @@
   <% end %>
     <div id="wrapper">
       <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+         <%= link_to "Color&nbsp;Accessibility#{session['color_accessibility'] ? "&nbsp;Mode" : '?'}".html_safe, params.merge(color_accessibility: true), :class => "color-accessibility"%>
+
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
           <%= link_to (portal_inline_svg 'placeholder_hotel_logo.svg', :style => 'height: 50px;'), { :action => :index }, { :class => 'navbar-brand mx-auto' } %>
