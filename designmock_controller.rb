@@ -7,6 +7,11 @@ class Portal::DesignmockController < PortalController
 # Methods defined here will be available as custom actions of this custom portal
 # controller.
 
+before_action :get_color_accessibility
+
+def get_color_accessibility
+session[:color_accessbility] = params[:color_accessbility]
+end
 
 end
 
