@@ -34,10 +34,9 @@
     <%= csrf_meta_tag %>
   </head>
   <body class="bg-light d-flex flex-column">
-  <% if :session['color_accessibility'] %>
-    <% render :partial => 'accessibility_styles'%>
+  <% if session['color_accessibility'] %>
+    <%= render :partial => 'accessibility_styles'%>
   <% end %>
-
     <div id="wrapper">
       <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container-fluid">

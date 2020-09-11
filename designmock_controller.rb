@@ -10,7 +10,7 @@ class Portal::DesignmockController < PortalController
 before_action :get_color_accessibility
 
 def get_color_accessibility
-session[:color_accessbility] = params[:color_accessbility]
+  session[:color_accessibility] = params[:color_accessibility] if params.key?(:color_accessibility)
 end
 
 end
