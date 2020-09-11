@@ -13,22 +13,21 @@
 <fieldset class="container-fluid">
 <div class="form-row">
 <div class="form-group col-12">
-<div class="form-row">
-<div class="col-3">
-  <%= label_tag('device_mac', 'MAC Address:') %>
-  </div>
-  <div class="col-9">
+
+<div class="col-12">
+  <%= label_tag('device_mac', 'MAC Address:') %><br>
   <%= text_field_tag(:device_mac, @device_mac, :size => 20, :placeholder => '00:00:00:00:00:00', :class => 'form-control form-control-lg') %>
   </div>
-  </div>
+</div>
 </div>
   <% if @current_account_or_token.is_virtual_gateway? %>
-  <div class="form-group col-2">
+  <div class="form-row">
+  <div class="form-group col-12">
     <%= label_tag('device_binat', 'Activate DMZ') %>
     <%= check_box_tag(:device_binat, 1, false) %>
     </div>
+    </div>
   <% end %>
-  </div>
 <div class="form-row">
   <div class="form-group col-12">
   <%= button_tag('Add', :class => 'col-12 btn-lg btn-primary', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>

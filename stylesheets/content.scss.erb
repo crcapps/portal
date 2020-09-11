@@ -69,6 +69,16 @@ input[type="radio"]:checked+label .collapse, .purchase-plan .collapse {
 display: block !important;
 }
 
+.collapser.collapsed:before {
+  content: 'Expand All';
+  display: block;
+}
+
+.collapser:before {
+  content: 'Collapse All';
+    display: block;
+}
+
 .progress-bar-title {
   position: absolute;
   text-align: center;
