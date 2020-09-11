@@ -1,10 +1,12 @@
-<div class="rg-heading">
-  <h2 class='uk-visible-small'>Offsite IPN</h2>
-  <h1 class='uk-hidden-small'>Offsite IPN</h1>
+<div class="container-fluid">
+<div class="row">
+<div class="col-12">
+  <h2 class='text-center'>Offsite IPN</h2>
+  </div>
 </div>
 
-<div class="uk-grid rg-transparent-bg rg-margin-left rg-payment-form uk-padding-remove uk-margin-remove">
-  <div class="uk-width-1-1">
+<div class="row">
+  <div class="col-12">
     <% if (@integrations_class_name == 'FirstData') && @notify && @notify.complete? && @acknowledged %>
 
       <pre>
@@ -37,4 +39,5 @@
     <% end %>
     <!-- else, end-user does not see this for PayPal -->
   </div>
+</div>
 </div>

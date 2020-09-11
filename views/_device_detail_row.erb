@@ -53,7 +53,7 @@
             "Activating the DMZ option for this device will disable any port forwarding rules defined.  Continue?"
           end
         end %>
-            <%= link_to(device.binat? ? 'Deactivate' : 'Activate', {:action => :update_device_binat, :device_id => device.id}, :class => "uk-button uk-width-1-1 rg-button no-min-width #{ 'activated' if device.binat? }", :data => { :disable_with => device.binat? ? 'Deactivating' : 'Activating', :confirm => confirm }) %>
+            <%= link_to(device.binat? ? 'Deactivate' : 'Activate', {:action => :update_device_binat, :device_id => device.id}, :class => "col-12 btn btn-lg btn-primary #{ 'btn-success' if device.binat? }", :data => { :disable_with => device.binat? ? 'Deactivating' : 'Activating', :confirm => confirm }) %>
           </td>
         </tr>
       <% end %>
@@ -70,7 +70,7 @@
       <% if @current_account && @current_account.lock_devices == false %>
         <tr>
           <td colspan="2" class="action-cell">
-            <%= link_to('Delete', {:action => :delete_device, :device_id => device.id}, {:class => 'uk-button uk-width-1-1 rg-button', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } }) %>
+            <%= link_to('Delete', {:action => :delete_device, :device_id => device.id}, {:class => 'btn btn-lg btn-danger', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe } }) %>
           </td>
         </tr>
       <% end %>

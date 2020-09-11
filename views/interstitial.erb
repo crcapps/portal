@@ -1,25 +1,34 @@
-<div class="rg-heading">
-  <h2 class='uk-visible-small'>Interstitial</h2>
-  <h1 class='uk-hidden-small'>Interstitial</h1>
-  
-  <% if in_mobile_view? %>
-    <%= render partial: 'rotator', locals: { urn: 'mobile' } %>
-  <% elsif in_tablet_view? %>
-    <%= render partial: 'rotator', locals: { urn: 'mobile', count: 2 } %>
-  <% else %>
-    <%= render partial: 'rotator', locals: { urn: 'interstitial', count: 2 } %>
-  <% end %>
-
-</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <h2 class='text-center'>Interstitial</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div classs="col-12">
+      <% if in_mobile_view? %>
+        <%= render partial: 'rotator', locals: { urn: 'mobile' } %>
+      <% elsif in_tablet_view? %>
+        <%= render partial: 'rotator', locals: { urn: 'mobile', count: 2 } %>
+      <% else %>
+        <%= render partial: 'rotator', locals: { urn: 'interstitial', count: 2 } %>
+      <% end %>
+    </div>
+  </div>
 
 
 <% if params[:original_url].present? %>
-  <div id="continue" style="display: none;" class="rg-form center-align">
+<div class="row">
+  <div id="continue" style="display: none;" class="col-12">
+  <p class="text-center">
     Continue to: <%= link_to(params[:original_url], params[:original_url]) %>
+    </p>
   </div>
+</div>
   <script>
     setTimeout(function(){
       document.getElementById('continue').style.display = "block";
     }, <%= @interstitial_redirect.try(:duration).to_i * 1000 %>);
   </script>
 <% end %>
+</div>

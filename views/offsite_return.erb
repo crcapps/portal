@@ -1,10 +1,12 @@
-<div class="rg-heading">
-  <h2 class='uk-visible-small'>Offsite Return</h2>
-  <h1 class='uk-hidden-small'>Offsite Return</h1>
+<div class="container-fluid">
+<div class="row">
+<div class="col-12">
+  <h2 class='text-center'>Offsite Return</h2>
+</div>
 </div>
 
-<div class="uk-grid rg-transparent-bg rg-margin-left rg-payment-form uk-padding-remove uk-margin-remove">
-  <div class="uk-width-1-1">
+<div class="row">
+  <div class="col-12">
     <!-- payment_status parameter is inserted by Paypal in the return and may
          differ with other offsite payment gateways -->
     <% if params[:payment_status] %>
@@ -17,4 +19,5 @@
     
     <%= render :partial => 'login_success' %>
   </div>
+</div>
 </div>

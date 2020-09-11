@@ -149,7 +149,7 @@
                     %>
                   </div>
                   <div class="col-4">
-                    <%= link_to 'Edit',   "#update_lan_party_#{party.id}",   { :class => "btn btn-lg col-12 #{party.errors.any? ? 'btn-danger' : 'btn-secondary'}" , data: {"uk-modal" => ""} } %>
+                    <%= link_to 'Edit',   "#update_lan_party_#{party.id}",   { :class => "btn btn-lg col-12 #{party.errors.any? ? 'btn-danger' : 'btn-secondary'}" , data: {"toggle" => "modal"} } %>
                     </div>
                     <div class="col-4">
                     <%= 
@@ -166,7 +166,9 @@
                     <div class="modal-content">
                       <header class="modal-header">
                         <h2 class="inline-block">Edit LAN Party</h2>
-                        <a class="uk-modal-close uk-close"></a>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                       </header>
                       <main class="modal-body">
                         <%= render :partial => 'lan_party_form', :locals => {lan_party: party} %>

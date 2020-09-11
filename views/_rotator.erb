@@ -5,18 +5,19 @@
 
 <% if rotatees.any? %>
 
-  <div class='uk-grid'>
+  <div class='container-fluid'>
+  <div class="row">
   
     <% rotatees.in_groups_of(3, false) do |group| %>
       <% group.each do |rotatee| %>
 
-        <div class="uk-width-small-1-1 uk-width-medium-1-<%= group.count %>">
+        <div class="col-12">
           <%= rotatee.payload.html_safe %>
         </div>
 
       <% end %>
     <% end %>
-    
+    </div>
   </div>
   
 <% end %>

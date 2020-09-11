@@ -1,9 +1,11 @@
-<div class="rg-heading">
-  <h2 class='uk-visible-small'>Hello <%= @guest.title %> <%= @guest.name %></h2>
-  <h1 class='uk-hidden-small'>Hello <%= @guest.title %> <%= @guest.name %></h1>
+<div class="container-fluid">
+<div class="row">
+<div class='col-12'>
+  <h2 class='text-center'>Hello <%= @guest.title %> <%= @guest.name %></h2>
 </div>
-<div class="uk-grid rg-transparent-bg rg-margin-left rg-payment-form uk-padding-remove uk-margin-remove">
-  <div class="uk-width-1-1">
+</div>
+<div class="row">
+  <div class="col-12">
     <%= form_for(@payment_method, :url => { :action => :quick_purchase_charge },
       :html => { :name => 'payment_form', :id => 'payment_form', :class => 'container-fluid', :onsubmit => 'return paymentFormOnSubmit()' }) do |f| %>
       <%= hidden_field_tag(:method, 'pms') %>
@@ -17,22 +19,22 @@
       <fieldset class="container-fluid">
         <legend class="col-12 text-center">select your desired connection type</legend>
         <!-- list of available plans -->
-        <table class="uk-table uk-table-striped uk-table-condensed rg-no-border">
+        <table class="table">
           <% @usage_plans.each do |usage_plan| %>
             <tr>
-              <td class="uk-width-1-10 rg-no-border">
+              <td class="col-2">
                 <%= radio_button(:usage_plan, :id, usage_plan.id) %>
               </td>
-              <td class="uk-width-1-2 rg-no-border">
+              <td class="col-6">
                 <%= h(usage_plan.name) %>
               </td>
-              <td class="uk-width-3-10 rg-no-border">
+              <td class="col-4">
                 <%= h(usage_plan.price_display) %>
               </td>
             </tr>
             <% if usage_plan.description.to_s.length > 0 %>
               <tr>
-                <td class="rg-no-border"> </td>
+                <td class="border-0"> </td>
                 <td colspan="2" class="rg-no-border">
                   <%= usage_plan.description.html_safe %>
                 </td>
@@ -46,7 +48,7 @@
           <%= text_field_tag 'email', params[:email], :placeholder => 'Enter Email...', :class => 'form-control form-control-lg' %>
         </div>
         <div>
-          <%= button_tag('Select', :id => 'submit_button', :class => 'd-block mx-auto col-6 btn btn-lg btn-light shadow-sm' ) %>
+          <%= button_tag('Select', :id => 'submit_button', :class => 'd-block mx-auto col-6 btn btn-lg btn-primary' ) %>
         </div>
       <% end %>
       <% if @guest.no_post? && @usage_plans.empty? %>
@@ -56,6 +58,7 @@
       <% end %>
     </div>
   </div>
+</div>
   <script type="text/javascript">
     function paymentFormOnSubmit() {
     
