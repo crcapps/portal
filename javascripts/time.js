@@ -124,11 +124,39 @@ const describeTime = (hour) => {
   return description
 }
 
+const getGradientClass = (hour) => {
+  console.log(hour)
+  let gradientClass = 'morningSky'
+  if (hour >= 20) {
+    gradientClass = 'nightSky'
+  } else if (hour >= 17) {
+    gradientClass = 'eveningSky'
+  } else if (hour >= 8) {
+    gradientClass = 'daySky'
+  } 
+
+  return gradientClass
+}
+
 /**
  * Update the welcome text with the current greeting.
  */
 const updateWelcome = (hour) => {
   $('.welcome').html(`Good&nbsp;${describeTime(hour)}.`)
+}
+
+const updateSky = (hour) => {
+  console.log('updating sky')
+  const colors = ['morningSky', 'nightSky', 'eveningSky', 'daySky']
+  const skyColor = getGradientClass(hour)
+  const sky = $('.hero-wrapper')
+  const shouldTransition = !sky.hasClass(skyColor)
+  console.log(skyColor)
+  if (shouldTransition) {
+    sky.addClass(skyColor)
+    colors.filter(color => color !== skyColor).forEach(color => sky.removeClass(color))
+  }
+  
 }
 
 /**
@@ -138,7 +166,9 @@ const start = () => {
   const time = 
   timer = initializeTimer(() => {
     const time = incrementTime()
-    updateWelcome(time.getHours())
+    const hour = time.getHours()
+    updateWelcome(hour)
+    updateSky(hour)
   })
   return timer
 }
