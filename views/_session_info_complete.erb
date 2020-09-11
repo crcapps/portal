@@ -1,5 +1,5 @@
     <h3 class="col-12 text-center">Session Info</h3>
-    <hr class="col-9 col-lg-4 mx-auto border-dark">
+    <hr class="col-9 col-lg-4 mx-auto">
   </div>
    <% if session[:desired_url] %>
     <div class="row">
@@ -9,7 +9,7 @@
           <%= link_to session[:desired_url], session[:desired_url] %>
         </p>
       </div>
-      <hr class="col-9 col-lg-4 mx-auto border-dark separator">
+      <hr class="col-9 col-lg-4 mx-auto separator">
     </div>
   <% end %>
   <% if @login_session %>
@@ -30,7 +30,7 @@
             </div>
           </div>
         </div>
-        <hr class="col-9 col-lg-4 mx-auto border-dark separator">
+        <hr class="col-9 col-lg-4 mx-auto separator">
         <% if @login_session.usage_bytes_down_remaining %>
           <div class="col-12 mx-auto session-info">
             <div class="col-12">
@@ -47,7 +47,7 @@
               </div>
             </div>
           </div>
-          <hr class="col-9 col-lg-4 mx-auto border-dark separator">
+          <hr class="col-9 col-lg-4 mx-auto separator">
         <% end %>
           <% if @login_session.usage_bytes_up_remaining %>
           <div class="col-12 mx-auto session-info">
@@ -66,7 +66,7 @@
               </div>
             </div>
           </div>
-          <hr class="col-9 col-lg-4 mx-auto border-dark separator">
+          <hr class="col-9 col-lg-4 mx-auto separator">
         <% end %>
       <% else %>
         <div class="col-12 mx-auto">
@@ -84,7 +84,7 @@
             </div>
           </div>
         </div>
-        <hr class="col-9 col-lg-4 mx-auto border-dark separator">
+        <hr class="col-9 col-lg-4 mx-auto separator">
       <% end %>
        <div class="col-12 mx-auto session-info">
         <div class="col-12">
@@ -125,7 +125,7 @@
             <% end %>
           </div>
         </div>
-          <hr class="col-9 col-lg-4 mx-auto border-dark separator">
+          <hr class="col-9 col-lg-4 mx-auto separator">
 
   <% else %>
       <div class="col-12">

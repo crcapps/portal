@@ -19,7 +19,7 @@
         <%= form_tag :action => :accept_lan_party_invitation, id: party.id do %>
           <fieldset class="container-fluid">
             <div class="form-row">
-              <legend class="col-12 text-center">
+              <legend class="col-12 text-center">Accept Lan Party Invite</legend>
               </div>
               <% available_devices = @current_account_or_token.devices.portal_visible.where(Device.arel_table[:lan_party_id].eq(nil).or(Device.arel_table[:lan_party_id].not_eq(party.id))) %>
               <% available_devices.each do |device| %>

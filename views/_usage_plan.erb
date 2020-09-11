@@ -25,13 +25,13 @@
 <div id="collapse-<%= usage_plan.name.parameterize %>" class="row collapse px-4">
 <table class="table mb-1">
   <tr>
-    <th class="border-right border-top-0 border-dark">Name</th>
-    <td class="border-dark border-top-0"><%= h(usage_plan.name) %></td>
+    <th class="border-right border-top-0">Name</th>
+    <td class="border-top-0"><%= h(usage_plan.name) %></td>
   </tr>
   <% unless usage_plan.description.blank? %>
     <tr>
-      <th class="border-right border-top-0 border-dark align-top">Description</th>
-      <td class="border-dark">
+      <th class="border-right border-top-0 align-top">Description</th>
+      <td>
         <%= usage_plan.description.html_safe %>
         <% if usage_plan.time_plan && !usage_plan.time_plan.description.blank? %>
           <%= usage_plan.time_plan.description.html_safe %>
@@ -50,8 +50,8 @@
   </tr>
 <% end %>
 <tr>
-  <th class="border-right border-top-0 border-dark">Price</th>
-  <td class="border-dark">
+  <th class="border-right border-top-0">Price</th>
+  <td>
     <%= h(usage_plan.price_display) %>
   </td>
 </tr>
@@ -61,8 +61,8 @@
   <% usage_plan.account_group.policy.bandwidth_queues.each do |queue| -%>
     <% if queue.net_apps.empty? && queue.wan_targets.empty? %>
       <tr>
-        <th class="border-right border-top-0 border-dark">Speed</th>
-        <td class="border-dark">
+        <th class="border-right border-top-0">Speed</th>
+        <td>
           <%= queue.bandwidth %>
           <!--
             <br/>            
@@ -76,8 +76,8 @@
 <% end %>
 <% if usage_plan.time_plan && !usage_plan.time_plan.unlimited_usage_minutes?%>
   <tr>
-    <th class="border-right border-top-0 border-dark">Time</th>
-    <td class="border-dark">
+    <th class="border-right border-top-0">Time</th>
+    <td>
       <%= pluralize(usage_plan.time_plan.usage_time, usage_plan.time_plan.usage_time_unit) %>
       <% if usage_plan.time_plan.rollover_usage_minutes %>
         : existing time is rolled-over.
@@ -87,8 +87,8 @@
 <% end %>
 <% if usage_plan.quota_plan && !usage_plan.quota_plan.unlimited_usage_mb_up? && !usage_plan.quota_plan.unlimited_usage_mb_down? %>
   <tr>
-    <th class="border-right border-top-0 border-dark">Quota</th>
-    <td class="border-dark">
+    <th class="border-right border-top-0">Quota</th>
+    <td>
       <%= number_to_human_size(usage_plan.quota_plan.usage_bytes_down.to_i) %>
       download,
       <%= number_to_human_size(usage_plan.quota_plan.usage_bytes_up.to_i) %>
@@ -100,8 +100,8 @@
   </tr>
 <% end %>
 <tr>
-  <th class="border-right border-top-0 border-dark">Expires</th>
-  <td class="border-dark">
+  <th class="border-right border-top-0">Expires</th>
+  <td>
     <% if usage_plan.unlimited_usage_lifetime? %>
       usage never expires
     <% elsif usage_plan.no_usage_lifetime? %>
@@ -115,8 +115,8 @@
 </tr>
 <% if usage_plan.is_recurring? && !usage_plan.price_free? %>
   <tr>
-    <th class="border-right border-top-0 border-dark">Payment</th>
-    <td class="border-dark">
+    <th class="border-right border-top-0">Payment</th>
+    <td>
       Charged once immediately and billed
       <%= usage_plan.recurring_method %> to selected method of payment.      
     </td>
@@ -124,16 +124,16 @@
 <% end %>
 <% if usage_plan.requires_account_validation? %>
   <tr>
-    <th class="border-right border-top-0 border-dark">Valdation</th>
-    <td class="border-dark">
+    <th class="border-right border-top-0">Valdation</th>
+    <td>
       Requires account validation by <%= UsagePlan::VALIDATION_METHODS.inverse[usage_plan.validation_method] %>.
     </td>
   </tr>
 <% end %>
 <!--
   <tr>
-    <th class="border-right border-top-0 border-dark">Recurring</th>
-    <td class="border-dark">
+    <th class="border-right border-top-0">Recurring</th>
+    <td>
       <%= usage_plan.recurring_method %>
     </td>
   </tr>   

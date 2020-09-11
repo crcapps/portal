@@ -6,7 +6,7 @@
 <div class="col-9">
   <h2 class="text-primary bottom-left-align">Usage</h2>
 </div>
-<hr class="col-10 border-dark mt-1 mb-4 ml-0">
+<hr class="col-10 mt-1 mb-4 ml-0">
 </div>
 <div class="row">
   <% unless @current_account_or_token.unlimited_usage_minutes? && 
@@ -23,7 +23,7 @@
 <div class="col-9">
   <h2 class="text-primary bottom-left-align">Billing</h2>
 </div>
-<hr class="col-10 border-dark mt-1 mb-4 ml-0">
+<hr class="col-10 mt-1 mb-4 ml-0">
 </div>
 <% if @current_account.bill_at && @current_account.usage_plan && !@current_account.usage_plan.price_free? %>
   <% if @current_account.bill_at > Time.now %>
