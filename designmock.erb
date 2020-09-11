@@ -62,14 +62,13 @@
       </nav>
       <%= render :partial => 'flash', :object => flash %>
       <main class="container-fluid px-0">
-        <%= render_portal_partial 'welcome_message' %>
         <div class="row">
           <div class="col-sm-6 py-4">
             <%= yield %>
           </div>
           <aside class="col-sm-6 d-none d-sm-block hero-wrapper" aria-hidden="true">
             <div class="hero">
-              &nbsp;
+              <%= render_portal_partial 'welcome_message' %>
             </div>
           </aside>
         </div>
