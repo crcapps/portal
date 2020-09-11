@@ -19,6 +19,8 @@ html {
   top: calc(20% + 60px);
   right: 50%;
   transform: translateX(50%);
+
+  text-shadow: 1px 1px 2px #333399;
 }
 
 .color-accessibility {
@@ -31,7 +33,7 @@ html {
 
 .nightSky {
   background: rgb(7,32,60) !important;
-  background: linear-gradient(180deg, rgba(7,32,60,1) 0%, rgba(76,0,125,1) 100%) !important;
+  background: url(<%= portal_asset_data_uri 'stars_stripe.svg' %>), linear-gradient(180deg, rgba(7,32,60,1) 0%, rgba(76,0,125,1) 100%) !important;
 }
 
 .morningSky {
@@ -41,7 +43,8 @@ html {
 
 .daySky {
   background: rgb(55,151,208) !important;
-  background: linear-gradient(180deg, rgba(55,151,208,1) 0%, rgba(255,194,24,1) 100%) !important;
+  background: url(<%= portal_asset_data_uri 'cloud_stripe.svg' %>), linear-gradient(180deg, rgba(55,151,208,1) 0%, rgba(255,194,24,1) 100%) !important;
+
 }
 
 .eveningSky {
