@@ -95,22 +95,10 @@
         <%= render :partial => 'create_lan_party_modal' %>
         <%= render :partial => 'join_lan_party_modal' %>
       <% end %>
-      <% if @hosted_lan_parties.any? %>
-        <div class="uk-grid uk-grid-small uk-hidden-small">
-          <div class="col-12">
-            <div class="uk-grid uk-grid-small thead">
-              <div class="col-12 uk-width-medium-1-5">Name</div>
-              <div class="col-12 uk-width-medium-1-4">Invited Users</div>
-              <div class="col-12 uk-width-medium-1-3">Accepted Devices</div>
-              <div class="col-12 uk-width-medium-1-5 text-center">Actions</div>
-            </div>
-          </div>
-        </div>
-      <% else %>
-        <h2>No active LAN Parties</h2>
+      <% unless @hosted_lan_parties.any? %>
+        <h5 class="text-center">No active LAN Parties</h5>
       <% end %>
       <% @hosted_lan_parties.each do |party| %>
-        <div class="uk-margin">
           <div class="uk-grid uk-grid-small">
             <div class="col-12">
               <div class="uk-grid uk-grid-small">
@@ -170,7 +158,6 @@
               </div>
             </div>
           </div>
-        </div>
       <% end # hosted_lan_parties.each %>
 <% end %>
 <% end %>
