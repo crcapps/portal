@@ -107,7 +107,7 @@
                 <div class="form-group col-12">
                   <%= radio_button_tag(:method, :pms, params[:method] == 'pms', :onclick => 'pmsOnclick();', :class => 'sr-only') %>
                   <label for="method_pms">
-                    Charge to Room
+                    <% portal_inline_svg 'charge_to_room.svg', :class => "charge-to-room" %>
                   </label>
                 </div>
               </div>

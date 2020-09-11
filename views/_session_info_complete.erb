@@ -24,7 +24,7 @@
       <div class="col-12 mx-auto session-info">
         <div class="col-12">
           <div class="col-12">
-            <%= portal_image_tag 'wireless_signal.svg', :class => 'w-25 mx-auto d-block' %>
+            <%= portal_inline_svg 'wireless_signal.svg', :class => 'w-25 mx-auto d-block' %>
           </div>
           <div class="col-12">
             <p class="text-center"> You are online and connected to the Internet. </p>
@@ -37,7 +37,7 @@
       <div class="col-12 mx-auto session-info">
         <div class="col-12">
           <div class="col-12">
-            <%= portal_image_tag 'download.svg', :class => 'w-25 mx-auto d-block' %>
+            <%= portal_inline_svg 'download.svg', :class => 'w-25 mx-auto d-block' %>
           </div>
           <div class="col-12">
             <p class="text-center">You can transfer up to
@@ -55,7 +55,7 @@
       <div class="col-12 mx-auto session-info">
         <div class="col-12">
           <div class="col-12">
-            <%= portal_image_tag 'upload.svg', :class => 'w-25 mx-auto d-block' %>
+            <%= portal_inline_svg 'upload.svg', :class => 'w-25 mx-auto d-block' %>
           </div>
           <div class="col-12">
             <p class="text-center">
@@ -91,7 +91,7 @@
   <div class="col-12 mx-auto session-info">
     <div class="col-12">
       <div class="col-12">
-        <%= portal_image_tag 'time.svg', :class => 'w-25 mx-auto d-block' %>
+        <%= portal_inline_svg 'time.svg', :class => 'w-25 mx-auto d-block' %>
       </div>
       <div class="col-12">
         <% if @login_session.expires_at %>

@@ -29,10 +29,10 @@
 
         <% if item.payload =~ /http/ %>
           <%= link_to item.payload do %>
-            <%= portal_image_tag item.name %>
+            <%= portal_inline_svg item.name %>
           <% end %>
         <% else %>
-          <%= portal_image_tag item.name %>
+          <%= portal_inline_svg item.name %>
         <% end %>
       
       <% else %>
