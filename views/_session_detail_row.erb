@@ -26,7 +26,7 @@
             <% else %>
               <%= form_tag(:action => :logout_device, :existing_login_session_id => ls.id) do %>
                 <%# Prevent an end-user from logging out her current session %>
-                <%= button_tag('Logout', :class => 'd-block mx-auto text-center', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
+                <%= button_tag('Logout', :class => 'btn btn-lg btn-danger d-block mx-auto text-center', :data => { :disable_with => '<span class="spinner-border spinner-border-sm align-middle" role="status" aria-hidden="true"></span> Please wait...'.html_safe }) %>
               <% end %>
             <% end %>
           </td>
